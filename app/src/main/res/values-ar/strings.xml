@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">فواتيري</string>
+    <string name="navigation_drawer_close">غلق</string>
+    <string name="navigation_drawer_open">فتح</string>
+    <string name="add">إضافة</string>
+    <string name="customers">العملاء</string>
+    <string name="items">الأصناف</string>
+    <string name="action_settings">الاعدادات</string>
+    <string name="edit">تعديل</string>
+    <string name="delete">حذف</string>
+    <string name="alert">تنبيه</string>
+</resources>
