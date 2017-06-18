@@ -9,5 +9,10 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="alert">Caution</string>
+    <string name="item_code">Item Code</string>
+    <string name="item_name">Item Name</string>
+    <string name="cost">Cost</string>
+    <string name="price">Price</string>
+    <string name="ad_date">Add Date</string>
 
 </resources>

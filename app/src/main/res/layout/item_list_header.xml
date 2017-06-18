@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="@dimen/fab_margin"
+    android:orientation="horizontal"
+    android:paddingBottom="6dip"
+    android:paddingTop="4dip"
+    android:scrollbars="horizontal">
+
+    <TextView
+        android:layout_width="90dip"
+        android:layout_height="wrap_content"
+        android:text="@string/item_code" />
+
+    <TextView
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:text="@string/item_name" />
+
+    <TextView
+        android:layout_width="90dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/cost" />
+
+    <TextView
+        android:layout_width="90dip"
+        android:layout_height="wrap_content"
+        android:text="@string/price" />
+
+    <TextView
+        android:layout_width="90dip"
+        android:layout_height="wrap_content"
+        android:text="@string/ad_date" />
+</LinearLayout>
