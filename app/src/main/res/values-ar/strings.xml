@@ -3,11 +3,22 @@
     <string name="app_name">فواتيري</string>
     <string name="navigation_drawer_close">غلق</string>
     <string name="navigation_drawer_open">فتح</string>
-    <string name="add">إضافة</string>
-    <string name="customers">العملاء</string>
-    <string name="items">الأصناف</string>
     <string name="action_settings">الاعدادات</string>
+    <string name="add">إضافة</string>
+    <string name="items">الأصناف</string>
+    <string name="customers">العملاء</string>
     <string name="edit">تعديل</string>
     <string name="delete">حذف</string>
     <string name="alert">تنبيه</string>
+    <string name="item_code">رقم الصنف</string>
+    <string name="item_name">اسم الصنف</string>
+    <string name="cost">التكلفة</string>
+    <string name="price">السعر</string>
+    <string name="ad_date">تاريخ الاضافة</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">الغاء</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="add_Items">اضافة صنف</string>
+
 </resources>

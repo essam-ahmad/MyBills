@@ -9,5 +9,14 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="alert">Caution</string>
-
+    <string name="item_code">Item Code</string>
+    <string name="item_name">Item Name</string>
+    <string name="cost">Cost</string>
+    <string name="price">Price</string>
+    <string name="ad_date">Add Date</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">yes</string>
+    <string name="no">No</string>
+    <string name="add_Items">Add_Items</string>
 </resources>
