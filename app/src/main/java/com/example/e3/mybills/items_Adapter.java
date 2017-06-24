@@ -84,9 +84,16 @@ public class items_Adapter extends BaseAdapter {
         price.setText(String.valueOf(data[position].get_col_itm_price()));
         ad_date.setText(data[position].get_col_ad_date());
         if (position % 2 == 0) {
-            vi.setBackgroundColor(Color.rgb(213, 229, 241));
+            vi.setBackgroundColor(Color.rgb(85,98,112));
+            code.setTextColor(Color.WHITE);
+            name.setTextColor(Color.WHITE);
+            cost.setTextColor(Color.WHITE);
+            price.setTextColor(Color.WHITE);
+            ad_date.setTextColor(Color.WHITE);
+
         } else {
-            vi.setBackgroundColor(Color.rgb(255, 255, 255));
+            vi.setBackgroundColor(Color.rgb(252,251,227
+            ));
         }
         final View finalVi = vi;
         vi.setOnLongClickListener(new View.OnLongClickListener() {
@@ -98,12 +105,13 @@ public class items_Adapter extends BaseAdapter {
                 builder.setMessage(data[position].get_col_itm_code() + ":" + data[position].get_col_itm_name());
                 builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(finalVi.getContext(), items_Adapter.class);
+                        Intent i = new Intent(finalVi.getContext(), ItemsEditActivity.class);
                         Bundle b = new Bundle();
-                        b.putInt("theId", data[position].get_col_itm_code());
-                        b.putString("getnTame", data[position].get_col_itm_name());
-                        b.putString("getdata", data[position].get_col_ad_date());
-                        b.putDouble("getprice", data[position].get_col_itm_price());
+                        b.putInt("get_col_itm_code", data[position].get_col_itm_code());
+                        b.putString("get_col_itm_name", data[position].get_col_itm_name());
+                        b.putString("get_col_ad_date", data[position].get_col_ad_date());
+                        b.putDouble("get_col_itm_Cost", data[position].get_col_itm_cost());
+                        b.putDouble("get_col_itm_price", data[position].get_col_itm_price());
                         i.putExtras(b);
                         finalVi.getContext().startActivity(i);
                     }
@@ -113,19 +121,20 @@ public class items_Adapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
-                        builder.setTitle("هل أنت متأكد من حذف ");
-                        builder.setMessage("الوصف:" + data[position].get_col_itm_name() + "  ");
-                        builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
+                        builder.setTitle(R.string.AlertDialog_Title_delete);
+                        builder.setMessage(data[position].get_col_itm_name());
+                        builder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 DataManager dataBase = new DataManager(finalVi.getContext());
                                 dataBase.deleteOneItem(data[position].get_col_itm_code());
+                                //finalVi.refreshDrawableState();
 
 
                             }
 
                         });
-                        builder.setNeutralButton("لا", new DialogInterface.OnClickListener() {
+                        builder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 

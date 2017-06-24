@@ -20,5 +20,21 @@
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="add_Items">اضافة صنف</string>
+    <string name="Edit_Items">تعديل الصنف</string>
+    <string name="New_item_code">رقم الصنف الجديد</string>
+    <string name="New_item_name">اسم الصنف الجديد</string>
+    <string name="New_item_cost">التكلفة الجديدة</string>
+    <string name="New_item_price">السعر الجديد</string>
+    <string name="AlertDialog_Title_delete">هل أنت متأكد من حذف</string>
+    <string name="Pleaze_fill">الرجاء املىء الحقول</string>
+    <string name="Done_Edit">تم التعديل</string>
+    <string name="Done_Adding">تمت الاضافة</string>
+    <string name="The_number_already_exists">الرقم موجود مسبقا</string>
+
+
+
+
+
+
 
 </resources>

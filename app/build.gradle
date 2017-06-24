@@ -31,4 +31,5 @@ dependencies {
     compile 'me.grantland:autofittextview:0.2.+'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
 
+    compile 'com.android.support:mediarouter-v7:25.3.1'
 }

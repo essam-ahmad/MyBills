@@ -18,5 +18,19 @@
     <string name="cancel">Cancel</string>
     <string name="yes">yes</string>
     <string name="no">No</string>
-    <string name="add_Items">Add_Items</string>
+    <string name="add_Items">Add Items</string>
+    <string name="Edit_Items">Edit Items</string>
+    <string name="New_item_code">New Item Code</string>
+    <string name="New_item_name">New Item Name</string>
+    <string name="New_item_cost">New Cost</string>
+    <string name="New_item_price">New Price</string>
+    <string name="AlertDialog_Title_delete">Are you sure to deltete</string>
+    <string name="Pleaze_fill">pleaze fill parent</string>
+    <string name="Done_Edit">Edit done</string>
+    <string name="Done_Adding">Adding done</string>
+    <string name="The_number_already_exists">The number already exists</string>
+
+
+
+
 </resources>

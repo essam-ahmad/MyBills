@@ -31,12 +31,21 @@ Button Save,Cancel;
                 String ItemCost=addItemCost.getText().toString();
                 String ItemPrice = addItemprice.getText().toString();
                 String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
                 if (checkData(ItemCode,ItemName,ItemCost,ItemPrice)){
                     DataManager dataManager = new DataManager(ItemsAddActivity.this);
-                    dataManager.addItem(Integer.parseInt(ItemCode),ItemName,Double.parseDouble(ItemCost),Double.parseDouble(ItemPrice),date);
-                    Toast.makeText(getBaseContext(), "تم اضافة صنف جديد", Toast.LENGTH_LONG).show();
 
-                    finish();
+                    boolean result=  dataManager.addItem(Integer.parseInt(ItemCode),ItemName,Double.parseDouble(ItemCost),Double.parseDouble(ItemPrice),date);
+                    if ( result){
+                        Toast.makeText(getBaseContext(), R.string.Done_Adding, Toast.LENGTH_LONG).show();
+                        finish();
+                    }else {
+                        addItemCode.setError(getResources().getString(R.string.The_number_already_exists));
+                        Toast.makeText(getBaseContext(), R.string.The_number_already_exists, Toast.LENGTH_LONG).show();
+                    }
+
+
+
 
 
                 }else {
@@ -60,7 +69,11 @@ Button Save,Cancel;
                 (itm_code.length() != 0 && itm_name.length() != 0 && itm_cost.length() != 0 && itm_price.length()!=0)) {
             return true;
         } else {
-            Toast.makeText(getBaseContext(), "الرجاء املىء الحقول", Toast.LENGTH_LONG).show();
+            addItemCode.setError(getResources().getString(R.string.Pleaze_fill));
+            addItemName.setError(getResources().getString(R.string.Pleaze_fill));
+            addItemCost.setError(getResources().getString(R.string.Pleaze_fill));
+            addItemprice.setError(getResources().getString(R.string.Pleaze_fill));
+            Toast.makeText(getBaseContext(),  R.string.Pleaze_fill, Toast.LENGTH_LONG).show();
             return false;
         }
     }

@@ -136,12 +136,16 @@ public class DataManager extends  SQLiteOpenHelper{
             if (result > 0) {
                 return true;
             }
-            Log.d(Tag,"addItem: Error when inserting"+pCode+" to Table"+tbn_items);
+            Log.d(Tag,"addItem: Error when inserting "+pCode+" to Table "+tbn_items);
             throw new SQLException("Failed to insert row into " + tbn_items);
-        } catch(Exception e) {
-            Log.d(Tag,"addItem: Error when inserting"+pCode+" to Table"+tbn_items+" " +e.getMessage());
+
+        }
+        catch(Exception e) {
+            Log.d(Tag,"addItem: Error when inserting "+pCode+" to Table "+tbn_items+" " +e.getMessage());
             e.printStackTrace();
-            throw new SQLException("Failed to insert row into " + tbn_items);
+            //throw new SQLException("Failed to insert row into " + tbn_items);
+
+            return false;
         }
 
     }

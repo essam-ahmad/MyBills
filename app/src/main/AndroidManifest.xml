@@ -19,12 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ItemsActivity"
-            android:label="@string/items"/>
-        <activity android:name=".ItemsAddActivity"
-            android:label="@string/add_Items">
-
-        </activity>
+        <activity
+            android:name=".ItemsActivity"
+            android:label="@string/items" />
+        <activity
+            android:name=".ItemsAddActivity"
+            android:label="@string/add_Items"></activity>
+        <activity android:name=".ItemsEditActivity"
+            android:label="@string/Edit_Items"></activity>
     </application>
 
 </manifest>
