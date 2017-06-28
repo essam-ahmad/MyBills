@@ -3,16 +3,46 @@
     <string name="app_name">فواتيري</string>
     <string name="navigation_drawer_close">غلق</string>
     <string name="navigation_drawer_open">فتح</string>
-    <string name="add">إضافة</string>
-    <string name="customers">العملاء</string>
-    <string name="items">الأصناف</string>
     <string name="action_settings">الاعدادات</string>
+    <string name="add">إضافة</string>
+    <string name="items">الأصناف</string>
+    <string name="customers">العملاء</string>
     <string name="edit">تعديل</string>
     <string name="delete">حذف</string>
     <string name="alert">تنبيه</string>
+<<<<<<< HEAD
     <string name="ad_date">تاريخ الإضافة</string>
     <string name="cost">التكلفة</string>
     <string name="item_code">رقم الصنف</string>
     <string name="item_name">اسم الصنف</string>
     <string name="price">السعر</string>
+=======
+    <string name="item_code">رقم الصنف</string>
+    <string name="item_name">اسم الصنف</string>
+    <string name="cost">التكلفة</string>
+    <string name="price">السعر</string>
+    <string name="ad_date">تاريخ الاضافة</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">الغاء</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="add_Items">اضافة صنف</string>
+    <string name="Edit_Items">تعديل الصنف</string>
+    <string name="New_item_code">رقم الصنف الجديد</string>
+    <string name="New_item_name">اسم الصنف الجديد</string>
+    <string name="New_item_cost">التكلفة الجديدة</string>
+    <string name="New_item_price">السعر الجديد</string>
+    <string name="AlertDialog_Title_delete">هل أنت متأكد من حذف</string>
+    <string name="Pleaze_fill">الرجاء املىء الحقول</string>
+    <string name="Done_Edit">تم التعديل</string>
+    <string name="Done_Adding">تمت الاضافة</string>
+    <string name="The_number_already_exists">الرقم موجود مسبقا</string>
+
+
+
+
+
+
+
+>>>>>>> 0a1b2a805b70681caf960f17f04784826947e1b1
 </resources>

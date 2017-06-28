@@ -48,6 +48,10 @@ public class DataManager extends  SQLiteOpenHelper{
         super(context, databaseName, factory, version, errorHandler);
     }
 
+    public DataManager(Context context) {
+        super(context, databaseName ,null, version);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql_statement=new String();
@@ -59,7 +63,7 @@ public class DataManager extends  SQLiteOpenHelper{
                 ", "+col_address+" TEXT )";
         db.execSQL(sql_statement);
 
-        sql_statement ="CREATE TABLE IF NOT EXISTS "+tbn_items +
+        sql_statement ="CREATE TABLE IF NOT EXISTS "+tbn_items +//رقم الصنف
                 "( "+col_itm_code+" INTEGER PRIMARY KEY " +
                 ", "+col_itm_name+" TEXT NOT NULL" +
                 ", "+col_itm_cost+" numeric default 0 " +
@@ -116,8 +120,7 @@ public class DataManager extends  SQLiteOpenHelper{
         col_itm_price NUMERIC
         col_ad_date text
     */
-    public boolean addItem(int pCode,String pName , double pCost ,
-                           double pPrice,String pDate){
+    public boolean addItem(int pCode,String pName , double pCost ,double pPrice,String pDate){
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues value = new ContentValues();
@@ -133,12 +136,16 @@ public class DataManager extends  SQLiteOpenHelper{
             if (result > 0) {
                 return true;
             }
-            Log.d(Tag,"addItem: Error when inserting"+pCode+" to Table"+tbn_items);
+            Log.d(Tag,"addItem: Error when inserting "+pCode+" to Table "+tbn_items);
             throw new SQLException("Failed to insert row into " + tbn_items);
-        } catch(Exception e) {
-            Log.d(Tag,"addItem: Error when inserting"+pCode+" to Table"+tbn_items+" " +e.getMessage());
+
+        }
+        catch(Exception e) {
+            Log.d(Tag,"addItem: Error when inserting "+pCode+" to Table "+tbn_items+" " +e.getMessage());
             e.printStackTrace();
-            throw new SQLException("Failed to insert row into " + tbn_items);
+            //throw new SQLException("Failed to insert row into " + tbn_items);
+
+            return false;
         }
 
     }

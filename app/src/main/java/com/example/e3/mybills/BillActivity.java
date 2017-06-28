@@ -1,5 +1,6 @@
 package com.example.e3.mybills;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class BillActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -19,7 +21,6 @@ public class BillActivity extends AppCompatActivity
         setContentView(R.layout.activity_bill);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,7 +71,8 @@ public class BillActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_items) {
-            // Handle the camera action
+            Intent i = new Intent(BillActivity.this,ItemsActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_customers) {
 
         }
