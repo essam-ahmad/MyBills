@@ -10,4 +10,9 @@
     <string name="edit">تعديل</string>
     <string name="delete">حذف</string>
     <string name="alert">تنبيه</string>
+    <string name="ad_date">تاريخ الإضافة</string>
+    <string name="cost">التكلفة</string>
+    <string name="item_code">رقم الصنف</string>
+    <string name="item_name">اسم الصنف</string>
+    <string name="price">السعر</string>
 </resources>
