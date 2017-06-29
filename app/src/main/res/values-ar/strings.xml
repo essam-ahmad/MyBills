@@ -26,8 +26,8 @@
     <string name="New_item_name">اسم الصنف الجديد</string>
     <string name="New_item_cost">التكلفة الجديدة</string>
     <string name="New_item_price">السعر الجديد</string>
-    <string name="AlertDialog_Title_delete">هل أنت متأكد من حذف</string>
-    <string name="Please_fill">الرجاء املىء الحقول</string>
+    <string name="AlertDialog_Title_delete">هل أنت متأكد من الحذف</string>
+    <string name="Please_fill">حقل مطلوب</string>
     <string name="Done_Edit">تم التعديل</string>
     <string name="Done_Adding">تمت الاضافة</string>
     <string name="The_number_already_exists">الرقم موجود مسبقا</string>

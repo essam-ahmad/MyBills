@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ItemsAddActivity extends AppCompatActivity {
-    EditText addItemCode, addItemName, addItemCost, addItemprice;
+    EditText addItemCode, addItemName, addItemCost, addItemPrice;
     Button Save, Cancel;
 
     @Override
@@ -22,15 +22,16 @@ public class ItemsAddActivity extends AppCompatActivity {
         addItemCode = (EditText) findViewById(R.id.itm_code);
         addItemName = (EditText) findViewById(R.id.itm_name);
         addItemCost = (EditText) findViewById(R.id.itm_cost);
-        addItemprice = (EditText) findViewById(R.id.itm_price);
+        addItemPrice = (EditText) findViewById(R.id.itm_price);
         Save = (Button) findViewById(R.id.Save);
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setDefaultValuesIfNull();
                 String ItemCode = addItemCode.getText().toString();
                 String ItemName = addItemName.getText().toString();
                 String ItemCost = addItemCost.getText().toString();
-                String ItemPrice = addItemprice.getText().toString();
+                String ItemPrice = addItemPrice.getText().toString();
                 String date = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
                 if (checkData(ItemCode, ItemName, ItemCost, ItemPrice)) {
                     DataManager dataManager = new DataManager(ItemsAddActivity.this);
@@ -54,17 +55,33 @@ public class ItemsAddActivity extends AppCompatActivity {
         });
     }
 
-    public boolean checkData(String itm_code, String itm_name, String itm_cost, String itm_price) {
-        if ((itm_code != null && itm_name != null && itm_cost != null && itm_price != null) &&
-                (itm_code.length() != 0 && itm_name.length() != 0 && itm_cost.length() != 0 && itm_price.length() != 0)) {
-            return true;
-        } else {
-            addItemCode.setError(getResources().getString(R.string.Please_fill));
-            addItemName.setError(getResources().getString(R.string.Please_fill));
-            addItemCost.setError(getResources().getString(R.string.Please_fill));
-            addItemprice.setError(getResources().getString(R.string.Please_fill));
-            Toast.makeText(getBaseContext(), R.string.Please_fill, Toast.LENGTH_LONG).show();
-            return false;
+    public void setDefaultValuesIfNull() {
+        if (addItemCost == null || addItemCost.length() == 0) {
+            addItemCost.setText("0");
         }
+        if (addItemPrice == null || addItemPrice.length() == 0) {
+            addItemPrice.setText("0");
+        }
+    }
+
+    public boolean checkData(String itm_code, String itm_name, String itm_cost, String itm_price) {
+        boolean result = true;
+        if (itm_code == null || itm_code.length() == 0) {
+            addItemCode.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        if (itm_name == null || itm_name.length() == 0) {
+            addItemName.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        if (itm_cost == null || itm_cost.length() == 0) {
+            addItemCost.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        if (itm_price == null || itm_price.length() == 0) {
+            addItemPrice.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        return result;
     }
 }
