@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.example.e3.mybills.ItemsAddEditActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -10,16 +14,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/itm_code_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/toolbar"
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/Edit_itm_code"
+                    android:id="@+id/itm_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -27,7 +33,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="27dp"
                     android:ems="10"
-                    android:freezesText="true"
                     android:hint="@string/item_code"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
@@ -36,17 +41,19 @@
                 android:id="@+id/itm_name_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/itm_code_input_layout"
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/Edit_itm_name"
+                    android:id="@+id/itm_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/itm_code_input_layout"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="27dp"
                     android:ems="10"
-                    android:hint="@string/New_item_name"
+                    android:hint="@string/item_name"
                     android:inputType="textPersonName" />
             </android.support.design.widget.TextInputLayout>
 
@@ -54,17 +61,19 @@
                 android:id="@+id/itm_cost_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/itm_name_input_layout"
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/Edit_itm_cost"
+                    android:id="@+id/itm_cost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/itm_name_input_layout"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="27dp"
                     android:ems="10"
-                    android:hint="@string/New_item_cost"
+                    android:hint="@string/cost"
                     android:inputType="number|numberSigned|numberDecimal" />
             </android.support.design.widget.TextInputLayout>
 
@@ -72,34 +81,40 @@
                 android:id="@+id/itm_price_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/itm_cost_input_layout"
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/Edit_itm_price"
+                    android:id="@+id/itm_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/itm_cost_input_layout"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="27dp"
                     android:ems="10"
-                    android:hint="@string/New_item_price"
+                    android:hint="@string/price"
                     android:inputType="number|numberSigned|numberDecimal" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/Edit_Save"
+                android:id="@+id/Save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/itm_price_input_layout"
                 android:layout_marginTop="39dp"
                 android:text="@string/save" />
 
             <Button
-                android:id="@+id/Edit_cancel"
+                android:id="@+id/cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/Save"
                 android:text="@string/cancel" />
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

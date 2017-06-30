@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 public class BillActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,7 +73,11 @@ public class BillActivity extends AppCompatActivity
             Intent i = new Intent(BillActivity.this,ItemsActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_customers) {
-
+            Intent i = new Intent(BillActivity.this,customersActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_bills) {
+            Intent i = new Intent(BillActivity.this,BillActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

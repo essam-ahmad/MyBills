@@ -81,8 +81,9 @@ public class items_Adapter extends BaseAdapter {
                 builder.setMessage(data[position].get_col_itm_code() + ":" + data[position].get_col_itm_name());
                 builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(finalVi.getContext(), ItemsEditActivity.class);
+                        Intent i = new Intent(finalVi.getContext(), ItemsAddEditActivity.class);
                         Bundle b = new Bundle();
+                        b.putString("action","edit");
                         b.putInt("get_col_itm_code", data[position].get_col_itm_code());
                         b.putString("get_col_itm_name", data[position].get_col_itm_name());
                         b.putDouble("get_col_itm_Cost", data[position].get_col_itm_cost());

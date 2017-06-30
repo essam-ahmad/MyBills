@@ -6,7 +6,9 @@
             android:title="@string/items" />
         <item android:id="@+id/nav_customers" android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/customers" />
-
+        <item android:id="@+id/nav_bills" android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
+            android:title="@string/app_name" />
+]
     </group>
 
 

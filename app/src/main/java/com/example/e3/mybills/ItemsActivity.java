@@ -45,7 +45,10 @@ public class ItemsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add) {
-            Intent i = new Intent(ItemsActivity.this, ItemsAddActivity.class);
+            Intent i = new Intent(ItemsActivity.this, ItemsAddEditActivity.class);
+            Bundle b = new Bundle();
+            b.putString("action","add");
+            i.putExtras(b);
             startActivity(i);
         }
         if (id == R.id.search) {

@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -137,27 +136,25 @@ public class DataManager extends SQLiteOpenHelper {
                 return true;
             }
             Log.d(Tag, "addItem: Error when inserting " + pCode + " to Table " + tbn_items);
-            throw new SQLException("Failed to insert row into " + tbn_items);
-
+            //throw new SQLException("Failed to insert row into " + tbn_items);
+            return false;
         } catch (Exception e) {
             Log.d(Tag, "addItem: Error when inserting " + pCode + " to Table " + tbn_items + " " + e.getMessage());
             e.printStackTrace();
             //throw new SQLException("Failed to insert row into " + tbn_items);
-
             return false;
         }
-
     }
 
-    public void UpdateItem(int pCode, String pName, double pCost,
-                           double pPrice
+    public int UpdateItem(int pCode, String pName, double pCost,
+                          double pPrice
     ) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(col_itm_name, pName);
         value.put(col_itm_cost, pCost);
         value.put(col_itm_price, pPrice);
-        db.update(tbn_items, value, col_itm_code + " = ? ", new String[]{Integer.toString(pCode)});
+        return (db.update(tbn_items, value, col_itm_code + " = ? ", new String[]{Integer.toString(pCode)}));
     }
 
     public boolean deleteOneItem(Integer id) {
@@ -267,7 +264,7 @@ public class DataManager extends SQLiteOpenHelper {
         col_phone TEXT
         col_address TEXT
     */
-    public boolean addCustomer(int pCode, String pName, String pAd_date,
+    public boolean addCustomer(String pCode, String pName, String pAd_date,
                                String pPhone, String pAddress) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -285,28 +282,30 @@ public class DataManager extends SQLiteOpenHelper {
                 return true;
             }
             Log.d(Tag, "addCustomer: Error when inserting" + pCode + " to Table" + tbn_customers);
-            throw new SQLException("Failed to insert row into " + tbn_customers);
+            return false;
+            //throw new SQLException("Failed to insert row into " + tbn_customers);
         } catch (Exception e) {
             Log.d(Tag, "addCustomer: Error when inserting" + pCode + " to Table" + tbn_customers + " " + e.getMessage());
             e.printStackTrace();
-            throw new SQLException("Failed to insert row into " + tbn_customers);
+            //throw new SQLException("Failed to insert row into " + tbn_customers);
+            return false;
         }
     }
 
-    public void UpdateCustomer(int pCode, String pName,
-                               String pPhone, String pAddress) {
+    public int UpdateCustomer(String pCode, String pName,
+                              String pPhone, String pAddress) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(col_c_name, pName);
         value.put(col_phone, pPhone);
         value.put(col_address, pAddress);
-        db.update(tbn_customers, value, col_c_code + " = ? ", new String[]{Integer.toString(pCode)});
+        return (db.update(tbn_customers, value, col_c_code + " = ? ", new String[]{pCode}));
     }
 
-    public boolean deleteOneCustomer(Integer id) {
+    public boolean deleteOneCustomer(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = col_c_code + "=? ";
-        String[] whereArgs = new String[]{String.valueOf(id.toString())};
+        String[] whereArgs = new String[]{id};
         int result = db.delete(tbn_customers, whereClause, whereArgs);
         Log.d(Tag, "deleteOneCustomer: Deleting " + id + " From Table" + tbn_customers);
         Log.d(Tag, "deleteOneCustomer: " + result + " customers ware Deleted From Table" + tbn_customers);
@@ -332,7 +331,7 @@ public class DataManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 customers = new customers();
-                customers.set_col_c_code(cursor.getInt(0));
+                customers.set_col_c_code(cursor.getString(0));
                 customers.set_col_c_name(cursor.getString(1));
                 customers.set_col_phone(cursor.getString(2));
                 customers.set_col_ad_date(cursor.getString(3));
@@ -362,7 +361,7 @@ public class DataManager extends SQLiteOpenHelper {
             do {
                 customers = new customers();
                 //customers.setCol_c_code(Integer.parseInt(cursor.getString(cursor.getColumnIndex("i_code"))));
-                customers.set_col_c_code(cursor.getInt(0));
+                customers.set_col_c_code(cursor.getString(0));
                 customers.set_col_c_name(cursor.getString(1));
                 customers.set_col_phone(cursor.getString(2));
                 customers.set_col_ad_date(cursor.getString(3));
@@ -374,7 +373,7 @@ public class DataManager extends SQLiteOpenHelper {
         return list;
     }
 
-    public customers getCustomerById(int id) {
+    public customers getCustomerById(String id) {
         String query = "SELECT " + col_c_code + "," +
                 col_c_name + "," +
                 col_phone + "," +
@@ -387,14 +386,14 @@ public class DataManager extends SQLiteOpenHelper {
         customers item = null;
         if (cursor.moveToFirst()) {
             item = new customers();
-            item.set_col_c_code(cursor.getInt(0));
+            item.set_col_c_code(cursor.getString(0));
             item.set_col_c_name(cursor.getString(1));
             item.set_col_phone(cursor.getString(2));
             item.set_col_ad_date(cursor.getString(3));
             item.set_col_address(cursor.getString(4));
         } else {
             item = new customers();
-            item.set_col_c_code(-1);
+            //item.set_col_c_code( );
             item.set_col_c_name(col_c_code + " " + id + " Not found");
         }
         return item;

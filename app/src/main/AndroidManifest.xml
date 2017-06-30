@@ -22,11 +22,11 @@
         <activity
             android:name=".ItemsActivity"
             android:label="@string/items" />
+        <activity android:name=".ItemsAddEditActivity" />
         <activity
-            android:name=".ItemsAddActivity"
-            android:label="@string/add_Items"></activity>
-        <activity android:name=".ItemsEditActivity"
-            android:label="@string/Edit_Items"></activity>
+            android:name=".customersActivity"
+            android:label="@string/customers" />
+        <activity android:name=".CustomersAddEditActivity"></activity>
     </application>
 
 </manifest>
