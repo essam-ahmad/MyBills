@@ -653,7 +653,7 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
 
-/*    addbill_m
+/*    ggaddbill_m
             addbill_d
             UpdateBill_m
                     UpdateBill_d

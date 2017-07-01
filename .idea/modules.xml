@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyBills.iml" filepath="$PROJECT_DIR$/MyBills.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyBills.iml" filepath="$PROJECT_DIR$/MyBills.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/MyBills.iml" filepath="$PROJECT_DIR$/.idea/MyBills.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../EBRHEEM/AndroidStudioProjects/MyBills/MyBills.iml" filepath="$PROJECT_DIR$/../../../EBRHEEM/AndroidStudioProjects/MyBills/MyBills.iml" />
+      <module fileurl="file://$USER_HOME$/EBRHEEM/AndroidStudioProjects/MyBills/MyBills.iml" filepath="$USER_HOME$/EBRHEEM/AndroidStudioProjects/MyBills/MyBills.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
