@@ -402,7 +402,8 @@ public class DataManager extends SQLiteOpenHelper {
 
 
     public boolean addBill_m(String bill_seq, String bill_yr, String bill_no,
-                             String bill_type, String bill_date , String c_code , String disc_amt , String desc , String bill_amt) {
+                             String bill_type, String bill_date, String c_code, String disc_amt,
+                             String desc, String bill_amt) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues value = new ContentValues();
@@ -432,8 +433,9 @@ public class DataManager extends SQLiteOpenHelper {
             return false;
         }
     }
+
     public int UpdateBill_m(String bill_seq, String bill_yr, String bill_no,
-                            String bill_type, String bill_date , String c_code , String disc_amt , String desc , String bill_amt) {
+                            String bill_type, String bill_date, String c_code, String disc_amt, String desc, String bill_amt) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(col_bill_yr, bill_yr);
@@ -446,23 +448,33 @@ public class DataManager extends SQLiteOpenHelper {
         value.put(col_bill_amt, bill_amt);
         return (db.update(tbN_bill_m, value, col_bill_seq + " = ? ", new String[]{bill_seq}));
     }
+
     public boolean deleteOneBill_m(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = col_bill_seq + "=? ";
         String[] whereArgs = new String[]{id};
         int result = db.delete(tbN_bill_m, whereClause, whereArgs);
         Log.d(Tag, "deleteOneBill_m: Deleting " + id + " From Table" + tbN_bill_m);
-        Log.d(Tag, "deleteOneBill_m: " + result + " customers ware Deleted From Table" + tbN_bill_m);
+        Log.d(Tag, "deleteOneBill_m: " + result + " ware Deleted From Table" + tbN_bill_m);
         if (result == 0) {
             return false;
         } else {
             return true;
         }
-
     }
-    public bill_m[] getAllBill_m (){
+
+    public bill_m[] getAllBill_m() {
         bill_m list[] = null;
-        String query ="SELECT *  FROM "+tbN_bill_m;
+        String query = "SELECT " + col_bill_seq + "," +
+                col_bill_yr + "," +
+                col_bill_no + "," +
+                col_bill_type + "," +
+                col_bill_date + "," +
+                col_c_code + "," +
+                col_disc_amt + "," +
+                col_desc + "," +
+                col_bill_amt +
+                " FROM " + tbN_bill_m;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         list = new bill_m[cursor.getCount()];
@@ -470,16 +482,8 @@ public class DataManager extends SQLiteOpenHelper {
         int index = 0;
         if (cursor.moveToFirst()) {
             do {
-                bill_m = new bill_m();
-                bill_m.set_col_bill_seq(cursor.getString(0));
-                bill_m.set_col_bill_yr(cursor.getString(1));
-                bill_m.set_col_bill_no(cursor.getString(2));
-                bill_m.set_col_bill_type(cursor.getString(3));
-                bill_m.set_col_bill_date(cursor.getString(4));
-                bill_m.set_col_c_code(cursor.getString(5));
-                bill_m.set_col_disc_amt(cursor.getString(6));
-                bill_m.set_col_desc(cursor.getString(7));
-                bill_m.set_col_bill_amt(cursor.getString(8));
+                bill_m = new bill_m(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
+                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
                 list[index] = bill_m;
                 index++;
             } while (cursor.moveToNext());
@@ -488,9 +492,38 @@ public class DataManager extends SQLiteOpenHelper {
 
 
     }
-    //endregion
+
+    public bill_m[] SearchBill_m(String id) {
+        bill_m list[] = null;
+        String query = "SELECT " + col_bill_seq + "," +
+                col_bill_yr + "," +
+                col_bill_no + "," +
+                col_bill_type + "," +
+                col_bill_date + "," +
+                col_c_code + "," +
+                col_disc_amt + "," +
+                col_desc + "," +
+                col_bill_amt +
+                " FROM " + tbN_bill_m +
+                " where " + col_bill_no + " = " + id;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        list = new bill_m[cursor.getCount()];
+        bill_m bill_m = null;
+        int index = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                bill_m = new bill_m(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
+                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+                list[index] = bill_m;
+                index++;
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
     public boolean addBill_d(String bill_seq, String bill_yr, String bill_no,
-                             String bill_d_seq, String itm_code , String item_price , String itm_cost , String itm_qty ) {
+                             String bill_d_seq, String itm_code, String itm_price, String itm_cost, String itm_qty) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues value = new ContentValues();
@@ -499,7 +532,7 @@ public class DataManager extends SQLiteOpenHelper {
             value.put(col_bill_no, bill_no);
             value.put(col_bill_d_seq, bill_d_seq);
             value.put(col_itm_code, itm_code);
-            value.put(col_itm_price, item_price);
+            value.put(col_itm_price, itm_price);
             value.put(col_itm_cost, itm_cost);
             value.put(col_itm_qty, itm_qty);
             Long result = db.insertOrThrow(tbN_bill_d, null, value);
@@ -520,6 +553,104 @@ public class DataManager extends SQLiteOpenHelper {
         }
     }
 
+    public int UpdateBill_d(String bill_seq, String bill_yr, String bill_no,
+                            String bill_d_seq, String itm_code, String itm_price, String itm_cost, String itm_qty) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues value = new ContentValues();
+        //value.put(col_bill_yr, bill_yr);
+        //value.put(col_bill_no, bill_no);
+        //value.put(col_itm_code, itm_code);
+        value.put(col_itm_price, itm_price);
+        value.put(col_itm_cost, itm_cost);
+        value.put(col_itm_qty, itm_qty);
+        return (db.update(tbN_bill_d, value, col_bill_seq + " = ? and " + col_bill_d_seq + " = ? ",
+                new String[]{bill_seq, bill_d_seq}));
+    }
+
+    public boolean deleteOneBill_d(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = col_bill_seq + "=? ";
+        String[] whereArgs = new String[]{id};
+        int result = db.delete(tbN_bill_d, whereClause, whereArgs);
+        Log.d(Tag, "deleteOneBill_d: Deleting " + id + " From Table" + tbN_bill_d);
+        Log.d(Tag, "deleteOneBill_d: " + result + " ware Deleted From Table" + tbN_bill_d);
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteOneBill_d(String id, String d_seq) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = col_bill_seq + " = ? and " + col_bill_d_seq + " = ? ";
+        String[] whereArgs = new String[]{id, d_seq};
+        int result = db.delete(tbN_bill_d, whereClause, whereArgs);
+        Log.d(Tag, "deleteOneBill_d: Deleting " + id + " From Table" + tbN_bill_d);
+        Log.d(Tag, "deleteOneBill_d: " + result + " ware Deleted From Table" + tbN_bill_d);
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public bill_d[] getAllBill_d(String id) {
+        bill_d list[] = null;
+        String query = "SELECT " + col_bill_seq + "," +
+                col_bill_yr + "," +
+                col_bill_no + "," +
+                col_bill_d_seq + "," +
+                col_itm_code + "," +
+                col_itm_price + "," +
+                col_itm_cost + "," +
+                col_itm_qty +
+                " FROM " + tbN_bill_d +
+                " Where " + col_bill_seq + " = " + id;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        list = new bill_d[cursor.getCount()];
+        bill_d bill_d = null;
+        int index = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                bill_d = new bill_d(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
+                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
+                list[index] = bill_d;
+                index++;
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+    public bill_d[] SearchBill_d(String id,String bill_d_seq) {
+        bill_d list[] = null;
+        String query = "SELECT " + col_bill_seq + "," +
+                col_bill_yr + "," +
+                col_bill_no + "," +
+                col_bill_d_seq + "," +
+                col_itm_code + "," +
+                col_itm_price + "," +
+                col_itm_cost + "," +
+                col_itm_qty +
+                " FROM " + tbN_bill_d +
+                " Where " + col_bill_seq + " = " + id +
+                " and " + col_bill_d_seq + " = " + bill_d_seq ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        list = new bill_d[cursor.getCount()];
+        bill_d bill_d = null;
+        int index = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                bill_d = new bill_d(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
+                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
+                list[index] = bill_d;
+                index++;
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
 
 
 /*    addbill_m

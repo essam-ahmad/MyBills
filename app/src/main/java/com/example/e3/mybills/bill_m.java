@@ -6,10 +6,25 @@ package com.example.e3.mybills;
 
 public class bill_m {
     String _col_bill_seq,_col_bill_yr,_col_bill_no,
-            _col_bill_type,_col_bill_date,_col_c_code,_col_disc_amt,_col_desc,_col_bill_amt;
+            _col_bill_type,_col_bill_date,_col_c_code,
+            _col_disc_amt,_col_desc,_col_bill_amt;
 
     public bill_m(){
 
+    }
+
+    public bill_m(String _col_bill_seq, String _col_bill_yr, String _col_bill_no,
+                  String _col_bill_type, String _col_bill_date,
+                  String _col_c_code, String _col_disc_amt, String _col_desc,String _col_bill_amt) {
+        set_col_bill_seq(_col_bill_seq);
+        set_col_bill_yr(_col_bill_yr);
+        set_col_bill_no(_col_bill_no);
+        set_col_bill_type(_col_bill_type);
+        set_col_bill_date(_col_bill_date);
+        set_col_c_code(_col_c_code);
+        set_col_disc_amt(_col_disc_amt);
+        set_col_desc(_col_desc);
+        set_col_bill_amt(_col_bill_amt);
     }
 
     public void set_col_bill_seq(String _col_bill_seq) {
