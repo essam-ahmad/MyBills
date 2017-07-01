@@ -401,6 +401,127 @@ public class DataManager extends SQLiteOpenHelper {
     //endregion
 
 
+    public boolean addBill_m(String bill_seq, String bill_yr, String bill_no,
+                             String bill_type, String bill_date , String c_code , String disc_amt , String desc , String bill_amt) {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues value = new ContentValues();
+            value.put(col_bill_seq, bill_seq);
+            value.put(col_bill_yr, bill_yr);
+            value.put(col_bill_no, bill_no);
+            value.put(col_bill_type, bill_type);
+            value.put(col_bill_date, bill_date);
+            value.put(col_c_code, c_code);
+            value.put(col_disc_amt, disc_amt);
+            value.put(col_desc, desc);
+            value.put(col_bill_amt, bill_amt);
+            Long result = db.insertOrThrow(tbN_bill_m, null, value);
+            Log.d(Tag, "addBill_m: Adding " + bill_seq + " to Table" + tbN_bill_m);
+            //if data inserted incorrectly it will return -1
+            //if (result==-1){return false;}else{return true;}
+            if (result > 0) {
+                return true;
+            }
+            Log.d(Tag, "addBill_m: Error when inserting" + bill_seq + " to Table" + tbN_bill_m);
+            return false;
+            //throw new SQLException("Failed to insert row into " + tbn_customers);
+        } catch (Exception e) {
+            Log.d(Tag, "addBill_m: Error when inserting" + bill_seq + " to Table" + tbN_bill_m + " " + e.getMessage());
+            e.printStackTrace();
+            //throw new SQLException("Failed to insert row into " + tbn_customers);
+            return false;
+        }
+    }
+    public int UpdateBill_m(String bill_seq, String bill_yr, String bill_no,
+                            String bill_type, String bill_date , String c_code , String disc_amt , String desc , String bill_amt) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues value = new ContentValues();
+        value.put(col_bill_yr, bill_yr);
+        value.put(col_bill_no, bill_no);
+        value.put(col_bill_type, bill_type);
+        value.put(col_bill_date, bill_date);
+        value.put(col_c_code, c_code);
+        value.put(col_disc_amt, disc_amt);
+        value.put(col_desc, desc);
+        value.put(col_bill_amt, bill_amt);
+        return (db.update(tbN_bill_m, value, col_bill_seq + " = ? ", new String[]{bill_seq}));
+    }
+    public boolean deleteOneBill_m(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = col_bill_seq + "=? ";
+        String[] whereArgs = new String[]{id};
+        int result = db.delete(tbN_bill_m, whereClause, whereArgs);
+        Log.d(Tag, "deleteOneBill_m: Deleting " + id + " From Table" + tbN_bill_m);
+        Log.d(Tag, "deleteOneBill_m: " + result + " customers ware Deleted From Table" + tbN_bill_m);
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+    public bill_m[] getAllBill_m (){
+        bill_m list[] = null;
+        String query ="SELECT *  FROM "+tbN_bill_m;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        list = new bill_m[cursor.getCount()];
+        bill_m bill_m = null;
+        int index = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                bill_m = new bill_m();
+                bill_m.set_col_bill_seq(cursor.getString(0));
+                bill_m.set_col_bill_yr(cursor.getString(1));
+                bill_m.set_col_bill_no(cursor.getString(2));
+                bill_m.set_col_bill_type(cursor.getString(3));
+                bill_m.set_col_bill_date(cursor.getString(4));
+                bill_m.set_col_c_code(cursor.getString(5));
+                bill_m.set_col_disc_amt(cursor.getString(6));
+                bill_m.set_col_desc(cursor.getString(7));
+                bill_m.set_col_bill_amt(cursor.getString(8));
+                list[index] = bill_m;
+                index++;
+            } while (cursor.moveToNext());
+        }
+        return list;
+
+
+    }
+    //endregion
+    public boolean addBill_d(String bill_seq, String bill_yr, String bill_no,
+                             String bill_d_seq, String itm_code , String item_price , String itm_cost , String itm_qty ) {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues value = new ContentValues();
+            value.put(col_bill_seq, bill_seq);
+            value.put(col_bill_yr, bill_yr);
+            value.put(col_bill_no, bill_no);
+            value.put(col_bill_d_seq, bill_d_seq);
+            value.put(col_itm_code, itm_code);
+            value.put(col_itm_price, item_price);
+            value.put(col_itm_cost, itm_cost);
+            value.put(col_itm_qty, itm_qty);
+            Long result = db.insertOrThrow(tbN_bill_d, null, value);
+            Log.d(Tag, "addBill_d: Adding " + bill_seq + " to Table" + tbN_bill_d);
+            //if data inserted incorrectly it will return -1
+            //if (result==-1){return false;}else{return true;}
+            if (result > 0) {
+                return true;
+            }
+            Log.d(Tag, "addBill_d: Error when inserting" + bill_seq + " to Table" + tbN_bill_d);
+            return false;
+            //throw new SQLException("Failed to insert row into " + tbn_customers);
+        } catch (Exception e) {
+            Log.d(Tag, "addBill_d: Error when inserting" + bill_seq + " to Table" + tbN_bill_d + " " + e.getMessage());
+            e.printStackTrace();
+            //throw new SQLException("Failed to insert row into " + tbn_customers);
+            return false;
+        }
+    }
+
+
+
 /*    addbill_m
             addbill_d
             UpdateBill_m
