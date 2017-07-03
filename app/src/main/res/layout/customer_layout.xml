@@ -3,10 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+
     <TextView
         android:id="@+id/col_c_code"
         android:layout_width="@dimen/width_customer_code"
         android:layout_height="match_parent"
+        android:layout_marginRight="2dp"
         android:layout_weight="1"
         android:background="@drawable/border"
         android:text="TextView"
@@ -28,6 +30,7 @@
         android:layout_width="@dimen/width_phone"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:autoLink="phone"
         android:background="@drawable/border"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />

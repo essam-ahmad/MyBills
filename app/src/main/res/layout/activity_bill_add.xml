@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.e3.mybills.BillAddActivity"
+    tools:showIn="@layout/app_bar_bill">
+    <android.support.design.widget.AppBarLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:theme="@style/AppTheme.AppBarOverlay">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:dividerPadding="8dp"
+            android:orientation="horizontal"
+            android:showDividers="end">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/toolbar_save"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:gravity="right"
+                android:text="Save"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/ic_save_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="15dp"
+                android:height="30dp"
+                android:gravity="left"
+                android:text="@string/Add_New_Bil"
+                android:textColor="@android:color/white"
+                android:textSize="24sp" />
+
+
+
+
+
+        </RelativeLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/text_of_add_Cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/add_Customer"
+                        android:height="30dp"
+                        android:textColor="@android:color/black"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/C_codeOfCust"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="30dp"
+                        android:gravity="center"
+                        android:text="@string/press_to_add_customer"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        />
+
+                    <TextView
+                        android:id="@+id/C_nameOfCust"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="30dp"
+                        android:gravity="center"
+
+                        />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/bill_tybe" />
+                    <RadioGroup
+                        android:id="@+id/radiogruop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@+id/radioButton7"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioButton7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/cash"
+
+                            />
+
+                        <RadioButton
+                            android:id="@+id/radioButton8"
+                            style="@android:style/Widget.Holo.Light.CompoundButton.RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="100dp"
+                            android:layout_weight="1"
+                            android:text="@string/forward" />
+                    </RadioGroup>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/date_input_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="27dp"
+                            android:ems="10"
+                            android:hint="@string/date"
+                            android:inputType="date" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/desc_input_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/code_input_layout"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="27dp"
+                            android:ems="10"
+                            android:hint="@string/desc"
+                            android:inputType="text" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/disc_input_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/disc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/name_input_layout"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="27dp"
+                            android:ems="10"
+                            android:hint="@string/disc"
+                            android:inputType="numberDecimal" />
+                    </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tootla" />
+                    <TextView
+                        android:id="@+id/tootal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                         />
+                </LinearLayout>
+                </ScrollView>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <HorizontalScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fillViewport="true">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="@dimen/header_width_code_Cost_price"
+                                            android:layout_height="@dimen/header_height"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/border_header"
+                                            android:text="@string/item_code"
+                                            android:textAlignment="center"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="@dimen/header_width_name"
+                                            android:layout_height="@dimen/header_height"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/border_header"
+                                            android:paddingLeft="5dp"
+                                            android:paddingRight="5dp"
+                                            android:text="@string/item_name"
+                                            android:textStyle="bold" />
+                                        <TextView
+                                            android:layout_width="@dimen/header_width_code_Cost_price"
+                                            android:layout_height="@dimen/header_height"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/border_header"
+                                            android:text="@string/qty"
+                                            android:textAlignment="center"
+                                            android:textStyle="bold" />
+                                        <TextView
+                                            android:layout_width="@dimen/header_width_code_Cost_price"
+                                            android:layout_height="@dimen/header_height"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/border_header"
+                                            android:text="@string/cost"
+                                            android:textAlignment="center"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="@dimen/header_width_code_Cost_price"
+                                            android:layout_height="@dimen/header_height"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/border_header"
+                                            android:text="@string/price"
+                                            android:textAlignment="center"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="@dimen/header_width_code_Cost_price"
+                                            android:layout_height="@dimen/header_height"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/border_header"
+                                            android:text="@string/tootla"
+                                            android:textAlignment="center"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <ListView
+                                        android:id="@+id/listView_bill_d"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent" />
+                                </LinearLayout>
+                            </HorizontalScrollView>
+                            <android.support.design.widget.FloatingActionButton
+                                android:id="@+id/Add_item_to_bill_d"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginBottom="36dp"
+                                android:layout_marginEnd="28dp"
+                                android:layout_marginRight="28dp"
+                                android:src="@drawable/ic_add_circle_black_24dp"
+                                app:backgroundTint="@color/colorAccent"
+                                app:rippleColor="@color/colorAccent"
+                                android:clickable="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+</LinearLayout>
