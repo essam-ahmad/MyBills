@@ -5,4 +5,5 @@
     <color name="colorAccent">#448aff</color>
     <color name="colorFirstRow">#ffffff</color>
     <color name="colorSecondRow">#eef2f9</color>
+    <color name="colorheader">#448aff</color>
 </resources>

@@ -33,6 +33,20 @@
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="address">Address</string>
-    <string name="add_Customer">Add New Customer</string>
+    <string name="add_Customer">Add Customer</string>
     <string name="edit_Customer">Edit Customer Data</string>
+    <string name="Main_Bill">Main Bill</string>
+    <string name="Add_Items_for_Bill">Add Items for Bill</string>
+    <string name="Add_New_Bil">Add_New_Bil</string>
+    <string name="press_to_add_customer">press to add customer</string>
+    <string name="bill_tybe">bill tybe</string>
+    <string name="cash">cash</string>
+    <string name="forward">forward</string>
+    <string name="date">date</string>
+    <string name="desc">description</string>
+    <string name="disc">Discount</string>
+    <string name="tootla">Total</string>
+    <string name="qty">qty</string>
+
+
 </resources>

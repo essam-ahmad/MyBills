@@ -57,15 +57,15 @@ public class items_Adapter extends BaseAdapter {
         ad_date.setText(data[position].get_col_ad_date());
         if (position % 2 == 0) {
             //noinspection ResourceAsColor
-            vi.setBackgroundColor(R.color.colorFirstRow);
-            code.setTextColor(Color.WHITE);
-            name.setTextColor(Color.WHITE);
-            cost.setTextColor(Color.WHITE);
-            price.setTextColor(Color.WHITE);
-            ad_date.setTextColor(Color.WHITE);
+            vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
+            code.setTextColor(Color.BLACK);
+            name.setTextColor(Color.BLACK);
+            cost.setTextColor(Color.BLACK);
+            price.setTextColor(Color.BLACK);
+            ad_date.setTextColor(Color.BLACK);
         } else {
             //noinspection ResourceAsColor
-            vi.setBackgroundColor(R.color.colorSecondRow);
+            vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
             code.setTextColor(Color.BLACK);
             name.setTextColor(Color.BLACK);
             cost.setTextColor(Color.BLACK);

@@ -12,6 +12,6 @@
     <dimen name="list_height">40dp</dimen>
     <dimen name="width_customer_code">60dp</dimen>
     <dimen name="width_customer_name">250dp</dimen>
-    <dimen name="width_phone">100dp</dimen>
+    <dimen name="width_phone">150dp</dimen>
     <dimen name="width_address_name">300dp</dimen>
 </resources>

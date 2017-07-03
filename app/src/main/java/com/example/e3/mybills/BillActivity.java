@@ -57,6 +57,8 @@ public class BillActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
+            Intent intent = new Intent(BillActivity.this,BillAddActivity.class);
+            startActivity(intent);
             return true;
         }
 

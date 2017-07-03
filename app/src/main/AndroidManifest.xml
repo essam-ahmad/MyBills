@@ -27,6 +27,7 @@
             android:name=".customersActivity"
             android:label="@string/customers" />
         <activity android:name=".CustomersAddEditActivity"></activity>
+        <activity android:name=".BillAddActivity"></activity>
     </application>
 
 </manifest>
