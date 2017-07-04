@@ -4,5 +4,5 @@
         android:width="1dip"
         android:color="#010101"
         android:background="@color/colorAccent"/>
-    <corners android:radius="1dp" />
+    <corners android:radius="0dp" />
 </shape>

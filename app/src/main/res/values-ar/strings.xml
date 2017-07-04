@@ -39,6 +39,8 @@
     <string name="Main_Bill">الفواتير الرئيسية</string>
     <string name="Add_Items_for_Bill">اضافة أصناف للفاتورة</string>
     <string name="Add_New_Bil">اضافة فاتورة</string>
+    <string name="Year">السنة</string>
+    <string name="number_bill">رقم الفاتورة</string>
     <string name="press_to_add_customer">اضغط هنا لاضافة عميل</string>
     <string name="bill_tybe">نوع الفاتورة</string>
     <string name="cash">نقد</string>
@@ -48,6 +50,7 @@
     <string name="disc">الخصم</string>
     <string name="tootla">الاجمالي</string>
     <string name="qty">الكمية</string>
+
 
 
 

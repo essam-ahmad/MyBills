@@ -73,12 +73,12 @@ public class BillActivity extends AppCompatActivity
 
         if (id == R.id.nav_items) {
             Intent i = new Intent(BillActivity.this,ItemsActivity.class);
+            Bundle bundle= new Bundle();
+            bundle.putInt("ImFromBillAdd",2);
+            i.putExtras(bundle);
             startActivity(i);
         } else if (id == R.id.nav_customers) {
             Intent i = new Intent(BillActivity.this,customersActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_bills) {
-            Intent i = new Intent(BillActivity.this,BillActivity.class);
             startActivity(i);
         }
 
