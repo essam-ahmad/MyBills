@@ -15,6 +15,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
     EditText _etItemCode, _etItemName, _etItemCost, _etItemPrice;
     Button Save, Cancel;
     String _action;
+    android.support.design.widget.TextInputLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,21 @@ public class ItemsAddEditActivity extends AppCompatActivity {
             _etItemCode.setEnabled(false);
             _etItemName.setText(data.getString("get_col_itm_name"));
             _etItemCost.setText(String.valueOf(data.getDouble("get_col_itm_Cost")));
+            _etItemPrice.setText(String.valueOf(data.getDouble("get_col_itm_price")));
+        }else if(_action.equals("editqty")){
+            this.setTitle( "تعديل كمية الاصناف");
+            Toast.makeText(getBaseContext(), "لقد أتيت من اكتفتي الفواتير", Toast.LENGTH_LONG).show();
+            _etItemCode.setText(String.valueOf(data.getInt("get_col_itm_code")));
+            _etItemCode.setFocusable(false);
+            _etItemCode.setEnabled(false);
+            _etItemName.setText(data.getString("get_col_itm_name"));
+            _etItemName.setFocusable(false);
+            _etItemName.setEnabled(false);
+            //_etItemCost.setText(String.valueOf(data.getDouble("get_col_itm_Cost")));
+
+            layout=(android.support.design.widget.TextInputLayout)findViewById(R.id.itm_cost_input_layout);
+            layout.setHint(getResources().getString(R.string.qty));
+
             _etItemPrice.setText(String.valueOf(data.getDouble("get_col_itm_price")));
         }
         Save = (Button) findViewById(R.id.Save);
@@ -64,6 +80,10 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), R.string.Done_Edit, Toast.LENGTH_LONG).show();
                         }
                         finish();
+                    }else if(_action.equals("editqty")){
+
+                        Toast.makeText(getBaseContext(), "لقد أتيت من اكتفتي الفواتير", Toast.LENGTH_LONG).show();
+
                     }
                 }
             }
@@ -78,13 +98,20 @@ public class ItemsAddEditActivity extends AppCompatActivity {
     }
 
     public void setDefaultValuesIfNull() {
+        if(_action.equals("editqty")){
+            if (_etItemCost == null || _etItemCost.length() == 0){
+                _etItemCost.setText(null);
+            }
+
+
+        }else {
         if (_etItemCost == null || _etItemCost.length() == 0) {
             _etItemCost.setText("0");
         }
         if (_etItemPrice == null || _etItemPrice.length() == 0) {
             _etItemPrice.setText("0");
         }
-    }
+    }}
 
     public boolean checkData(String itm_code, String itm_name, String itm_cost, String itm_price) {
         boolean result = true;

@@ -38,6 +38,8 @@
     <string name="Main_Bill">Main Bill</string>
     <string name="Add_Items_for_Bill">Add Items for Bill</string>
     <string name="Add_New_Bil">Add_New_Bil</string>
+    <string name="Year">Year</string>
+    <string name="number_bill">number bill</string>
     <string name="press_to_add_customer">press to add customer</string>
     <string name="bill_tybe">bill tybe</string>
     <string name="cash">cash</string>

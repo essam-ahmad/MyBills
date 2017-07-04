@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,11 +21,14 @@ public class items_Adapter extends BaseAdapter {
     private Activity activity;
     private items[] data;
     private static LayoutInflater inflater = null;
+    int FromBill;
 
-    public items_Adapter(Activity a, items list[]) {
+    public items_Adapter(Activity a, items list[],int clas) {
         activity = a;
         data = list;
+        FromBill=clas;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     public int getCount() {
@@ -73,6 +77,25 @@ public class items_Adapter extends BaseAdapter {
             ad_date.setTextColor(Color.BLACK);
         }
         final View finalVi = vi;
+
+        if (FromBill==1){
+            vi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(finalVi.getContext(), ItemsAddEditActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("action","editqty");
+                    b.putInt("get_col_itm_code", data[position].get_col_itm_code());
+                    b.putString("get_col_itm_name", data[position].get_col_itm_name());
+                    b.putDouble("get_col_itm_Cost", data[position].get_col_itm_cost());
+                    b.putDouble("get_col_itm_price", data[position].get_col_itm_price());
+                    i.putExtras(b);
+                    i.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                    finalVi.getContext().startActivity(i);
+                }
+            });
+        }else {
+
         vi.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -120,7 +143,7 @@ public class items_Adapter extends BaseAdapter {
                 builder.show();
                 return true;
             }
-        });
+        });}
         return vi;
     }
 }
