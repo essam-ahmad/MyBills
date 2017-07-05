@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,7 +29,7 @@ public class BillAddActivity extends TabActivity {
     int selectedValue;
 
     //endregion
-
+    ArrayList<BILL_DCalss> item = new ArrayList<BILL_DCalss>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,18 @@ public class BillAddActivity extends TabActivity {
 
       tabHost.addTab(Bill_m);
       tabHost.addTab(Bill_d);
+      FloatingActionButton save = (FloatingActionButton)findViewById(R.id.toolbar_save);
+save.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        String Number_bill = Number.getText().toString();
+        String year = Year.getText().toString();
+        String Date = date.getText().toString();
+        String Desc = desc.getText().toString();
+        setDefaultValuesIfNull();
+        checkData(Number_bill,year,Date,Desc);
+    }
+});
   }
     public void bill_m(){
         mySelection = (RadioGroup)findViewById(R.id.radiogruop);
@@ -81,7 +95,18 @@ public class BillAddActivity extends TabActivity {
 
         Year.setText(Get_Year);
         date.setText(Get_Date);
+        Customer_Name = (TextView)findViewById(R.id.C_nameOfCust);
+        Customer_id = (TextView)findViewById(R.id.C_codeOfCust);
 
+        Customer_Name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(BillAddActivity.this,customersActivity.class);
+                i.putExtra("ImFromBillAdd",1);
+                startActivityForResult(i,2);
+
+            }
+        });
 
 
 
@@ -92,9 +117,7 @@ public class BillAddActivity extends TabActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(BillAddActivity.this,ItemsActivity.class);
-
-               i.putExtra("ImFromBillAdd",1);
-
+                i.putExtra("ImFromBillAdd",1);
                 startActivityForResult(i,1);
 
 
@@ -102,4 +125,63 @@ public class BillAddActivity extends TabActivity {
         });
 
          }
+    @Override
+    public void onActivityResult(int code , int esult , Intent data){
+        if ((code ==1)&&(esult == RESULT_OK)){
+
+
+            String  ItemCode = data.getExtras().getString("ItemCode");
+            String  Itemqty =data.getExtras().getString("ItemCost");
+            String  ItemPrice = data.getExtras().getString("ItemPrice");
+
+            DataManager dataBase=new DataManager(BillAddActivity.this);
+            item.add(new BILL_DCalss(dataBase.getItemById(Integer.parseInt(ItemCode)).get_col_itm_name(),ItemPrice,ItemCode,Itemqty));
+            Bill_d_Adabter bill_d= new Bill_d_Adabter(this,item);
+            final ListView list = (ListView) findViewById(R.id.listView_bill_d);
+            list.setAdapter(bill_d);
+
+
+           /* bill_d e =new bill_d();
+            e.set_col_bill_seq(Integer.parseInt(id));
+            e.set_col_bill_d_seq(String.valueOf(i));
+            e.set_col_itm_price(Integer.parseInt(pricee));
+            e.set_col_itm_qty(Integer.parseInt(itemqtye));
+            arrBill_d.add(e);
+            i++;*/
+
+
+        }else if (((code==2)&&(esult==RESULT_OK))){
+
+            Customer_Name.setText(data.getStringExtra("get_col_c_name"));
+            Customer_id.setText(getResources().getString(R.string.customer_code)+":             " +data.getStringExtra("get_col_c_code"));
+
+        }
+}
+    public void setDefaultValuesIfNull() {
+        if (disc == null || disc.length() == 0) {
+            disc.setText("0");
+        } if (Customer_id == null || Customer_id.length() == 0) {
+            Customer_id.setText("null");
+        }
+    }
+    public boolean checkData(String Number_Bil, String Years , String dates ,String describ ) {
+        boolean result = true;
+        if (Number_Bil == null || Number_Bil.length() == 0) {
+            Number.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        if (Years == null || Years.length() == 0) {
+            Year.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        if (dates == null || dates.length() == 0) {
+            date.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        if (describ == null || describ.length() == 0) {
+            desc.setError(getResources().getString(R.string.Please_fill));
+            result = false;
+        }
+        return result;
+    }
 }

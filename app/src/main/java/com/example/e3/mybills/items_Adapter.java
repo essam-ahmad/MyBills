@@ -92,6 +92,7 @@ public class items_Adapter extends BaseAdapter {
                     i.putExtras(b);
                     i.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                     finalVi.getContext().startActivity(i);
+                    activity.finish();
                 }
             });
         }else {

@@ -11,7 +11,12 @@ public class bill_d {
 
     public bill_d() {
     }
-
+    public bill_d( String _col_itm_code, String _col_itm_price, String _col_itm_qty) {
+        set_col_itm_code(_col_itm_code);
+        set_col_itm_price(_col_itm_price);
+        set_col_itm_cost(_col_itm_cost);
+        set_col_itm_qty(_col_itm_qty);
+    }
     public bill_d(String _col_bill_seq, String _col_bill_yr, String _col_bill_no,
                   String _col_bill_d_seq, String _col_itm_code,
                   String _col_itm_price, String _col_itm_cost, String _col_itm_qty) {

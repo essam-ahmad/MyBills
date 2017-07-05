@@ -1,5 +1,7 @@
 package com.example.e3.mybills;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,11 +18,14 @@ public class ItemsAddEditActivity extends AppCompatActivity {
     Button Save, Cancel;
     String _action;
     android.support.design.widget.TextInputLayout layout;
+    public static Activity fa;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_add_edit);
+        fa=this;
         _etItemCode = (EditText) findViewById(R.id.itm_code);
         _etItemName = (EditText) findViewById(R.id.itm_name);
         _etItemCost = (EditText) findViewById(R.id.itm_cost);
@@ -81,8 +86,13 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                         }
                         finish();
                     }else if(_action.equals("editqty")){
-
-                        Toast.makeText(getBaseContext(), "لقد أتيت من اكتفتي الفواتير", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent();
+                        i.putExtra("ItemCode",ItemCode);
+                        i.putExtra("ItemName",ItemName);
+                        i.putExtra("ItemCost",ItemCost);
+                        i.putExtra("ItemPrice",ItemPrice);
+                        setResult(RESULT_OK,i);
+                        finish();
 
                     }
                 }

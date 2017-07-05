@@ -1,5 +1,6 @@
 package com.example.e3.mybills;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +18,12 @@ public class ItemsActivity extends AppCompatActivity {
     DataManager ch = new DataManager(this);
     int FromBill;
     Bundle b;
+    public static Activity fa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
+        fa=this;
         list = (ListView) findViewById(R.id.listView_item);
         listItem();
     }

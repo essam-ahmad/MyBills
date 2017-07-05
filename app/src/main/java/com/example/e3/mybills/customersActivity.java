@@ -1,5 +1,6 @@
 package com.example.e3.mybills;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +13,14 @@ import android.widget.ListView;
 public class customersActivity extends AppCompatActivity {
     ListView list;
     DataManager ch = new DataManager(this);
-
+    int FromBill;
+    Bundle b;
+    public static Activity fa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers);
+        fa=this;
         list = (ListView) findViewById(R.id.listView_item);
         listItem();
     }
@@ -28,10 +32,19 @@ public class customersActivity extends AppCompatActivity {
     }
 
     public void listItem() {
+        b=getIntent().getExtras();
+        FromBill=b.getInt("ImFromBillAdd");
+        if (FromBill==1){
         DataManager ch = new DataManager(this);
         list = (ListView) findViewById(R.id.listView_item);
-        customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.getAllCustomers());
+        customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.getAllCustomers(),1);
         list.setAdapter(lazy);
+    }else {
+            DataManager ch = new DataManager(this);
+            list = (ListView) findViewById(R.id.listView_item);
+            customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.getAllCustomers(),2);
+            list.setAdapter(lazy);
+        }
     }
 
     @Override
@@ -55,11 +68,12 @@ public class customersActivity extends AppCompatActivity {
             SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             final android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) item.getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            if (FromBill==1){
             android.support.v7.widget.SearchView.OnQueryTextListener textChangeListener = new android.support.v7.widget.SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     ListView list = (ListView) findViewById(R.id.listView_item);
-                    customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.SearchCustomer(newText));
+                    customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.SearchCustomer(newText),1);
                     list.setAdapter(lazy);
                     return true;
                 }
@@ -70,6 +84,23 @@ public class customersActivity extends AppCompatActivity {
                 }
             };
             searchView.setOnQueryTextListener(textChangeListener);
+        }else {
+                android.support.v7.widget.SearchView.OnQueryTextListener textChangeListener = new android.support.v7.widget.SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        ListView list = (ListView) findViewById(R.id.listView_item);
+                        customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.SearchCustomer(newText),2);
+                        list.setAdapter(lazy);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return true;
+                    }
+                };
+                searchView.setOnQueryTextListener(textChangeListener);
+            }
         }
         return true;
     }
