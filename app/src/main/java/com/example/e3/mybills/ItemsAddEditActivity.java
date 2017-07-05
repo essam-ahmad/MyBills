@@ -44,7 +44,6 @@ public class ItemsAddEditActivity extends AppCompatActivity {
             _etItemPrice.setText(String.valueOf(data.getDouble("get_col_itm_price")));
         }else if(_action.equals("editqty")){
             this.setTitle( "تعديل كمية الاصناف");
-            Toast.makeText(getBaseContext(), "لقد أتيت من اكتفتي الفواتير", Toast.LENGTH_LONG).show();
             _etItemCode.setText(String.valueOf(data.getInt("get_col_itm_code")));
             _etItemCode.setFocusable(false);
             _etItemCode.setEnabled(false);

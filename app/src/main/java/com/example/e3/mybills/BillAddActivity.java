@@ -1,11 +1,14 @@
 package com.example.e3.mybills;
 
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -126,7 +129,7 @@ save.setOnClickListener(new View.OnClickListener() {
 
          }
     @Override
-    public void onActivityResult(int code , int esult , Intent data){
+    public void onActivityResult(int code , int esult , final Intent data){
         if ((code ==1)&&(esult == RESULT_OK)){
 
 
@@ -136,11 +139,34 @@ save.setOnClickListener(new View.OnClickListener() {
 
             DataManager dataBase=new DataManager(BillAddActivity.this);
             item.add(new BILL_DCalss(dataBase.getItemById(Integer.parseInt(ItemCode)).get_col_itm_name(),ItemPrice,ItemCode,Itemqty));
-            Bill_d_Adabter bill_d= new Bill_d_Adabter(this,item);
+            final Bill_d_Adabter bill_d= new Bill_d_Adabter(this,item);
             final ListView list = (ListView) findViewById(R.id.listView_bill_d);
             list.setAdapter(bill_d);
-
-
+            //region on click list view
+      list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(BillAddActivity.this);
+        yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
+        yesOrNoBuilder.setMessage(item.get(position).name);
+        yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,
+                                int which) {
+                item.remove(position);
+                list.setAdapter(bill_d);
+            }
+        });
+        yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        yesOrNoBuilder.show();
+        return false;
+    }
+});
+            //endregion
+            
            /* bill_d e =new bill_d();
             e.set_col_bill_seq(Integer.parseInt(id));
             e.set_col_bill_d_seq(String.valueOf(i));

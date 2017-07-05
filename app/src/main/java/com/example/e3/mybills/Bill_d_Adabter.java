@@ -87,7 +87,7 @@ public class Bill_d_Adabter extends BaseAdapter {
             col_itm_price.setTextColor(Color.BLACK);
             col_ad_Total.setTextColor(Color.BLACK);
 
-         vi.setOnLongClickListener(new View.OnLongClickListener() {
+         /*vi.setOnLongClickListener(new View.OnLongClickListener() {
     @Override
     public boolean onLongClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
@@ -121,7 +121,7 @@ public class Bill_d_Adabter extends BaseAdapter {
         builder.show();
         return true;
     }
-});
+});*/
 
 
 
