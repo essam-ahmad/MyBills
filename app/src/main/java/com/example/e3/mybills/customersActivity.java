@@ -20,6 +20,7 @@ public class customersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fa=this;
         list = (ListView) findViewById(R.id.listView_item);
         listItem();
@@ -101,6 +102,8 @@ public class customersActivity extends AppCompatActivity {
                 };
                 searchView.setOnQueryTextListener(textChangeListener);
             }
+        } if (id == android.R.id.home) {
+            finish();
         }
         return true;
     }

@@ -11,6 +11,7 @@
         android:layout_marginRight="2dp"
         android:layout_weight="1"
         android:background="@drawable/border"
+        android:padding="5dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -20,6 +21,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/border"
+        android:padding="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="TextView"
@@ -32,6 +34,7 @@
         android:layout_weight="1"
         android:autoLink="phone"
         android:background="@drawable/border"
+        android:padding="5dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -41,6 +44,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/border"
+        android:padding="5dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -50,6 +54,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/border"
+        android:padding="5dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 

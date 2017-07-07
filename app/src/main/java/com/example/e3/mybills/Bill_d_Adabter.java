@@ -22,16 +22,13 @@ import java.util.Arrays;
 
 public class Bill_d_Adabter extends BaseAdapter {
     private Activity activity;
-    private ArrayList<BILL_DCalss> data;
-    private static LayoutInflater inflater=null;
+    private ArrayList<bill_d> data;
+    private static LayoutInflater inflater = null;
 
-    public Bill_d_Adabter(Activity a, ArrayList<BILL_DCalss> list) {
+    public Bill_d_Adabter(Activity a, ArrayList<bill_d> list) {
         activity = a;
-
-        data=list;
-
-
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        data = list;
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -48,26 +45,25 @@ public class Bill_d_Adabter extends BaseAdapter {
 
 
     public View getView(final int position, final View convertView, ViewGroup parent) {
-        View vi=convertView;
-        if(convertView==null)
+        View vi = convertView;
+        if (convertView == null)
             vi = inflater.inflate(R.layout.bill_d_layout, null);
         final View finalVi = vi;
-        TextView col_itm_code=(TextView)vi.findViewById(R.id.col_bill_d_code);
+        TextView col_itm_code = (TextView) vi.findViewById(R.id.col_bill_d_code);
         TextView col_itm_name = (TextView) vi.findViewById(R.id.col_bill_d_name);
-        TextView col_itm_qty = (TextView)vi.findViewById(R.id.col_bill_d_qty);
-        TextView col_itm_cost = (TextView)vi.findViewById(R.id.col_bill_d_cost);
-        TextView col_itm_price = (TextView)vi.findViewById(R.id.col_bill_d_price);
-        TextView col_ad_Total = (TextView)vi.findViewById(R.id.col_bill_d_Total);
-        col_itm_code.setText(data.get(position).number);
-        col_itm_name.setText(data.get(position).name);
-        col_itm_qty.setText(data.get(position).qty);
-        DataManager dataBase=new DataManager(finalVi.getContext());
-        col_itm_cost.setText(dataBase.getItemById(Integer.parseInt(data.get(position).number)).get_col_itm_cost()+"");
-        col_itm_price.setText(data.get(position).price);
-        double price = Double.parseDouble(data.get(position).price);
-        double qty = Double.parseDouble(data.get(position).qty);
-        double result = price*qty;
-        col_ad_Total.setText(result+"");
+        TextView col_itm_qty = (TextView) vi.findViewById(R.id.col_bill_d_qty);
+        TextView col_itm_cost = (TextView) vi.findViewById(R.id.col_bill_d_cost);
+        TextView col_itm_price = (TextView) vi.findViewById(R.id.col_bill_d_price);
+        TextView col_ad_Total = (TextView) vi.findViewById(R.id.col_bill_d_Total);
+        col_itm_code.setText(data.get(position).get_col_itm_code());
+        col_itm_name.setText(data.get(position).get_col_itm_name());
+        col_itm_qty.setText(data.get(position).get_col_itm_qty());
+        col_itm_cost.setText(data.get(position).get_col_itm_cost());
+        col_itm_price.setText(data.get(position).get_col_itm_price());
+        double price = Double.parseDouble(data.get(position).get_col_itm_price());
+        double qty = Double.parseDouble(data.get(position).get_col_itm_qty());
+        double result = price * qty;
+        col_ad_Total.setText(result + "");
         if (position % 2 == 0) {
             //noinspection ResourceAsColor
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
@@ -124,13 +120,10 @@ public class Bill_d_Adabter extends BaseAdapter {
 });*/
 
 
-
-
-
-
-    }
+        }
 
         return vi;
 
 
-}}
+    }
+}

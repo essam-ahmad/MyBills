@@ -24,6 +24,7 @@ public class ItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
         fa=this;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         list = (ListView) findViewById(R.id.listView_item);
         listItem();
     }
@@ -108,6 +109,8 @@ public class ItemsActivity extends AppCompatActivity {
                 };
                 searchView.setOnQueryTextListener(textChangeListener);
             }
+        } if (id == android.R.id.home) {
+            finish();
         }
         return true;
     }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_add_edit);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fa=this;
         _etItemCode = (EditText) findViewById(R.id.itm_code);
         _etItemName = (EditText) findViewById(R.id.itm_name);
@@ -33,6 +35,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         _action = data.getString("action");
         if (_action.equals("add")) {
+            _etItemCode.setText(new DataManager(this).Get_Item_No()+1+"");
             this.setTitle( R.string.add_Items);
         } else if (_action.equals("edit")) {
             this.setTitle( R.string.Edit_Items);
@@ -43,7 +46,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
             _etItemCost.setText(String.valueOf(data.getDouble("get_col_itm_Cost")));
             _etItemPrice.setText(String.valueOf(data.getDouble("get_col_itm_price")));
         }else if(_action.equals("editqty")){
-            this.setTitle( "تعديل كمية الاصناف");
+            this.setTitle(R.string.Edit_qty);
             _etItemCode.setText(String.valueOf(data.getInt("get_col_itm_code")));
             _etItemCode.setFocusable(false);
             _etItemCode.setEnabled(false);
@@ -88,7 +91,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                         Intent i = new Intent();
                         i.putExtra("ItemCode",ItemCode);
                         i.putExtra("ItemName",ItemName);
-                        i.putExtra("ItemCost",ItemCost);
+                        i.putExtra("ItemQty",ItemCost);
                         i.putExtra("ItemPrice",ItemPrice);
                         setResult(RESULT_OK,i);
                         finish();
@@ -104,6 +107,14 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return false;
     }
 
     public void setDefaultValuesIfNull() {

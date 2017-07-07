@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class BillActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +30,15 @@ public class BillActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DataManager ch = new DataManager(this);
+        ListView list = (ListView) findViewById(R.id.listView_item);
+        Bill_Aadabter lazy = new Bill_Aadabter(BillActivity.this, ch.getAllBill_m());
+        list.setAdapter(lazy);
     }
 
     @Override

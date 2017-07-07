@@ -30,14 +30,14 @@
     <string name="Done_Adding">Adding done</string>
     <string name="The_number_already_exists">The number is already exists</string>
     <string name="customer_code">Customer Code</string>
-    <string name="name">Name</string>
+    <string name="name">Name Customer</string>
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="add_Customer">Add Customer</string>
     <string name="edit_Customer">Edit Customer Data</string>
     <string name="Main_Bill">Main Bill</string>
     <string name="Add_Items_for_Bill">Add Items for Bill</string>
-    <string name="Add_New_Bil">Add_New_Bil</string>
+    <string name="Add_New_Bil">Add New Bil</string>
     <string name="Year">Year</string>
     <string name="number_bill">number bill</string>
     <string name="press_to_add_customer">press to add customer</string>
@@ -49,6 +49,8 @@
     <string name="disc">Discount</string>
     <string name="tootla">Total</string>
     <string name="qty">qty</string>
+    <string name="Edit_qty">Edit qty Items</string>
+    <string name="There_are_no_items">There are no items in the invoice</string>
 
 
 </resources>

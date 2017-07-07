@@ -4,6 +4,7 @@ package com.example.e3.mybills;
  */
 //ابراهيم
 //fff
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -254,7 +255,17 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return item;
     }
+    public int Get_Item_No() {
+        int id = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(" + col_itm_code + ") FROM " + tbn_items, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+        return id;
 
+    }
     //endregion
 
     //region tbn_customers
@@ -399,16 +410,26 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return item;
     }
+    public int Get_Cust_No() {
+        int id = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(" + col_c_code + ") FROM " + tbn_customers, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+        return id;
+
+    }
     //endregion
 
 
-    public boolean addBill_m(String bill_seq, String bill_yr, String bill_no,
-                             String bill_type, String bill_date, String c_code, String disc_amt,
-                             String desc, String bill_amt) {
+    public long addBill_m(String bill_yr, String bill_no,
+                          String bill_type, String bill_date, String c_code, String disc_amt,
+                          String desc, String bill_amt) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues value = new ContentValues();
-            value.put(col_bill_seq, bill_seq);
             value.put(col_bill_yr, bill_yr);
             value.put(col_bill_no, bill_no);
             value.put(col_bill_type, bill_type);
@@ -418,21 +439,30 @@ public class DataManager extends SQLiteOpenHelper {
             value.put(col_desc, desc);
             value.put(col_bill_amt, bill_amt);
             Long result = db.insertOrThrow(tbN_bill_m, null, value);
-            Log.d(Tag, "addBill_m: Adding " + bill_seq + " to Table" + tbN_bill_m);
+            Log.d(Tag, "addBill_m: Adding " + bill_no + " to Table" + tbN_bill_m);
             //if data inserted incorrectly it will return -1
             //if (result==-1){return false;}else{return true;}
-            if (result > 0) {
-                return true;
+            if (result == -1) {
+                Log.d(Tag, "addBill_m: Error when inserting" + bill_no + " to Table" + tbN_bill_m);
             }
-            Log.d(Tag, "addBill_m: Error when inserting" + bill_seq + " to Table" + tbN_bill_m);
-            return false;
-            //throw new SQLException("Failed to insert row into " + tbn_customers);
+            return result;
         } catch (Exception e) {
-            Log.d(Tag, "addBill_m: Error when inserting" + bill_seq + " to Table" + tbN_bill_m + " " + e.getMessage());
+            Log.d(Tag, "addBill_m: Error when inserting" + bill_no + " to Table" + tbN_bill_m + " " + e.getMessage());
             e.printStackTrace();
-            //throw new SQLException("Failed to insert row into " + tbn_customers);
-            return false;
+            return -1;
         }
+    }
+
+    public int Get_Bill_No() {
+        int id = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(" + col_bill_no + ") FROM " + tbN_bill_m, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+        return id;
+
     }
 
     public int UpdateBill_m(String bill_seq, String bill_yr, String bill_no,
@@ -616,7 +646,8 @@ public class DataManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 bill_d = new bill_d(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
-                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
+                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)
+                        , getItemById(Integer.parseInt(cursor.getString(4))).get_col_itm_name());
                 list[index] = bill_d;
                 index++;
             } while (cursor.moveToNext());
@@ -624,7 +655,7 @@ public class DataManager extends SQLiteOpenHelper {
         return list;
     }
 
-    public bill_d[] SearchBill_d(String id,String bill_d_seq) {
+    public bill_d[] SearchBill_d(String id, String bill_d_seq) {
         bill_d list[] = null;
         String query = "SELECT " + col_bill_seq + "," +
                 col_bill_yr + "," +
@@ -636,7 +667,7 @@ public class DataManager extends SQLiteOpenHelper {
                 col_itm_qty +
                 " FROM " + tbN_bill_d +
                 " Where " + col_bill_seq + " = " + id +
-                " and " + col_bill_d_seq + " = " + bill_d_seq ;
+                " and " + col_bill_d_seq + " = " + bill_d_seq;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         list = new bill_d[cursor.getCount()];
@@ -645,7 +676,8 @@ public class DataManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 bill_d = new bill_d(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
-                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
+                        , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)
+                        , getItemById(Integer.parseInt(cursor.getString(4))).get_col_itm_name());
                 list[index] = bill_d;
                 index++;
             } while (cursor.moveToNext());
