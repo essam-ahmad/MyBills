@@ -2,6 +2,7 @@ package com.example.e3.mybills;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ public class CustomersAddEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers_add_edit);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         _etCode = (EditText) findViewById(R.id.code);
         _etName = (EditText) findViewById(R.id.name);
         _etPhone = (EditText) findViewById(R.id.phone);
@@ -27,6 +29,7 @@ public class CustomersAddEditActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         _action = data.getString("action");
         if (_action.equals("add")) {
+            _etCode.setText(new DataManager(this).Get_Cust_No()+1+"");
             this.setTitle( R.string.add_Customer);
         } else if (_action.equals("edit")) {
             this.setTitle( R.string.edit_Customer);
@@ -75,6 +78,13 @@ public class CustomersAddEditActivity extends AppCompatActivity {
                 finish();
             }
         });
+    } @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return false;
     }
 
     public void setDefaultValuesIfNull() {

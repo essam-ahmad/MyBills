@@ -6,15 +6,21 @@ package com.example.e3.mybills;
 
 public class bill_d {
     String _col_bill_seq, _col_bill_yr, _col_bill_no,
-            _col_bill_d_seq, _col_itm_code,
+            _col_bill_d_seq, _col_itm_code, _col_itm_name,
             _col_itm_price, _col_itm_cost, _col_itm_qty;
 
     public bill_d() {
     }
-
+    public bill_d( String _col_itm_code, String _col_itm_price, String _col_itm_cost ,String _col_itm_qty ,String _col_itm_name) {
+        set_col_itm_code(_col_itm_code);
+        set_col_itm_price(_col_itm_price);
+        set_col_itm_cost(_col_itm_cost);
+        set_col_itm_qty(_col_itm_qty);
+        set_col_itm_name(_col_itm_name);
+    }
     public bill_d(String _col_bill_seq, String _col_bill_yr, String _col_bill_no,
                   String _col_bill_d_seq, String _col_itm_code,
-                  String _col_itm_price, String _col_itm_cost, String _col_itm_qty) {
+                  String _col_itm_price, String _col_itm_cost, String _col_itm_qty,String _col_itm_name) {
         set_col_bill_seq(_col_bill_seq);
         set_col_bill_yr(_col_bill_yr);
         set_col_bill_no(_col_bill_no);
@@ -23,6 +29,7 @@ public class bill_d {
         set_col_itm_price(_col_itm_price);
         set_col_itm_cost(_col_itm_cost);
         set_col_itm_qty(_col_itm_qty);
+        set_col_itm_name(_col_itm_name);
     }
 
     public void set_col_bill_seq(String _col_bill_seq) {
@@ -65,7 +72,7 @@ public class bill_d {
         return _col_itm_code;
     }
 
-    public void set_col_itm_price(String _col_bill_date) {
+    public void set_col_itm_price(String _col_itm_price) {
         this._col_itm_price = _col_itm_price;
     }
 
@@ -73,7 +80,7 @@ public class bill_d {
         return _col_itm_price;
     }
 
-    public void set_col_itm_cost(String _col_c_code) {
+    public void set_col_itm_cost(String _col_itm_cost) {
         this._col_itm_cost = _col_itm_cost;
     }
 
@@ -87,5 +94,13 @@ public class bill_d {
 
     public String get_col_itm_qty() {
         return _col_itm_qty;
+    }
+
+    public void set_col_itm_name(String _col_itm_name) {
+        this._col_itm_name = _col_itm_name;
+    }
+
+    public String get_col_itm_name() {
+        return _col_itm_name;
     }
 }

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by e3 on 30/06/2017.
  */
@@ -23,10 +25,12 @@ public class customers_Adapter extends BaseAdapter {
     private Activity activity;
     private customers[] data;
     private static LayoutInflater inflater = null;
+    int FromBill;
 
-    public customers_Adapter(Activity a, customers[] list) {
+    public customers_Adapter(Activity a, customers[] list,int clas) {
         activity = a;
         data = list;
+        FromBill=clas;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -78,6 +82,18 @@ public class customers_Adapter extends BaseAdapter {
             ad_date.setTextColor(Color.BLACK);
         }
         final View finalVi = vi;
+        if (FromBill==1){
+            vi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent();
+
+                    i.putExtra("get_col_c_name",data[position].get_col_c_name());
+                    i.putExtra("get_col_c_code",data[position].get_col_c_code());
+                    activity.setResult(RESULT_OK,i);
+                activity.finish();}
+            });
+        }else {
         vi.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -125,7 +141,7 @@ public class customers_Adapter extends BaseAdapter {
                 builder.show();
                 return true;
             }
-        });
+        });}
         return vi;
     }
 }

@@ -31,7 +31,7 @@
     <string name="Done_Adding">تمت الاضافة</string>
     <string name="The_number_already_exists">الرقم موجود مسبقا</string>
     <string name="customer_code">رقم العميل</string>
-    <string name="name">الاسم</string>
+    <string name="name">اسم العميل</string>
     <string name="phone">التلفون</string>
     <string name="address">العنوان</string>
     <string name="add_Customer">اضافة عميل</string>
@@ -50,8 +50,7 @@
     <string name="disc">الخصم</string>
     <string name="tootla">الاجمالي</string>
     <string name="qty">الكمية</string>
-
-
-
+    <string name="Edit_qty">تعديل كمية الاصناف</string>
+    <string name="There_are_no_items">لايوجد أصناف بالفاتورة</string>
 
 </resources>

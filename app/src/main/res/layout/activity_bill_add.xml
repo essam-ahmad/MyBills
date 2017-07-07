@@ -8,47 +8,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.e3.mybills.BillAddActivity"
     tools:showIn="@layout/app_bar_bill">
-    <android.support.design.widget.AppBarLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:theme="@style/AppTheme.AppBarOverlay">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="?attr/actionBarSize"
-            android:dividerPadding="8dp"
-            android:orientation="horizontal"
-            android:showDividers="end">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/toolbar_save"
-                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="10dp"
-                android:gravity="right"
-                android:text="Save"
-                app:backgroundTint="@color/colorPrimary"
-                app:fabSize="mini"
-                app:srcCompat="@drawable/ic_save_black_24dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="15dp"
-                android:height="30dp"
-                android:gravity="left"
-                android:text="@string/Add_New_Bil"
-                android:textColor="@android:color/white"
-                android:textSize="24sp" />
-
-
-
-
-
-        </RelativeLayout>
-
-    </android.support.design.widget.AppBarLayout>
 
     <TabHost
         android:id="@android:id/tabhost"
@@ -109,7 +68,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/C_codeOfCust"
+                        android:id="@+id/C_nameOfCust"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:height="30dp"
@@ -120,12 +79,12 @@
                         />
 
                     <TextView
-                        android:id="@+id/C_nameOfCust"
+                        android:id="@+id/C_codeOfCust"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:height="30dp"
                         android:gravity="center"
-
+                        android:textColor="@android:color/black"
                         />
                     <TextView
                         android:id="@+id/textView"
@@ -237,14 +196,21 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/tootla" />
+                        android:text="@string/tootla"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        />
                     <TextView
                         android:id="@+id/tootal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
-                         />
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+android:textColor="@android:color/black"
+                        />
                 </LinearLayout>
                 </ScrollView>
 
