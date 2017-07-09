@@ -51,13 +51,21 @@ public class Edit_Bill extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_add);
-        setTitle(getResources().getString(R.string.Add_New_Bil));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActiveTab();
         GetBillNumber();
         bill_m();
         bill_d();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetBillNumber();
+        bill_m();
+        bill_d();
+    }
+
     public void ActiveTab() {
         setTitle(R.string.Edit_Bill);
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
