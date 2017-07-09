@@ -31,16 +31,17 @@ public class BillAddActivity extends AppCompatActivity {
     TabHost tabHost;
     //region bill_m
     EditText Number, Year, date, desc, disc;
-    TextView Customer_Name, Customer_id, Total;
+    TextView Customer_Name, Customer_id, Total, NetTotal;
     RadioGroup mySelection;
-    int selectedValue=1;
+    int selectedValue = 1;
     //String idCust;
-double price,Qty,Result,Disc;
+    double price, Qty, _total, Disc;
 
-    //endregion
     public int i = 0;
     public ArrayList<bill_d> arrBill_d = new ArrayList<bill_d>();
+
     ArrayList<bill_d> item = new ArrayList<bill_d>();
+    ArrayList<Double> itemresult = new ArrayList<Double>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +53,14 @@ double price,Qty,Result,Disc;
         bill_m();
         bill_d();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.save_button_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -68,16 +71,13 @@ double price,Qty,Result,Disc;
             String Desc = desc.getText().toString();
             String Disc = disc.getText().toString();
             setDefaultValuesIfNull();
-            if (checkData(Bill_no, year, Date)) {
+            if (checkData(Bill_no, year, Date, _total)) {
                 DataManager dataManager = new DataManager(BillAddActivity.this);
                 long Bill_seq = dataManager.addBill_m(year, Bill_no, String.valueOf(selectedValue), Date,
                         String.valueOf(Customer_id.getText()), Disc, Desc, Total.getText().toString());
                 if (Bill_seq != -1) {
                     for (int m = 0; m < arrBill_d.size(); m++) {
-                        arrBill_d.get(m).get_col_bill_d_seq();
-                        arrBill_d.get(m).get_col_itm_code();
-                        arrBill_d.get(m).get_col_itm_price();
-                        arrBill_d.get(m).get_col_itm_qty();
+
                         dataManager.addBill_d(String.valueOf(Bill_seq), year, Bill_no,
                                 arrBill_d.get(m).get_col_bill_d_seq(),
                                 arrBill_d.get(m).get_col_itm_code(),
@@ -92,7 +92,8 @@ double price,Qty,Result,Disc;
                     Toast.makeText(getBaseContext(), R.string.The_number_already_exists, Toast.LENGTH_LONG).show();
                 }
             }
-        } if (id == android.R.id.home) {
+        }
+        if (id == android.R.id.home) {
             finish();
         }
         return false;
@@ -113,6 +114,7 @@ double price,Qty,Result,Disc;
     }
 
     public void bill_m() {
+
         mySelection = (RadioGroup) findViewById(R.id.radiogruop);
         mySelection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -120,12 +122,10 @@ double price,Qty,Result,Disc;
                 switch (checkedId) {
                     case R.id.radioButton7:
                         selectedValue = 1;
-                        Toast.makeText(getBaseContext(), String.valueOf(selectedValue), Toast.LENGTH_LONG).show();
 
                         break;
                     case R.id.radioButton8:
                         selectedValue = 2;
-                        Toast.makeText(getBaseContext(), String.valueOf(selectedValue), Toast.LENGTH_LONG).show();
                         break;
                 }
             }
@@ -138,6 +138,7 @@ double price,Qty,Result,Disc;
         date = (EditText) findViewById(R.id.date);
         desc = (EditText) findViewById(R.id.desc);
         disc = (EditText) findViewById(R.id.disc);
+        Total = (TextView) findViewById(R.id.tootal);
         //region on click disc
         disc.addTextChangedListener(new TextWatcher() {
             @Override
@@ -147,36 +148,38 @@ double price,Qty,Result,Disc;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if ( disc.getText().toString().trim().length() >Result){
-                    disc.setError("الخصم اكبر من الاجمالي");
-                    Total=(TextView)findViewById(R.id.tootal);
-                    Total.setText(Result+"");
-                }else {
-                if (disc.getText().toString().trim().length() == 0) {
-                    return;
-                }if (disc.getText().toString().trim().length() > 0){
-                    Disc= Double.parseDouble(String.valueOf(s));
-                    Total=(TextView)findViewById(R.id.tootal);
-                    Total.setText("0");
-                    Total.setText(Result-Disc+"");}}
-
-
+                 _total = Double.parseDouble(Total.getText().toString());
+                if (disc.getText().toString().trim().length() > 0) {
+                    if (Double.parseDouble(disc.getText().toString()) > _total) {
+                        disc.setError(getResources().getString(R.string.The_discount_is_large));
+                        NetTotal = (TextView) findViewById(R.id.NetTotal);
+                        NetTotal.setText(_total + "");
+                    } else {
+                        if (disc.getText().toString().trim().length() > 0) {
+                            Disc = Double.parseDouble(String.valueOf(s));
+                            NetTotal = (TextView) findViewById(R.id.NetTotal);
+                            NetTotal.setText("0");
+                            NetTotal.setText(_total - Disc + "");
+                        }
+                    }
+                } else if (disc.getText().toString().isEmpty()) {
+                    NetTotal = (TextView) findViewById(R.id.NetTotal);
+                    NetTotal.setText("0");
+                    NetTotal.setText(_total + "");
+                }
             }
-
-
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
             }
         });
 //endregion
-        Number.setText(new DataManager(this).Get_Bill_No()+1+"");
+        Number.setText(new DataManager(this).Get_Bill_No() + 1 + "");
         Year.setText(Get_Year);
         date.setText(Get_Date);
         Customer_Name = (TextView) findViewById(R.id.C_nameOfCust);
         Customer_id = (TextView) findViewById(R.id.C_codeOfCust);
+        Total.setText("0");
 
         Customer_Name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +202,14 @@ double price,Qty,Result,Disc;
                 startActivityForResult(i, 1);
             }
         });
+    }
+
+    public void getTotal(String ItemPrice, String ItemQty) {
+        price = Double.parseDouble(ItemPrice);
+        Qty = Double.parseDouble(ItemQty);
+        Total = (TextView) findViewById(R.id.tootal);
+        Total.setText(String.valueOf(Double.parseDouble(Total.getText().toString()) + (price * Qty)));
+//Result=Double.parseDouble(Total.getText().toString())+(price*Qty);
     }
 
     @Override
@@ -237,23 +248,28 @@ double price,Qty,Result,Disc;
                 }
             });
             //endregion
-            price= Double.parseDouble(ItemPrice);
-            Qty= Double.parseDouble(ItemQty);
-            Result = price*Qty;
-            Total=(TextView)findViewById(R.id.tootal);
-            Total.setText("0");
-            Total.setText(Result+"");
-
+            //price= Double.parseDouble(ItemPrice);
+            //Qty= Double.parseDouble(ItemQty);
+            //Total=(TextView)findViewById(R.id.tootal);
+            //Total.setText(String.valueOf(Double.parseDouble(Total.getText().toString())+(price*Qty)));
+            getTotal(ItemPrice, ItemQty);
+            // Total.setText(Result+"");
+            /*itemresult.add(price*Qty);
+            for (int m = 0; m < itemresult.size(); m++){
+                Total=(TextView)findViewById(R.id.tootal);
+                Total.setText("0");
+               Result=itemresult.get(m);
+                Total.setText(itemresult+"");
+            }*/
             bill_d e = new bill_d();
-            e.set_col_bill_seq(ItemCode);
             e.set_col_bill_d_seq(String.valueOf(i + 1));
+            e.set_col_itm_code(ItemCode);
             e.set_col_itm_price(ItemPrice);
             e.set_col_itm_qty(ItemQty);
             e.set_col_itm_cost(String.valueOf(dummyItem.get_col_itm_cost()));
             arrBill_d.add(e);
             i++;
         } else if (((code == 2) && (result == RESULT_OK))) {
-            //idCust = data.getStringExtra("get_col_c_code");
             Customer_Name.setText(data.getStringExtra("get_col_c_name"));
             Customer_id.setText(data.getStringExtra("get_col_c_code"));
         }
@@ -268,7 +284,7 @@ double price,Qty,Result,Disc;
         }
     }
 
-    public boolean checkData(String Number_Bil, String Years, String dates) {
+    public boolean checkData(String Number_Bil, String Years, String dates, double resultToota) {
         boolean result = true;
         if (Number_Bil == null || Number_Bil.length() == 0) {
             Number.setError(getResources().getString(R.string.Please_fill));
@@ -284,6 +300,12 @@ double price,Qty,Result,Disc;
         }
         if (item.isEmpty()) {
             Toast.makeText(getBaseContext(), getResources().getString(R.string.There_are_no_items), Toast.LENGTH_LONG).show();
+            result = false;
+        }
+        if (Double.parseDouble(disc.getText().toString()) > resultToota) {
+            disc.setError(getResources().getString(R.string.The_discount_is_large));
+            Toast.makeText(getBaseContext(), R.string.The_discount_is_large, Toast.LENGTH_LONG).show();
+
             result = false;
         }
         return result;

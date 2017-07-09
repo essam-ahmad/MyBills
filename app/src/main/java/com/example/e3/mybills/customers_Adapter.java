@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +28,10 @@ public class customers_Adapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     int FromBill;
 
-    public customers_Adapter(Activity a, customers[] list,int clas) {
+    public customers_Adapter(Activity a, customers[] list, int clas) {
         activity = a;
         data = list;
-        FromBill=clas;
+        FromBill = clas;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -53,7 +54,7 @@ public class customers_Adapter extends BaseAdapter {
         if (convertView == null)
             vi = inflater.inflate(R.layout.customer_layout, null);
         TextView code = (TextView) vi.findViewById(R.id.col_c_code);
-        TextView name = (TextView) vi.findViewById(R.id.col_c_name);
+        final TextView name = (TextView) vi.findViewById(R.id.col_c_name);
         TextView phone = (TextView) vi.findViewById(R.id.col_phone);
         TextView address = (TextView) vi.findViewById(R.id.col_address);
         TextView ad_date = (TextView) vi.findViewById(R.id.col_ad_date);
@@ -82,66 +83,75 @@ public class customers_Adapter extends BaseAdapter {
             ad_date.setTextColor(Color.BLACK);
         }
         final View finalVi = vi;
-        if (FromBill==1){
+        if (FromBill == 1) {
             vi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent();
 
-                    i.putExtra("get_col_c_name",data[position].get_col_c_name());
-                    i.putExtra("get_col_c_code",data[position].get_col_c_code());
-                    activity.setResult(RESULT_OK,i);
-                activity.finish();}
+                    i.putExtra("get_col_c_name", data[position].get_col_c_name());
+                    i.putExtra("get_col_c_code", data[position].get_col_c_code());
+                    activity.setResult(RESULT_OK, i);
+                    activity.finish();
+                }
             });
-        }else {
-        vi.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
-                builder.setTitle(v.getResources().getString(R.string.alert));
-                builder.setMessage(data[position].get_col_c_code() + ":" + data[position].get_col_c_name());
-                builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(finalVi.getContext(), CustomersAddEditActivity.class);
-                        Bundle b = new Bundle();
-                        b.putString("action", "edit");
-                        b.putString("get_col_c_code", data[position].get_col_c_code());
-                        b.putString("get_col_c_name", data[position].get_col_c_name());
-                        b.putString("get_col_phone", data[position].get_col_phone());
-                        b.putString("get_col_address", data[position].get_col_address());
-                        i.putExtras(b);
-                        finalVi.getContext().startActivity(i);
-                    }
-                });
-                builder.setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(finalVi.getContext());
-                        yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
-                        yesOrNoBuilder.setMessage(data[position].get_col_c_name());
-                        yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                DataManager dataBase = new DataManager(finalVi.getContext());
-                                dataBase.deleteOneCustomer(data[position].get_col_c_code());
-                                ArrayList<customers> arrayList = new ArrayList<>(Arrays.asList(data));
-                                arrayList.remove(data[position]);
-                                data = arrayList.toArray(new customers[]{});
-                                notifyDataSetChanged();
-                            }
-                        });
-                        yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        yesOrNoBuilder.show();
-                    }
-                });
-                builder.show();
-                return true;
-            }
-        });}
+        } else {
+            vi.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
+                    builder.setTitle(v.getResources().getString(R.string.alert));
+                    builder.setMessage(data[position].get_col_c_code() + ":" + data[position].get_col_c_name());
+                    builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent i = new Intent(finalVi.getContext(), CustomersAddEditActivity.class);
+                            Bundle b = new Bundle();
+                            b.putString("action", "edit");
+                            b.putString("get_col_c_code", data[position].get_col_c_code());
+                            b.putString("get_col_c_name", data[position].get_col_c_name());
+                            b.putString("get_col_phone", data[position].get_col_phone());
+                            b.putString("get_col_address", data[position].get_col_address());
+                            i.putExtras(b);
+                            finalVi.getContext().startActivity(i);
+                        }
+                    });
+                    builder.setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(finalVi.getContext());
+                            yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
+                            yesOrNoBuilder.setMessage(data[position].get_col_c_name());
+                            yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    DataManager dataBase = new DataManager(finalVi.getContext());
+                                    bill_m result = dataBase.getBill_m_ById(null, data[position].get_col_c_code());
+                                    if (result.get_col_bill_seq() == null) {
+                                        dataBase.deleteOneCustomer(data[position].get_col_c_code());
+                                        ArrayList<customers> arrayList = new ArrayList<>(Arrays.asList(data));
+                                        arrayList.remove(data[position]);
+                                        data = arrayList.toArray(new customers[]{});
+                                        notifyDataSetChanged();
+                                        Toast.makeText(finalVi.getContext(), "تم الحذف ", Toast.LENGTH_LONG).show();
+                                    }else {
+                                        Toast.makeText(finalVi.getContext(), "لايمكن حذف العميل", Toast.LENGTH_LONG).show();
+
+                                    }
+                                }
+                            });
+                            yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            yesOrNoBuilder.show();
+                        }
+                    });
+                    builder.show();
+                    return true;
+                }
+            });
+        }
         return vi;
     }
 }

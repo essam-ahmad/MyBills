@@ -77,17 +77,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/HeaderTextColor"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="@dimen/header_width_code_Cost_price"
-                    android:layout_height="@dimen/header_height"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_header"
-                    android:text="@string/disc"
-                    android:textAlignment="center"
-                    android:textColor="@color/HeaderTextColor"
-                    android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="@dimen/header_width_code_Cost_price"
                     android:layout_height="@dimen/header_height"
@@ -97,6 +86,25 @@
                     android:textAlignment="center"
                     android:textColor="@color/HeaderTextColor"
                     android:textStyle="bold" />
+                <TextView
+                    android:layout_width="@dimen/header_width_code_Cost_price"
+                    android:layout_height="@dimen/header_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_header"
+                    android:text="@string/disc"
+                    android:textAlignment="center"
+                    android:textColor="@color/HeaderTextColor"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="@dimen/header_width_code_Cost_price"
+                    android:layout_height="@dimen/header_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_header"
+                    android:text="@string/NetTotal"
+                    android:textAlignment="center"
+                    android:textColor="@color/HeaderTextColor"
+                    android:textStyle="bold" />
+
 
                 <TextView
                     android:layout_width="@dimen/header_width_date"
