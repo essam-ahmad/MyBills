@@ -62,7 +62,33 @@ public class Edit_Bill extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         GetBillNumber();
-        bill_m();
+        if (!Customer_id.getText().equals("")){
+            Customer_Edit.setText(R.string.edit_Customer);
+            Customer_Name.setText(new DataManager(this).getCustomerById(Customer_id.getText().toString()).get_col_c_name());
+            Customer_Name.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(Edit_Bill.this);
+                    yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
+                    yesOrNoBuilder.setMessage(Customer_Name.getText());
+                    yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            Customer_Edit.setText(add_Customer);
+                            Customer_Name.setText(press_to_add_customer);
+                            Customer_id.setText("");
+                        }
+                    });
+                    yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    yesOrNoBuilder.show();
+                    return false;
+                }
+            });}
+        //bill_m();
         bill_d();
     }
 
@@ -166,32 +192,7 @@ public class Edit_Bill extends AppCompatActivity {
         Customer_id = (TextView) findViewById(R.id.C_codeOfCust);
         Customer_Edit = (TextView) findViewById(R.id.text_of_add_Cost);
         Customer_id.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_c_code());
-        if (!Customer_id.getText().equals("")){
-            Customer_Edit.setText(R.string.edit_Customer);
-            Customer_Name.setText(new DataManager(this).getCustomerById(Customer_id.getText().toString()).get_col_c_name());
-            Customer_Name.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(Edit_Bill.this);
-                    yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
-                    yesOrNoBuilder.setMessage(Customer_Name.getText());
-                    yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,
-                                            int which) {
-                            Customer_Edit.setText(add_Customer);
-                            Customer_Name.setText(press_to_add_customer);
-                            Customer_id.setText("");
-                        }
-                    });
-                    yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    yesOrNoBuilder.show();
-                    return false;
-                }
-            });}
+
         Customer_Name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
