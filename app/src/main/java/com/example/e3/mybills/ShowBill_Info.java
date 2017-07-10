@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -31,7 +30,7 @@ import java.util.Date;
 
 public class ShowBill_Info extends AppCompatActivity {
     TextView Number_Bill,Number_Customer,Name_Cust,Desc,Date_bill,Year_bill,Tybe,Disc, total,NetTotal;
-    String getBillNumber;
+    String getSeq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +93,8 @@ public class ShowBill_Info extends AppCompatActivity {
                     builder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,
                                             int which) {
-                            new DataManager(ShowBill_Info.this).deleteOneBill_m(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq());
-                            new DataManager(ShowBill_Info.this).deleteOneBill_d(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq());
+                            new DataManager(ShowBill_Info.this).deleteOneBill_m(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_seq());
+                            new DataManager(ShowBill_Info.this).deleteOneBill_d(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_seq());
                             finish();
                             Toast.makeText(ShowBill_Info.this, getResources().getString(R.string.delete)+"...", Toast.LENGTH_LONG).show();
 
@@ -119,7 +118,7 @@ public class ShowBill_Info extends AppCompatActivity {
         }if (id == R.id.update){
             Intent No = new Intent(ShowBill_Info.this,Edit_Bill.class);
             Bundle b = new Bundle();
-            b.putString("ID_BIL",getBillNumber);
+            b.putString("ID_BIL", getSeq);
             No.putExtras(b);
             startActivity(No);
         }if (id == R.id.Print){
@@ -138,24 +137,24 @@ public class ShowBill_Info extends AppCompatActivity {
     }
     public void GetBillNumber(){
        Bundle BillNO = getIntent().getExtras();
-      getBillNumber= BillNO.getString("Number_bill");
+      getSeq = BillNO.getString("Number_bill");
     }
     public void GetDataFromDb(){
-        Number_Bill.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_no());
-        Number_Customer.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_c_code());
+        Number_Bill.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_no());
+        Number_Customer.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_c_code());
         if (!Number_Customer.getText().equals("")){
             Name_Cust.setText(new DataManager(this).getCustomerById(String.valueOf(Number_Customer.getText())).get_col_c_name());}
-        Desc.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_desc());
-        Date_bill.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_date());
-        Year_bill.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_yr());
-        if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_type()) == 1) {
+        Desc.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_desc());
+        Date_bill.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_date());
+        Year_bill.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_yr());
+        if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_type()) == 1) {
             Tybe.setText(R.string.cash);
-        } else if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_type())==2) {
+        } else if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_type())==2) {
             Tybe.setText(R.string.credit);
 
         }
-        Disc.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_disc_amt());
-        total.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_amt());
+        Disc.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_disc_amt());
+        total.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_amt());
         if (Disc.getText().length()==0){
             Disc.setText("0");
             NetTotal.setText(total.getText().toString()+"");
@@ -164,7 +163,7 @@ public class ShowBill_Info extends AppCompatActivity {
             NetTotal.setText(_nettotal+"");}
     }
     public void GetAllBill_d(){
-         final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(getBillNumber));
+         final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(getSeq));
          final ListView list = (ListView) findViewById(R.id.All_bill_d);
         list.setAdapter(bill_d);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -183,12 +182,12 @@ public class ShowBill_Info extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(ShowBill_Info.this);
-                        builder.setTitle(getResources().getString(R.string.AlertDialog_Title_delete )+ new DataManager(ShowBill_Info.this).Get_Bill_d_ById(Integer.parseInt(getBillNumber)).get_col_itm_name());
+                        builder.setTitle(getResources().getString(R.string.AlertDialog_Title_delete )+ new DataManager(ShowBill_Info.this).Get_Bill_d_ById(Integer.parseInt(getSeq)).get_col_itm_name());
                         builder.setMessage(R.string.You_will_not_be_able_to_retrieve);
                         builder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                                new DataManager(ShowBill_Info.this).deleteOneBill_d(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq(),new DataManager(ShowBill_Info.this).Get_Bill_d_ById(Integer.parseInt(getBillNumber)).get_col_bill_d_seq());
+                                new DataManager(ShowBill_Info.this).deleteOneBill_d(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getSeq)).get_col_bill_seq(),new DataManager(ShowBill_Info.this).Get_Bill_d_ById(Integer.parseInt(getSeq)).get_col_bill_d_seq());
                                 Toast.makeText(ShowBill_Info.this, getResources().getString(R.string.delete)+"...", Toast.LENGTH_LONG).show();
                                 list.setAdapter(bill_d);
 
@@ -216,7 +215,7 @@ public class ShowBill_Info extends AppCompatActivity {
     public void createpdf() throws FileNotFoundException, DocumentException {
 
 PdfCreator pdfCreator =new PdfCreator();
-        File pdfFolder = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)));
+        File pdfFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),"bill");
         pdfCreator.initializeFonts();
 
         //this.f = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/tahoma.ttf");
@@ -234,13 +233,15 @@ PdfCreator pdfCreator =new PdfCreator();
         document.setMargins(10.0F, 10.0F, 40.0F, 200.0F);
         document.setMarginMirroring(false);
         PdfWriter writer = PdfWriter.getInstance(document, output);
-     String nameCust=   new DataManager(this).getCustomerById(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_c_code()).get_col_c_name();
+
+        String nameCust=new DataManager(this).getCustomerById("1").get_col_c_name();
+        bill_d bill_d[] = new DataManager(this).getAllBill_d(getSeq);
         document.open();
         document.add(pdfCreator.addres());
         document.add(pdfCreator.pdfPTableheader());
         document.add(pdfCreator.tabbleOfinfocost(nameCust));
         document.add(pdfCreator.createheaderOftble());
-        document.add(pdfCreator.itemsTable());
+        document.add(pdfCreator.itemsTable(bill_d));
         document.add(pdfCreator.lowertable());
         document.close();
         Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file);

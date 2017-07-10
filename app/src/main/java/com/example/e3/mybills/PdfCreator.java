@@ -20,7 +20,7 @@ import com.itextpdf.text.pdf.PdfPTable;
  * Created by EBRHEEM on 7/10/2017.
  */
 
-public class PdfCreator extends AppCompatActivity {
+public class PdfCreator {
     int direction;
     Font font;
     String f = "";
@@ -34,8 +34,10 @@ public class PdfCreator extends AppCompatActivity {
     double totalAmount = 0.0D;
     ArrayList<ArrayList<String>> listdata = new ArrayList();
     ArrayList<String> localArrayList = new ArrayList();
+
     public void initializeFonts() {
-        try {        this.f = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/tahoma.ttf");
+        try {
+            this.f = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/tahoma.ttf");
             this.font = FontFactory.getFont(this.f, "Identity-H", true, 12.0F, 1, BaseColor.BLACK);
             BaseFont.createFont().correctArabicAdvance();
             this.bfBold = this.font.getBaseFont();
@@ -50,7 +52,8 @@ public class PdfCreator extends AppCompatActivity {
             localIOException.printStackTrace();
         }
     }
-   // ShowBill_Info getSq = new ShowBill_Info();
+
+    // ShowBill_Info getSq = new ShowBill_Info();
     //DataManager dataManager = new DataManager(PdfCreator.this);
     //معلومات المشتري
     public PdfPTable tabbleOfinfocost(String nameCust) {
@@ -61,7 +64,7 @@ public class PdfCreator extends AppCompatActivity {
         ((PdfPCell) localObject4).setHorizontalAlignment(0);
         ((PdfPCell) localObject4).setBorder(0);
         ((PdfPCell) localObject4).setColspan(1);
-        Object localObject3 = new PdfPCell(new Paragraph(new Phrase("اسم العميل"+":"+nameCust, this.font)));
+        Object localObject3 = new PdfPCell(new Paragraph(new Phrase("اسم العميل" + ":" + nameCust, this.font)));
         ((PdfPCell) localObject3).setHorizontalAlignment(2);
         ((PdfPCell) localObject3).setBorder(0);
         ((PdfPCell) localObject3).setColspan(1);
@@ -219,14 +222,35 @@ public class PdfCreator extends AppCompatActivity {
         return localPdfPTable;
     }
 
-    public PdfPTable itemsTable() {
+    public PdfPTable itemsTable(bill_d data[]) {
         PdfPTable mainLocalPdfPTable = new PdfPTable(1);
         mainLocalPdfPTable.setRunDirection(3);
         mainLocalPdfPTable.setWidthPercentage(100.0F);
         int j;
         int i;
-
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < data.length; i++) {
+            PdfPTable localPdfPTable = new PdfPTable(PdfCreator.this.dataHeader.size());
+            mainLocalPdfPTable.setRunDirection(3);
+            mainLocalPdfPTable.setWidthPercentage(100.0F);
+            Object localObject1 = new PdfPCell(new Phrase(data[i].get_col_itm_code(), PdfCreator.this.font));
+            ((PdfPCell) localObject1).setHorizontalAlignment(1);
+            Object localObject2 = new PdfPCell(new Phrase(data[i].get_col_itm_name(), PdfCreator.this.font));
+            ((PdfPCell) localObject2).setRunDirection(3);
+            ((PdfPCell) localObject2).setHorizontalAlignment(1);
+            Object localObject3 = new PdfPCell(new Phrase(data[i].get_col_itm_qty(), PdfCreator.this.font));
+            ((PdfPCell) localObject3).setHorizontalAlignment(1);
+            Object localObject4 = new PdfPCell(new Phrase(data[i].get_col_itm_price(), PdfCreator.this.font));
+            ((PdfPCell) localObject4).setHorizontalAlignment(1);
+            Object localObject5 = new PdfPCell(new Phrase(String.valueOf(Double.parseDouble(data[i].get_col_itm_price()) * Double.parseDouble(data[i].get_col_itm_qty())), PdfCreator.this.font));
+            ((PdfPCell) localObject5).setHorizontalAlignment(1);
+            localPdfPTable.addCell((PdfPCell) localObject5);
+            localPdfPTable.addCell((PdfPCell) localObject4);
+            localPdfPTable.addCell((PdfPCell) localObject3);
+            localPdfPTable.addCell((PdfPCell) localObject2);
+            localPdfPTable.addCell((PdfPCell) localObject1);
+            mainLocalPdfPTable.addCell(localPdfPTable);
+        }
+        /*for (i = 1; i < data.length; i++) {
             PdfPTable localPdfPTable = new PdfPTable(PdfCreator.this.dataHeader.size());
             mainLocalPdfPTable.setRunDirection(3);
             mainLocalPdfPTable.setWidthPercentage(100.0F);
@@ -237,6 +261,8 @@ public class PdfCreator extends AppCompatActivity {
             }
             mainLocalPdfPTable.addCell(localPdfPTable);
         }
+        */
+
         return mainLocalPdfPTable;
     }
 

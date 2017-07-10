@@ -24,7 +24,7 @@ public class DataManager extends SQLiteOpenHelper {
     private static final String tbn_customers = "customers";
     private static final String tbn_items = "items";
     private static final String tbN_bill_m = "bill_m";
-    private static final String tbN_bill_d = "adbBill_d";
+    private static final String tbN_bill_d = "Bill_d";
 
     private static final String col_c_code = "c_code";
     private static final String col_c_name = "c_name";
