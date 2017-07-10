@@ -51,6 +51,15 @@
     <string name="qty">qty</string>
     <string name="Edit_qty">Edit qty Items</string>
     <string name="There_are_no_items">There are no items in the invoice</string>
+    <string name="Show_Bill_Info">Bill Info</string>
+    <string name="Items_For_Bill">Items Of Bill</string>
+    <string name="The_discount_is_large">The discount is larger than the total</string>
+    <string name="You_will_not_be_able_to_retrieve">You will not be able to retrieve the invoice and items after deletion</string>
+    <string name="Edit_Bill">Edit Bill</string>
+    <string name="NetTotal">Net Total</string>
+
+
+
 
 
 </resources>

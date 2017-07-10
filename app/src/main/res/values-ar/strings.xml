@@ -52,5 +52,12 @@
     <string name="qty">الكمية</string>
     <string name="Edit_qty">تعديل كمية الاصناف</string>
     <string name="There_are_no_items">لايوجد أصناف بالفاتورة</string>
+    <string name="Show_Bill_Info">معلومات الفاتورة</string>
+    <string name="Items_For_Bill">الاصناف الخاصة بالفاتورة</string>
+    <string name="The_discount_is_large">الخصم اكبر من الاجمالي</string>
+    <string name="You_will_not_be_able_to_retrieve">لن تتمكن من استرجاع الفاتورة و الاصناف بعد الحذف</string>
+    <string name="Edit_Bill">تعديل الفاتورة</string>
+    <string name="NetTotal">الصافي</string>
+
 
 </resources>

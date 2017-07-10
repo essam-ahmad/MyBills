@@ -23,8 +23,14 @@ import java.util.Arrays;
 public class Bill_d_Adabter extends BaseAdapter {
     private Activity activity;
     private ArrayList<bill_d> data;
+    //private bill_d[] data2;
     private static LayoutInflater inflater = null;
-
+    public Bill_d_Adabter(Activity a, bill_d list[]) {
+        activity = a;
+        //data2 = list;
+        data = new ArrayList<>(Arrays.asList(list));
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
     public Bill_d_Adabter(Activity a, ArrayList<bill_d> list) {
         activity = a;
         data = list;
@@ -65,7 +71,6 @@ public class Bill_d_Adabter extends BaseAdapter {
         double result = price * qty;
         col_ad_Total.setText(result + "");
         if (position % 2 == 0) {
-            //noinspection ResourceAsColor
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
             col_itm_code.setTextColor(Color.BLACK);
             col_itm_name.setTextColor(Color.BLACK);
@@ -74,7 +79,6 @@ public class Bill_d_Adabter extends BaseAdapter {
             col_itm_price.setTextColor(Color.BLACK);
             col_ad_Total.setTextColor(Color.BLACK);
         } else {
-            //noinspection ResourceAsColor
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
             col_itm_code.setTextColor(Color.BLACK);
             col_itm_name.setTextColor(Color.BLACK);

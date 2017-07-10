@@ -126,11 +126,19 @@ public class items_Adapter extends BaseAdapter {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 DataManager dataBase = new DataManager(finalVi.getContext());
+                                bill_d result = dataBase.Get_Bill_d_ById(null, String.valueOf(data[position].get_col_itm_code()));
+                                if (result.get_col_bill_seq() == null) {
                                 dataBase.deleteOneItem(data[position].get_col_itm_code());
                                 ArrayList<items> arrayList = new ArrayList<>(Arrays.asList(data));
                                 arrayList.remove(data[position]);
                                 data = arrayList.toArray(new items[]{});
                                 notifyDataSetChanged();
+                                    Toast.makeText(finalVi.getContext(), "تم الحذف ", Toast.LENGTH_LONG).show();
+
+                                }else {
+                                    Toast.makeText(finalVi.getContext(), "لايمكن حذف الصنف لارتباطة بفاتورة", Toast.LENGTH_LONG).show();
+
+                                }
                             }
                         });
                         yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {

@@ -11,7 +11,9 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 import android.util.Log;
+
 
 public class DataManager extends SQLiteOpenHelper {
     //region create the database ,tables and columns
@@ -524,6 +526,44 @@ public class DataManager extends SQLiteOpenHelper {
 
     }
 
+    public bill_m getBill_m_ById(int id) {
+        return getBill_m_ById(String.valueOf(id),"");
+    }
+
+    public bill_m getBill_m_ById(@Nullable String id, String customer_id) {
+        String _where ="";
+        String query = "SELECT " + col_bill_seq + "," +
+                col_bill_yr + "," +
+                col_bill_no + "," +
+                col_bill_type + "," +
+                col_bill_date + "," +
+                col_c_code + "," +
+                col_disc_amt + "," +
+                col_desc + "," +
+                col_bill_amt +
+                " FROM " + tbN_bill_m+
+                " where 1=1 " ;
+        if (id != null && id.length() > 0) {
+            _where= " and " + col_bill_seq + " = " + id;
+        }
+        if (customer_id !=null && customer_id.length() > 0) {
+            _where= _where + " and " + col_c_code + " = " + customer_id;
+        }
+        query = query + _where;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        bill_m bill_m = null;
+        if (cursor.moveToFirst()) {
+            bill_m = new bill_m(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
+                    , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+        } else {
+            bill_m = new bill_m();
+            bill_m.set_col_bill_no("-1");
+            bill_m.set_col_desc(col_bill_no + " " + id + " Not found");
+        }
+        return bill_m;
+    }
+
     public bill_m[] SearchBill_m(String id) {
         bill_m list[] = null;
         String query = "SELECT " + col_bill_seq + "," +
@@ -655,6 +695,7 @@ public class DataManager extends SQLiteOpenHelper {
         return list;
     }
 
+
     public bill_d[] SearchBill_d(String id, String bill_d_seq) {
         bill_d list[] = null;
         String query = "SELECT " + col_bill_seq + "," +
@@ -684,7 +725,54 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return list;
     }
+    public bill_d Get_Bill_d_ById(int id) {
+        return Get_Bill_d_ById(String.valueOf(id),"");
+    }
+    public bill_d Get_Bill_d_ById(@Nullable String id, String items_id) {
+        String _where ="";
+        String query = "SELECT " + col_bill_seq + "," +
+                col_bill_yr + "," +
+                col_bill_no + "," +
+                col_bill_d_seq + "," +
+                col_itm_code + "," +
+                col_itm_price + "," +
+                col_itm_cost + "," +
+                col_itm_qty +
+                " FROM " + tbN_bill_d +
+                " where 1=1 " ;
+        if (id != null && id.length() > 0) {
+            _where= " and " + col_bill_seq + " = " + id;
+        }
+        if (items_id !=null && items_id.length() > 0) {
+            _where= _where + " and " + col_itm_code + " = " + items_id;
+        }
+        query = query + _where;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        bill_d bill_d = null;
+        if (cursor.moveToFirst()) {
+            bill_d = new bill_d(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)
+                    , cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)
+                    , getItemById(Integer.parseInt(cursor.getString(4))).get_col_itm_name());
+        } else {
+            bill_d = new bill_d();
+            bill_d.set_col_bill_no("-1");
+            bill_d.set_col_itm_name(col_bill_no + " " + id + " Not found");
+        }
+        return bill_d;
+    }
 
+    public int Get_Bill_d_No() {
+        int id = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(" + col_bill_no + ") FROM " + tbN_bill_d, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+        return id;
+
+    }
 
 /*    ggaddbill_m
             addbill_d
