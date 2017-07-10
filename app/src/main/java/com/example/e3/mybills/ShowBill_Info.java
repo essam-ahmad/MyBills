@@ -188,7 +188,7 @@ public class ShowBill_Info extends AppCompatActivity {
                         builder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
-                               // new DataManager(ShowBill_Info.this).deleteOneBill_d(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq());
+                                new DataManager(ShowBill_Info.this).deleteOneBill_d(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq(),new DataManager(ShowBill_Info.this).Get_Bill_d_ById(Integer.parseInt(getBillNumber)).get_col_bill_d_seq());
                                 Toast.makeText(ShowBill_Info.this, getResources().getString(R.string.delete)+"...", Toast.LENGTH_LONG).show();
                                 list.setAdapter(bill_d);
 
@@ -240,15 +240,10 @@ PdfCreator pdfCreator =new PdfCreator();
         document.add(pdfCreator.pdfPTableheader());
         document.add(pdfCreator.tabbleOfinfocost(nameCust));
         document.add(pdfCreator.createheaderOftble());
-        //int k;
-        //for (k = 0; k < 2; k++) {
-        //  document.add(itemsTable());
-        //}
         document.add(pdfCreator.itemsTable());
         document.add(pdfCreator.lowertable());
         document.close();
         Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file);
-        //Uri photoURI = FileProvider.getUriForFile(ShwoBillInfo.this, BuildConfig.APPLICATION_ID+ ".provider", file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/pdf");
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

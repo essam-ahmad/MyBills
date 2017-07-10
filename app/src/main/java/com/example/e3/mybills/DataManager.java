@@ -24,7 +24,7 @@ public class DataManager extends SQLiteOpenHelper {
     private static final String tbn_customers = "customers";
     private static final String tbn_items = "items";
     private static final String tbN_bill_m = "bill_m";
-    private static final String tbN_bill_d = "bill_d";
+    private static final String tbN_bill_d = "adbBill_d";
 
     private static final String col_c_code = "c_code";
     private static final String col_c_name = "c_name";
@@ -408,7 +408,7 @@ public class DataManager extends SQLiteOpenHelper {
             item.set_col_address(cursor.getString(4));
         } else {
             item = new customers();
-            //item.set_col_c_code( );
+            //items.set_col_c_code( );
             item.set_col_c_name(col_c_code + " " + id + " Not found");
         }
         return item;

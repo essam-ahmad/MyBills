@@ -33,13 +33,13 @@ public class Edit_Bill extends AppCompatActivity {
     TextView Customer_Name, Customer_id, Total, Customer_Edit;
     RadioGroup mySelection;
     int selectedValue;
-    double price,Qty,Result,Disc;
-    String getBillNumber;
+    double price, Qty, Result, Disc;
+    String BillSeq;
     public int i = 0;
-    public ArrayList<bill_d> arrBill_d = new ArrayList<bill_d>();
+    //public ArrayList<adbBill_d> arrBill_d = new ArrayList<adbBill_d>();
     ListView list;
-    Bill_d_Adapter bill_d;
-    ArrayList<bill_d> item = new ArrayList<bill_d>();
+    Bill_d_Adapter adbBill_d;
+    ArrayList<bill_d> items = new ArrayList<bill_d>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class Edit_Bill extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         GetBillNumber();
-        if (!Customer_id.getText().equals("")){
+        if (!Customer_id.getText().equals("")) {
             Customer_Edit.setText(R.string.edit_Customer);
             Customer_Name.setText(new DataManager(this).getCustomerById(Customer_id.getText().toString()).get_col_c_name());
             Customer_Name.setOnLongClickListener(new View.OnLongClickListener() {
@@ -81,7 +81,8 @@ public class Edit_Bill extends AppCompatActivity {
                     yesOrNoBuilder.show();
                     return false;
                 }
-            });}
+            });
+        }
         bill_d();
     }
 
@@ -99,17 +100,20 @@ public class Edit_Bill extends AppCompatActivity {
         tabHost.addTab(Bill_d);
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.save_button_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem iteme) {
         int id = iteme.getItemId();
-    if (id == android.R.id.home) {
-        finish();
-    } if (id == R.id.Save_bill){
+        if (id == android.R.id.home) {
+            finish();
+        }
+        if (id == R.id.Save_bill) {
             String Bill_no = Number.getText().toString();
             String year = Year.getText().toString();
             String Date = date.getText().toString();
@@ -117,39 +121,39 @@ public class Edit_Bill extends AppCompatActivity {
             String Disc = disc.getText().toString();
             if (checkData(Bill_no, year, Date)) {
                 DataManager dataManager = new DataManager(Edit_Bill.this);
-              dataManager.UpdateBill_m(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq(),year, Bill_no, String.valueOf(selectedValue), Date,
+                dataManager.UpdateBill_m(new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_seq(), year, Bill_no, String.valueOf(selectedValue), Date,
                         String.valueOf(Customer_id.getText()), Disc, Desc, "100");
-                if (item.isEmpty()) {
+                if (items.isEmpty()) {
                     Toast.makeText(getBaseContext(), "تعديل البيل دي", Toast.LENGTH_LONG).show();
                     finish();
-                }else {
-                    if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq()) != -1) {
+                } else {
+                    if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_seq()) != -1) {
 
-                        for (int m = 0; m < arrBill_d.size(); m++) {
+                        for (int m = 0; m < items.size(); m++) {
 
-                            dataManager.addBill_d(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq(), year,String.valueOf(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_no()) ,
-                                    arrBill_d.get(m).get_col_bill_d_seq(),
-                                    arrBill_d.get(m).get_col_itm_code(),
-                                    arrBill_d.get(m).get_col_itm_price(),
-                                    arrBill_d.get(m).get_col_itm_cost(),
-                                    arrBill_d.get(m).get_col_itm_qty());
+                            dataManager.addBill_d(new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_seq(), year, String.valueOf(new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_no()),
+                                    items.get(m).get_col_bill_d_seq(),
+                                    items.get(m).get_col_itm_code(),
+                                    items.get(m).get_col_itm_price(),
+                                    items.get(m).get_col_itm_cost(),
+                                    items.get(m).get_col_itm_qty());
                         }
                         Toast.makeText(getBaseContext(), R.string.Done_Adding, Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
 
+            }
+        }
+        return false;
     }
-    }
-        return false; }
 
     public void bill_m() {
-        selectedValue= Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_type());
+        selectedValue = Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_type());
         mySelection = (RadioGroup) findViewById(R.id.radiogruop);
-        if (selectedValue == 1){
+        if (selectedValue == 1) {
             mySelection.check(R.id.radioButton7);
-        }
-        else {
+        } else {
             mySelection.check(R.id.radioButton8);
         }
         mySelection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -174,26 +178,27 @@ public class Edit_Bill extends AppCompatActivity {
         date = (EditText) findViewById(R.id.date);
         desc = (EditText) findViewById(R.id.desc);
         disc = (EditText) findViewById(R.id.disc);
-        Number.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_no());
-        Year.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_yr());
-        date.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_date());
-        desc.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_desc());
-        disc.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_disc_amt());
-        Customer_Name = (TextView) findViewById(R.id.C_nameOfCust);
         Customer_id = (TextView) findViewById(R.id.C_codeOfCust);
+        Customer_Name = (TextView) findViewById(R.id.C_nameOfCust);
         Customer_Edit = (TextView) findViewById(R.id.text_of_add_Cost);
-        Customer_id.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_c_code());
+        bill_m bill_m = new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq));
+        Number.setText(bill_m.get_col_bill_no());
+        Year.setText(bill_m.get_col_bill_yr());
+        date.setText(bill_m.get_col_bill_date());
+        desc.setText(bill_m.get_col_desc());
+        disc.setText(bill_m.get_col_disc_amt());
+        Customer_id.setText(bill_m.get_col_c_code());
         Customer_Name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Edit_Bill.this, customersActivity.class);
                 i.putExtra("ImFromBillAdd", 1);
                 startActivityForResult(i, 2);
-
             }
         });
 
     }
+
     public void bill_d() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.Add_item_to_bill_d);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -204,14 +209,21 @@ public class Edit_Bill extends AppCompatActivity {
                 startActivityForResult(i, 1);
             }
         });
-          bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq()));
-         list = (ListView) findViewById(R.id.listView_bill_d);
-        list.setAdapter(bill_d);
+
+        adbBill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(BillSeq));
+        list = (ListView) findViewById(R.id.listView_bill_d);
+        list.setAdapter(adbBill_d);
+        for (int m = 0; m < items.size(); m++) {
+
+        }
+
     }
-    public void GetBillNumber(){
+
+    public void GetBillNumber() {
         Bundle b = getIntent().getExtras();
-        getBillNumber= b.getString("ID_BIL");
+        BillSeq = b.getString("ID_BIL");
     }
+
     @Override
     public void onActivityResult(int code, int result, final Intent data) {
         if ((code == 1) && (result == RESULT_OK)) {
@@ -220,23 +232,35 @@ public class Edit_Bill extends AppCompatActivity {
             String ItemPrice = data.getExtras().getString("ItemPrice");
             DataManager dataBase = new DataManager(Edit_Bill.this);
             items dummyItem = dataBase.getItemById(Integer.parseInt(ItemCode));
-            item.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name()));
-            bill_d = new Bill_d_Adapter(this, item);
-
-           final ListView list = (ListView) findViewById(R.id.listView_bill_d_Edit);
-            list.setAdapter(bill_d);
+            items.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name()));
+            adbBill_d = new Bill_d_Adapter(this, items);
+            final ListView list = (ListView) findViewById(R.id.listView_bill_d_Edit);
+            list.setAdapter(adbBill_d);
+            price = Double.parseDouble(ItemPrice);
+            Qty = Double.parseDouble(ItemQty);
+            Total = (TextView) findViewById(R.id.tootal);
+            Total.setText("0");
+            Total.setText(Result + "");
+//            adbBill_d e = new adbBill_d();
+//            e.set_col_bill_d_seq(String.valueOf(i + 1));
+//            e.set_col_itm_code(ItemCode);
+//            e.set_col_itm_price(ItemPrice);
+//            e.set_col_itm_qty(ItemQty);
+//            e.set_col_itm_cost(String.valueOf(dummyItem.get_col_itm_cost()));
+//            //arrBill_d.add(e);
+            i++;
             //region on click list view
             list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                     AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(Edit_Bill.this);
                     yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
-                    yesOrNoBuilder.setMessage(item.get(position).get_col_itm_name());
+                    yesOrNoBuilder.setMessage(items.get(position).get_col_itm_name());
                     yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,
                                             int which) {
-                            item.remove(position);
-                            list.setAdapter(bill_d);
+                            items.remove(position);
+                            list.setAdapter(adbBill_d);
                         }
                     });
                     yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -249,19 +273,7 @@ public class Edit_Bill extends AppCompatActivity {
                 }
             });
             //endregion
-            price= Double.parseDouble(ItemPrice);
-            Qty= Double.parseDouble(ItemQty);
-            Total=(TextView)findViewById(R.id.tootal);
-            Total.setText("0");
-           Total.setText(Result+"");
-            bill_d e = new bill_d();
-            e.set_col_bill_d_seq(String.valueOf(i + 1));
-            e.set_col_itm_code(ItemCode);
-            e.set_col_itm_price(ItemPrice);
-            e.set_col_itm_qty(ItemQty);
-            e.set_col_itm_cost(String.valueOf(dummyItem.get_col_itm_cost()));
-            arrBill_d.add(e);
-            i++;
+
         } else if (((code == 2) && (result == RESULT_OK))) {
             Customer_Name.setText(data.getStringExtra("get_col_c_name"));
             Customer_id.setText(data.getStringExtra("get_col_c_code"));
@@ -269,6 +281,7 @@ public class Edit_Bill extends AppCompatActivity {
 
         }
     }
+
     public boolean checkData(String Number_Bil, String Years, String dates) {
         boolean result = true;
         if (Number_Bil == null || Number_Bil.length() == 0) {

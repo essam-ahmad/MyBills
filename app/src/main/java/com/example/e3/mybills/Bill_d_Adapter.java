@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class Bill_d_Adapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<bill_d> data;
-    //private bill_d[] data2;
+    //private adbBill_d[] data2;
     private static LayoutInflater inflater = null;
     public Bill_d_Adapter(Activity a, bill_d list[]) {
         activity = a;
