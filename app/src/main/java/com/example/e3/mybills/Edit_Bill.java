@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +17,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import static com.example.e3.mybills.R.string.add_Customer;
 import static com.example.e3.mybills.R.string.press_to_add_customer;
@@ -38,13 +33,12 @@ public class Edit_Bill extends AppCompatActivity {
     TextView Customer_Name, Customer_id, Total, Customer_Edit;
     RadioGroup mySelection;
     int selectedValue;
-    //String idCust;
     double price,Qty,Result,Disc;
     String getBillNumber;
     public int i = 0;
     public ArrayList<bill_d> arrBill_d = new ArrayList<bill_d>();
     ListView list;
-    Bill_d_Adabter bill_d;
+    Bill_d_Adapter bill_d;
     ArrayList<bill_d> item = new ArrayList<bill_d>();
 
     @Override
@@ -88,7 +82,6 @@ public class Edit_Bill extends AppCompatActivity {
                     return false;
                 }
             });}
-        //bill_m();
         bill_d();
     }
 
@@ -147,7 +140,6 @@ public class Edit_Bill extends AppCompatActivity {
                 }
 
     }
-
     }
         return false; }
 
@@ -182,7 +174,6 @@ public class Edit_Bill extends AppCompatActivity {
         date = (EditText) findViewById(R.id.date);
         desc = (EditText) findViewById(R.id.desc);
         disc = (EditText) findViewById(R.id.disc);
-
         Number.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_no());
         Year.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_yr());
         date.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_date());
@@ -192,7 +183,6 @@ public class Edit_Bill extends AppCompatActivity {
         Customer_id = (TextView) findViewById(R.id.C_codeOfCust);
         Customer_Edit = (TextView) findViewById(R.id.text_of_add_Cost);
         Customer_id.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_c_code());
-
         Customer_Name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,7 +204,7 @@ public class Edit_Bill extends AppCompatActivity {
                 startActivityForResult(i, 1);
             }
         });
-          bill_d = new Bill_d_Adabter(this, new DataManager(this).getAllBill_d(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq()));
+          bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_seq()));
          list = (ListView) findViewById(R.id.listView_bill_d);
         list.setAdapter(bill_d);
     }
@@ -231,7 +221,7 @@ public class Edit_Bill extends AppCompatActivity {
             DataManager dataBase = new DataManager(Edit_Bill.this);
             items dummyItem = dataBase.getItemById(Integer.parseInt(ItemCode));
             item.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name()));
-            bill_d = new Bill_d_Adabter(this, item);
+            bill_d = new Bill_d_Adapter(this, item);
 
            final ListView list = (ListView) findViewById(R.id.listView_bill_d_Edit);
             list.setAdapter(bill_d);

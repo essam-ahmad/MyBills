@@ -31,7 +31,7 @@
     <string name="Done_Adding">تمت الاضافة</string>
     <string name="The_number_already_exists">الرقم موجود مسبقا</string>
     <string name="customer_code">رقم العميل</string>
-    <string name="name">اسم العميل</string>
+    <string name="customer_name">اسم العميل</string>
     <string name="phone">التلفون</string>
     <string name="address">العنوان</string>
     <string name="add_Customer">اضافة عميل</string>
@@ -40,15 +40,15 @@
     <string name="Add_Items_for_Bill">اضافة أصناف للفاتورة</string>
     <string name="Add_New_Bil">اضافة فاتورة</string>
     <string name="Year">السنة</string>
-    <string name="number_bill">رقم الفاتورة</string>
+    <string name="bill_no">رقم الفاتورة</string>
     <string name="press_to_add_customer">اضغط هنا لاضافة عميل</string>
-    <string name="bill_tybe">نوع الفاتورة</string>
+    <string name="bill_type">نوع الفاتورة</string>
     <string name="cash">نقد</string>
-    <string name="forward">اجل</string>
+    <string name="credit">اجل</string>
     <string name="date">التاريخ</string>
     <string name="desc">البيان</string>
     <string name="disc">الخصم</string>
-    <string name="tootla">الاجمالي</string>
+    <string name="total">الاجمالي</string>
     <string name="qty">الكمية</string>
     <string name="Edit_qty">تعديل كمية الاصناف</string>
     <string name="There_are_no_items">لايوجد أصناف بالفاتورة</string>
@@ -58,6 +58,4 @@
     <string name="You_will_not_be_able_to_retrieve">لن تتمكن من استرجاع الفاتورة و الاصناف بعد الحذف</string>
     <string name="Edit_Bill">تعديل الفاتورة</string>
     <string name="NetTotal">الصافي</string>
-
-
 </resources>

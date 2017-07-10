@@ -37,7 +37,7 @@ public class BillActivity extends AppCompatActivity
         super.onResume();
         DataManager ch = new DataManager(this);
         ListView list = (ListView) findViewById(R.id.listView_item);
-        Bill_Aadabter lazy = new Bill_Aadabter(BillActivity.this, ch.getAllBill_m());
+        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m());
         list.setAdapter(lazy);
     }
 

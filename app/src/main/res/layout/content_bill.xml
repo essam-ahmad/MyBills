@@ -32,7 +32,7 @@
                     android:layout_height="@dimen/header_height"
                     android:layout_weight="1"
                     android:background="@drawable/border_header"
-                    android:text="@string/number_bill"
+                    android:text="@string/bill_no"
                     android:textAlignment="center"
                     android:textColor="@color/HeaderTextColor"
                     android:textStyle="bold" />
@@ -63,7 +63,7 @@
                     android:layout_height="@dimen/header_height"
                     android:layout_weight="1"
                     android:background="@drawable/border_header"
-                    android:text="@string/name"
+                    android:text="@string/customer_name"
                     android:textAlignment="center"
                     android:textColor="@color/HeaderTextColor"
                     android:textStyle="bold" />
@@ -73,7 +73,7 @@
                     android:layout_height="@dimen/header_height"
                     android:layout_weight="1"
                     android:background="@drawable/border_header"
-                    android:text="@string/bill_tybe"
+                    android:text="@string/bill_type"
                     android:textAlignment="center"
                     android:textColor="@color/HeaderTextColor"
                     android:textStyle="bold" />
@@ -82,7 +82,7 @@
                     android:layout_height="@dimen/header_height"
                     android:layout_weight="1"
                     android:background="@drawable/border_header"
-                    android:text="@string/tootla"
+                    android:text="@string/total"
                     android:textAlignment="center"
                     android:textColor="@color/HeaderTextColor"
                     android:textStyle="bold" />

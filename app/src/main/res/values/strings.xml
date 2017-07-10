@@ -30,26 +30,26 @@
     <string name="Done_Adding">Adding done</string>
     <string name="The_number_already_exists">The number is already exists</string>
     <string name="customer_code">Customer Code</string>
-    <string name="name">Name Customer</string>
+    <string name="customer_name">Name Customer</string>
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="add_Customer">Add Customer</string>
     <string name="edit_Customer">Edit Customer Data</string>
     <string name="Main_Bill">Main Bill</string>
     <string name="Add_Items_for_Bill">Add Items for Bill</string>
-    <string name="Add_New_Bil">Add New Bil</string>
+    <string name="Add_New_Bil">Add New Bill</string>
     <string name="Year">Year</string>
-    <string name="number_bill">number bill</string>
+    <string name="bill_no">Bill No</string>
     <string name="press_to_add_customer">press to add customer</string>
-    <string name="bill_tybe">bill tybe</string>
-    <string name="cash">cash</string>
-    <string name="forward">forward</string>
+    <string name="bill_type">Bill type</string>
+    <string name="cash">Cash</string>
+    <string name="credit">Credit</string>
     <string name="date">date</string>
     <string name="desc">description</string>
     <string name="disc">Discount</string>
-    <string name="tootla">Total</string>
+    <string name="total">Total</string>
     <string name="qty">qty</string>
-    <string name="Edit_qty">Edit qty Items</string>
+    <string name="Edit_qty">Edit Items qty</string>
     <string name="There_are_no_items">There are no items in the invoice</string>
     <string name="Show_Bill_Info">Bill Info</string>
     <string name="Items_For_Bill">Items Of Bill</string>
@@ -57,9 +57,4 @@
     <string name="You_will_not_be_able_to_retrieve">You will not be able to retrieve the invoice and items after deletion</string>
     <string name="Edit_Bill">Edit Bill</string>
     <string name="NetTotal">Net Total</string>
-
-
-
-
-
 </resources>

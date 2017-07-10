@@ -257,6 +257,7 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return item;
     }
+
     public int Get_Item_No() {
         int id = 0;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -412,6 +413,7 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return item;
     }
+
     public int Get_Cust_No() {
         int id = 0;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -426,6 +428,7 @@ public class DataManager extends SQLiteOpenHelper {
     //endregion
 
 
+    //region Bill_m
     public long addBill_m(String bill_yr, String bill_no,
                           String bill_type, String bill_date, String c_code, String disc_amt,
                           String desc, String bill_amt) {
@@ -527,11 +530,11 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     public bill_m getBill_m_ById(int id) {
-        return getBill_m_ById(String.valueOf(id),"");
+        return getBill_m_ById(String.valueOf(id), "");
     }
 
     public bill_m getBill_m_ById(@Nullable String id, String customer_id) {
-        String _where ="";
+        String _where = "";
         String query = "SELECT " + col_bill_seq + "," +
                 col_bill_yr + "," +
                 col_bill_no + "," +
@@ -541,13 +544,13 @@ public class DataManager extends SQLiteOpenHelper {
                 col_disc_amt + "," +
                 col_desc + "," +
                 col_bill_amt +
-                " FROM " + tbN_bill_m+
-                " where 1=1 " ;
+                " FROM " + tbN_bill_m +
+                " where 1=1 ";
         if (id != null && id.length() > 0) {
-            _where= " and " + col_bill_seq + " = " + id;
+            _where = " and " + col_bill_seq + " = " + id;
         }
-        if (customer_id !=null && customer_id.length() > 0) {
-            _where= _where + " and " + col_c_code + " = " + customer_id;
+        if (customer_id != null && customer_id.length() > 0) {
+            _where = _where + " and " + col_c_code + " = " + customer_id;
         }
         query = query + _where;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -592,7 +595,9 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return list;
     }
+    //endregion
 
+    //region Bill_d
     public boolean addBill_d(String bill_seq, String bill_yr, String bill_no,
                              String bill_d_seq, String itm_code, String itm_price, String itm_cost, String itm_qty) {
         try {
@@ -725,11 +730,13 @@ public class DataManager extends SQLiteOpenHelper {
         }
         return list;
     }
+
     public bill_d Get_Bill_d_ById(int id) {
-        return Get_Bill_d_ById(String.valueOf(id),"");
+        return Get_Bill_d_ById(String.valueOf(id), "");
     }
+
     public bill_d Get_Bill_d_ById(@Nullable String id, String items_id) {
-        String _where ="";
+        String _where = "";
         String query = "SELECT " + col_bill_seq + "," +
                 col_bill_yr + "," +
                 col_bill_no + "," +
@@ -739,12 +746,12 @@ public class DataManager extends SQLiteOpenHelper {
                 col_itm_cost + "," +
                 col_itm_qty +
                 " FROM " + tbN_bill_d +
-                " where 1=1 " ;
+                " where 1=1 ";
         if (id != null && id.length() > 0) {
-            _where= " and " + col_bill_seq + " = " + id;
+            _where = " and " + col_bill_seq + " = " + id;
         }
-        if (items_id !=null && items_id.length() > 0) {
-            _where= _where + " and " + col_itm_code + " = " + items_id;
+        if (items_id != null && items_id.length() > 0) {
+            _where = _where + " and " + col_itm_code + " = " + items_id;
         }
         query = query + _where;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -773,18 +780,6 @@ public class DataManager extends SQLiteOpenHelper {
         return id;
 
     }
-
-/*    ggaddbill_m
-            addbill_d
-            UpdateBill_m
-                    UpdateBill_d
-    deleteOneBill_m
-    deleteBill_d(Integer id)
-    deleteBill_d(Integer id,String isec)
-
-        public BILL_MCALSS[] getAllBill_m()
-        public  BILL_DCLASSFROMDATDBASE[] getBill_d (int code)
-*/
-
+    //endregion
 
 }

@@ -13,11 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class ShowBill_Info extends AppCompatActivity {
-    TextView Number_Bill,Number_Customer,Name_Cust,Desc,Date_bill,Year_bill,Tybe,Disc,Tootal_,NetTotal;
+    TextView Number_Bill,Number_Customer,Name_Cust,Desc,Date_bill,Year_bill,Tybe,Disc, total,NetTotal;
     String getBillNumber;
 
     @Override
@@ -35,7 +32,7 @@ public class ShowBill_Info extends AppCompatActivity {
         Year_bill = (TextView) findViewById(R.id.Year_bill);
         Tybe = (TextView) findViewById(R.id.Tybe);
         Disc = (TextView) findViewById(R.id.Disc);
-        Tootal_ = (TextView) findViewById(R.id.Tootal_);
+        total = (TextView) findViewById(R.id.Tootal_);
         NetTotal = (TextView) findViewById(R.id.NetTotal);
 
         //endregion
@@ -127,20 +124,20 @@ public class ShowBill_Info extends AppCompatActivity {
         if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_type()) == 1) {
             Tybe.setText(R.string.cash);
         } else if (Integer.parseInt(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_type())==2) {
-            Tybe.setText(R.string.forward);
+            Tybe.setText(R.string.credit);
 
         }
         Disc.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_disc_amt());
-        Tootal_.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_amt());
+        total.setText(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_bill_amt());
         if (Disc.getText().length()==0){
             Disc.setText("0");
-            NetTotal.setText(Tootal_.getText().toString()+"");
+            NetTotal.setText(total.getText().toString()+"");
 
-        }else {double _nettotal = Double.parseDouble(Tootal_.getText().toString())-Double.parseDouble(Disc.getText().toString());
+        }else {double _nettotal = Double.parseDouble(total.getText().toString())-Double.parseDouble(Disc.getText().toString());
             NetTotal.setText(_nettotal+"");}
     }
     public void GetAllBill_d(){
-         final Bill_d_Adabter bill_d = new Bill_d_Adabter(this, new DataManager(this).getAllBill_d(getBillNumber));
+         final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(getBillNumber));
          final ListView list = (ListView) findViewById(R.id.All_bill_d);
         list.setAdapter(bill_d);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

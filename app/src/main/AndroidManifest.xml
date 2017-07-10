@@ -24,7 +24,8 @@
             android:label="@string/customers" />
         <activity android:name=".CustomersAddEditActivity" />
         <activity android:name=".BillAddActivity" />
-        <activity android:name=".Start_screen"
+        <activity
+            android:name=".Start_screen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowBill_Info"
+        <activity
+            android:name=".ShowBill_Info"
             android:label="@string/Show_Bill_Info">
 
         </activity>

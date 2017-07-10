@@ -1,7 +1,5 @@
 package com.example.e3.mybills;
 
-import android.app.ActionBar;
-import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,19 +27,14 @@ import java.util.Locale;
 @SuppressWarnings("deprecation")
 public class BillAddActivity extends AppCompatActivity {
     TabHost tabHost;
-    //region bill_m
     EditText Number, Year, date, desc, disc;
     TextView Customer_Name, Customer_id, Total, NetTotal;
     RadioGroup mySelection;
     int selectedValue = 1;
-    //String idCust;
     double price, Qty, _total, Disc;
-
     public int i = 0;
     public ArrayList<bill_d> arrBill_d = new ArrayList<bill_d>();
-
     ArrayList<bill_d> item = new ArrayList<bill_d>();
-    ArrayList<Double> itemresult = new ArrayList<Double>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +70,6 @@ public class BillAddActivity extends AppCompatActivity {
                         String.valueOf(Customer_id.getText()), Disc, Desc, Total.getText().toString());
                 if (Bill_seq != -1) {
                     for (int m = 0; m < arrBill_d.size(); m++) {
-
                         dataManager.addBill_d(String.valueOf(Bill_seq), year, Bill_no,
                                 arrBill_d.get(m).get_col_bill_d_seq(),
                                 arrBill_d.get(m).get_col_itm_code(),
@@ -110,11 +102,9 @@ public class BillAddActivity extends AppCompatActivity {
         Bill_d.setContent(R.id.tab2);
         tabHost.addTab(Bill_m);
         tabHost.addTab(Bill_d);
-
     }
 
     public void bill_m() {
-
         mySelection = (RadioGroup) findViewById(R.id.radiogruop);
         mySelection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -122,7 +112,6 @@ public class BillAddActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radioButton7:
                         selectedValue = 1;
-
                         break;
                     case R.id.radioButton8:
                         selectedValue = 2;
@@ -130,7 +119,6 @@ public class BillAddActivity extends AppCompatActivity {
                 }
             }
         });
-
         String Get_Date = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
         String Get_Year = new SimpleDateFormat("yyyy", Locale.US).format(new Date());
         Number = (EditText) findViewById(R.id.Number_Bill);
@@ -143,12 +131,11 @@ public class BillAddActivity extends AppCompatActivity {
         disc.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                 _total = Double.parseDouble(Total.getText().toString());
+                _total = Double.parseDouble(Total.getText().toString());
                 if (disc.getText().toString().trim().length() > 0) {
                     if (Double.parseDouble(disc.getText().toString()) > _total) {
                         disc.setError(getResources().getString(R.string.The_discount_is_large));
@@ -173,21 +160,18 @@ public class BillAddActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-//endregion
         Number.setText(new DataManager(this).Get_Bill_No() + 1 + "");
         Year.setText(Get_Year);
         date.setText(Get_Date);
         Customer_Name = (TextView) findViewById(R.id.C_nameOfCust);
         Customer_id = (TextView) findViewById(R.id.C_codeOfCust);
         Total.setText("0");
-
         Customer_Name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(BillAddActivity.this, customersActivity.class);
                 i.putExtra("ImFromBillAdd", 1);
                 startActivityForResult(i, 2);
-
             }
         });
     }
@@ -209,7 +193,6 @@ public class BillAddActivity extends AppCompatActivity {
         Qty = Double.parseDouble(ItemQty);
         Total = (TextView) findViewById(R.id.tootal);
         Total.setText(String.valueOf(Double.parseDouble(Total.getText().toString()) + (price * Qty)));
-//Result=Double.parseDouble(Total.getText().toString())+(price*Qty);
     }
 
     @Override
@@ -221,10 +204,9 @@ public class BillAddActivity extends AppCompatActivity {
             DataManager dataBase = new DataManager(BillAddActivity.this);
             items dummyItem = dataBase.getItemById(Integer.parseInt(ItemCode));
             item.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name()));
-            final Bill_d_Adabter bill_d = new Bill_d_Adabter(this, item);
+            final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, item);
             final ListView list = (ListView) findViewById(R.id.listView_bill_d);
             list.setAdapter(bill_d);
-            //region on click list view
             list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -247,20 +229,7 @@ public class BillAddActivity extends AppCompatActivity {
                     return false;
                 }
             });
-            //endregion
-            //price= Double.parseDouble(ItemPrice);
-            //Qty= Double.parseDouble(ItemQty);
-            //Total=(TextView)findViewById(R.id.tootal);
-            //Total.setText(String.valueOf(Double.parseDouble(Total.getText().toString())+(price*Qty)));
             getTotal(ItemPrice, ItemQty);
-            // Total.setText(Result+"");
-            /*itemresult.add(price*Qty);
-            for (int m = 0; m < itemresult.size(); m++){
-                Total=(TextView)findViewById(R.id.tootal);
-                Total.setText("0");
-               Result=itemresult.get(m);
-                Total.setText(itemresult+"");
-            }*/
             bill_d e = new bill_d();
             e.set_col_bill_d_seq(String.valueOf(i + 1));
             e.set_col_itm_code(ItemCode);

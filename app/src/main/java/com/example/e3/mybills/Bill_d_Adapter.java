@@ -1,12 +1,8 @@
 package com.example.e3.mybills;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +16,17 @@ import java.util.Arrays;
  * Created by EBRHEEM on 7/5/2017.
  */
 
-public class Bill_d_Adabter extends BaseAdapter {
+public class Bill_d_Adapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<bill_d> data;
     //private bill_d[] data2;
     private static LayoutInflater inflater = null;
-    public Bill_d_Adabter(Activity a, bill_d list[]) {
+    public Bill_d_Adapter(Activity a, bill_d list[]) {
         activity = a;
-        //data2 = list;
         data = new ArrayList<>(Arrays.asList(list));
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-    public Bill_d_Adabter(Activity a, ArrayList<bill_d> list) {
+    public Bill_d_Adapter(Activity a, ArrayList<bill_d> list) {
         activity = a;
         data = list;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -92,7 +87,7 @@ public class Bill_d_Adabter extends BaseAdapter {
     public boolean onLongClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
         builder.setTitle(v.getResources().getString(R.string.alert));
-        builder.setMessage(data.get(position).name+ ":" + data.get(position).number);
+        builder.setMessage(data.get(position).customer_name+ ":" + data.get(position).number);
         builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -102,7 +97,7 @@ public class Bill_d_Adabter extends BaseAdapter {
             public void onClick(DialogInterface dialog, int which) {
                 AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(finalVi.getContext());
                 yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
-                yesOrNoBuilder.setMessage(data.get(position).name);
+                yesOrNoBuilder.setMessage(data.get(position).customer_name);
                 yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {

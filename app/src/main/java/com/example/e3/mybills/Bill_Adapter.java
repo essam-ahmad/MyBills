@@ -17,17 +17,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static android.app.Activity.RESULT_OK;
-
 /**
  * Created by EBRHEEM on 7/6/2017.
  */
 
-public class Bill_Aadabter extends BaseAdapter {
+public class Bill_Adapter extends BaseAdapter {
     private Activity activity;
     private bill_m[] data;
     private static LayoutInflater inflater = null;
-    public Bill_Aadabter(Activity a, bill_m[] list) {
+    public Bill_Adapter(Activity a, bill_m[] list) {
         activity = a;
         data = list;
 
@@ -52,64 +50,59 @@ public class Bill_Aadabter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
             vi = inflater.inflate(R.layout.bill_layout, null);
-        TextView number_bill = (TextView) vi.findViewById(R.id.number_bill);
+        TextView number_bill = (TextView) vi.findViewById(R.id.bill_no);
         TextView desc = (TextView) vi.findViewById(R.id.desc);
         TextView customer_code = (TextView) vi.findViewById(R.id.customer_code);
-        TextView name_cust = (TextView) vi.findViewById(R.id.name_cust);
-        TextView bill_tybe = (TextView) vi.findViewById(R.id.bill_tybe);
+        TextView customer_name = (TextView) vi.findViewById(R.id.customer_name);
+        TextView bill_type = (TextView) vi.findViewById(R.id.bill_tybe);
         TextView disc = (TextView) vi.findViewById(R.id.disc);
-        TextView Tootal = (TextView) vi.findViewById(R.id.Tootal);
+        TextView Total = (TextView) vi.findViewById(R.id.Total);
         TextView Date = (TextView) vi.findViewById(R.id.Date);
         TextView NetTotal = (TextView) vi.findViewById(R.id.NetTotal);
         number_bill.setText(data[position].get_col_bill_no());
         desc.setText(data[position].get_col_desc());
         if (data[position].get_col_c_code().equals("")){
             customer_code.setText("_");
-            name_cust.setText("_");
+            customer_name.setText("_");
         }else  if (!data[position].get_col_c_code().equals("")){
             customer_code.setText(data[position].get_col_c_code());
-            name_cust.setText(new DataManager(activity).getCustomerById(data[position].get_col_c_code()).get_col_c_name());
+            customer_name.setText(new DataManager(activity).getCustomerById(data[position].get_col_c_code()).get_col_c_name());
         }
         if (Integer.parseInt(data[position].get_col_bill_type()) == 1) {
-            bill_tybe.setText(R.string.cash);
+            bill_type.setText(R.string.cash);
         } else if (Integer.parseInt(data[position].get_col_bill_type())==2) {
-            bill_tybe.setText(R.string.forward);
-
+            bill_type.setText(R.string.credit);
         }
         disc.setText(data[position].get_col_disc_amt());
-        Tootal.setText(data[position].get_col_bill_amt());
+        Total.setText(data[position].get_col_bill_amt());
         Date.setText(data[position].get_col_bill_date());
         if (disc.getText().length()==0){
             disc.setText("0");
-            NetTotal.setText(Tootal.getText().toString()+"");
-        }else {double _nettotal = Double.parseDouble(Tootal.getText().toString())-Double.parseDouble(disc.getText().toString());
+            NetTotal.setText(Total.getText().toString()+"");
+        }else {double _nettotal = Double.parseDouble(Total.getText().toString())-Double.parseDouble(disc.getText().toString());
             NetTotal.setText(_nettotal+"");}
         if (position % 2 == 0) {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
-
             number_bill.setTextColor(Color.BLACK);
             desc.setTextColor(Color.BLACK);
             customer_code.setTextColor(Color.BLACK);
-            name_cust.setTextColor(Color.BLACK);
-            bill_tybe.setTextColor(Color.BLACK);
+            customer_name.setTextColor(Color.BLACK);
+            bill_type.setTextColor(Color.BLACK);
             disc.setTextColor(Color.BLACK);
-            Tootal.setTextColor(Color.BLACK);
+            Total.setTextColor(Color.BLACK);
             Date.setTextColor(Color.BLACK);
             NetTotal.setTextColor(Color.BLACK);
-
         } else {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
-
             number_bill.setTextColor(Color.BLACK);
             desc.setTextColor(Color.BLACK);
             customer_code.setTextColor(Color.BLACK);
-            name_cust.setTextColor(Color.BLACK);
-            bill_tybe.setTextColor(Color.BLACK);
+            customer_name.setTextColor(Color.BLACK);
+            bill_type.setTextColor(Color.BLACK);
             disc.setTextColor(Color.BLACK);
-            Tootal.setTextColor(Color.BLACK);
+            Total.setTextColor(Color.BLACK);
             Date.setTextColor(Color.BLACK);
             NetTotal.setTextColor(Color.BLACK);
-
         }
         final View finalVi = vi;
         vi.setOnClickListener(new View.OnClickListener() {
@@ -130,10 +123,8 @@ public class Bill_Aadabter extends BaseAdapter {
                 builder.setMessage(R.string.delete);
                 builder.setNeutralButton(finalVi.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
-
                 builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -150,19 +141,15 @@ public class Bill_Aadabter extends BaseAdapter {
                                 data = arrayList.toArray(new bill_m[]{});
                                 notifyDataSetChanged();
                                 Toast.makeText(finalVi.getContext(),finalVi.getResources().getString(R.string.delete)+"...", Toast.LENGTH_LONG).show();
-
-
                             }
 
                         });
                         builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
                         builder.show();
-
                     }
                 });
                 builder.show();
