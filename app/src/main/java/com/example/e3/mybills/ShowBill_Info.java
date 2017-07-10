@@ -3,6 +3,9 @@ package com.example.e3.mybills;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +15,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ShowBill_Info extends AppCompatActivity {
     TextView Number_Bill,Number_Customer,Name_Cust,Desc,Date_bill,Year_bill,Tybe,Disc, total,NetTotal;
@@ -106,6 +122,17 @@ public class ShowBill_Info extends AppCompatActivity {
             b.putString("ID_BIL",getBillNumber);
             No.putExtras(b);
             startActivity(No);
+        }if (id == R.id.Print){
+            try {
+                //this.dataHeader.clear();
+
+                createpdf();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+
         }
         return false;
     }
@@ -185,4 +212,49 @@ public class ShowBill_Info extends AppCompatActivity {
         });
 
     }
+
+    public void createpdf() throws FileNotFoundException, DocumentException {
+
+PdfCreator pdfCreator =new PdfCreator();
+        File pdfFolder = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)));
+        pdfCreator.initializeFonts();
+
+        //this.f = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/tahoma.ttf");
+        if (!pdfFolder.exists()) {
+            pdfFolder.mkdir();
+        }
+
+        pdfCreator.initializeFonts();
+        Date date = new Date();
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(date);
+        File file = new File(pdfFolder + timeStamp + ".pdf");
+        OutputStream output = new FileOutputStream(file);
+        //step1
+        Document document = new Document(PageSize.A4);
+        document.setMargins(10.0F, 10.0F, 40.0F, 200.0F);
+        document.setMarginMirroring(false);
+        PdfWriter writer = PdfWriter.getInstance(document, output);
+     String nameCust=   new DataManager(this).getCustomerById(new DataManager(this).getBill_m_ById(Integer.parseInt(getBillNumber)).get_col_c_code()).get_col_c_name();
+        document.open();
+        document.add(pdfCreator.addres());
+        document.add(pdfCreator.pdfPTableheader());
+        document.add(pdfCreator.tabbleOfinfocost(nameCust));
+        document.add(pdfCreator.createheaderOftble());
+        //int k;
+        //for (k = 0; k < 2; k++) {
+        //  document.add(itemsTable());
+        //}
+        document.add(pdfCreator.itemsTable());
+        document.add(pdfCreator.lowertable());
+        document.close();
+        Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file);
+        //Uri photoURI = FileProvider.getUriForFile(ShwoBillInfo.this, BuildConfig.APPLICATION_ID+ ".provider", file);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+
+
+    }
+
 }

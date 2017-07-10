@@ -58,4 +58,6 @@
     <string name="You_will_not_be_able_to_retrieve">لن تتمكن من استرجاع الفاتورة و الاصناف بعد الحذف</string>
     <string name="Edit_Bill">تعديل الفاتورة</string>
     <string name="NetTotal">الصافي</string>
+    <string name="Print">طباعة</string>
+
 </resources>

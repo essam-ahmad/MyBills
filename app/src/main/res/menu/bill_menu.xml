@@ -14,4 +14,11 @@
         app:showAsAction="ifRoom"
         android:title="@string/edit"
         />
+    <item
+        android:id="@+id/Print"
+        android:icon="@drawable/ic_local_printshop_black_24dp"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:title="print"
+        />
 </menu>
