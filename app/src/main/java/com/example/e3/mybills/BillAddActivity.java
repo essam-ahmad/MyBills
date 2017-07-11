@@ -121,12 +121,12 @@ public class BillAddActivity extends AppCompatActivity {
         });
         String Get_Date = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
         String Get_Year = new SimpleDateFormat("yyyy", Locale.US).format(new Date());
-        Number = (EditText) findViewById(R.id.Number_Bill);
+        Number = (EditText) findViewById(R.id.bill_no);
         Year = (EditText) findViewById(R.id.year);
         date = (EditText) findViewById(R.id.date);
         desc = (EditText) findViewById(R.id.desc);
         disc = (EditText) findViewById(R.id.disc);
-        Total = (TextView) findViewById(R.id.tootal);
+        Total = (TextView) findViewById(R.id.total);
         //region on click disc
         disc.addTextChangedListener(new TextWatcher() {
             @Override
@@ -191,7 +191,7 @@ public class BillAddActivity extends AppCompatActivity {
     public void getTotal(String ItemPrice, String ItemQty) {
         price = Double.parseDouble(ItemPrice);
         Qty = Double.parseDouble(ItemQty);
-        Total = (TextView) findViewById(R.id.tootal);
+        Total = (TextView) findViewById(R.id.total);
         Total.setText(String.valueOf(Double.parseDouble(Total.getText().toString()) + (price * Qty)));
     }
 

@@ -40,7 +40,7 @@
                     android:text=":" />
 
                 <TextView
-                    android:id="@+id/Number_Bill"
+                    android:id="@+id/bill_no"
                     style="@style/TextViewSHeader"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"

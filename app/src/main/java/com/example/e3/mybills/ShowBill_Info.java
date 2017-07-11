@@ -35,11 +35,11 @@ public class ShowBill_Info extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_bill__info);
+        setContentView(R.layout.activity_show_bill_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         GetBillNumber();
         //region تعريف دوال Textview
-        Number_Bill = (TextView) findViewById(R.id.Number_Bill);
+        Number_Bill = (TextView) findViewById(R.id.bill_no);
         Number_Customer = (TextView) findViewById(R.id.Number_Customer);
         Name_Cust = (TextView) findViewById(R.id.Name_Cust);
         Desc = (TextView) findViewById(R.id.Desc);

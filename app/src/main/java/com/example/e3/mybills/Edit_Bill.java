@@ -28,7 +28,6 @@ import static com.example.e3.mybills.R.string.press_to_add_customer;
 
 public class Edit_Bill extends AppCompatActivity {
     TabHost tabHost;
-    //region bill_m
     EditText Number, Year, date, desc, disc;
     TextView Customer_Name, Customer_id, Total, Customer_Edit;
     RadioGroup mySelection;
@@ -171,7 +170,7 @@ public class Edit_Bill extends AppCompatActivity {
             }
         });
 
-        Number = (EditText) findViewById(R.id.Number_Bill);
+        Number = (EditText) findViewById(R.id.bill_no);
         Number.setFocusable(false);
         Number.setEnabled(false);
         Year = (EditText) findViewById(R.id.year);
@@ -238,7 +237,7 @@ public class Edit_Bill extends AppCompatActivity {
             list.setAdapter(adbBill_d);
             price = Double.parseDouble(ItemPrice);
             Qty = Double.parseDouble(ItemQty);
-            Total = (TextView) findViewById(R.id.tootal);
+            Total = (TextView) findViewById(R.id.total);
             Total.setText("0");
             Total.setText(Result + "");
 //            adbBill_d e = new adbBill_d();
