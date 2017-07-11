@@ -164,8 +164,8 @@ public class ShowBill_Info extends AppCompatActivity {
             NetTotal.setText(_nettotal+"");}
     }
     public void GetAllBill_d(){
-         final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(BillSeq));
-         final ListView list = (ListView) findViewById(R.id.All_bill_d);
+        final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(BillSeq));
+        final ListView list = (ListView) findViewById(R.id.All_bill_d);
         list.setAdapter(bill_d);
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

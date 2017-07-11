@@ -429,6 +429,51 @@ public class DataManager extends SQLiteOpenHelper {
 
 
     //region Bill_m
+
+    public long addBill_m(bill_m bill_m, bill_d bill_d[]) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            ContentValues value = new ContentValues();
+            value.put(col_bill_yr, bill_m.get_col_bill_yr());
+            value.put(col_bill_no, bill_m.get_col_bill_no());
+            value.put(col_bill_type, bill_m.get_col_bill_type());
+            value.put(col_bill_date, bill_m.get_col_bill_date());
+            value.put(col_c_code, bill_m.get_col_c_code());
+            value.put(col_disc_amt, bill_m.get_col_disc_amt());
+            value.put(col_desc, bill_m.get_col_desc());
+            value.put(col_bill_amt, bill_m.get_col_bill_amt());
+            Long BillSec = db.insertOrThrow(tbN_bill_m, null, value);
+            for (int i = 0; i < bill_d.length; i++) {
+                value = new ContentValues();
+                value.put(col_bill_seq, BillSec);
+                value.put(col_bill_yr, bill_m.get_col_bill_yr());
+                value.put(col_bill_no, bill_m.get_col_bill_no());
+                value.put(col_bill_d_seq, i + 1);
+                value.put(col_itm_code, bill_d[i].get_col_itm_code());
+                value.put(col_itm_price, bill_d[i].get_col_itm_price());
+                value.put(col_itm_cost, bill_d[i].get_col_itm_cost());
+                value.put(col_itm_qty, bill_d[i].get_col_itm_qty());
+                Long result = db.insertOrThrow(tbN_bill_d, null, value);
+                String s = "ss";
+            }
+            Log.d(Tag, "addBill_m: Adding " + bill_m.get_col_bill_no() + " to Table" + tbN_bill_m);
+            if (BillSec == -1) {
+                Log.d(Tag, "addBill_m: Error when inserting" + bill_m.get_col_bill_no() + " to Table" + tbN_bill_m);
+            }
+            db.setTransactionSuccessful();
+            return BillSec;
+        } catch (Exception e) {
+            Log.d(Tag, "addBill_m: Error when inserting" + bill_m.get_col_bill_no() + " to Table" + tbN_bill_m + " " + e.getMessage());
+            e.printStackTrace();
+            db.endTransaction();
+            return -1;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+/*
     public long addBill_m(String bill_yr, String bill_no,
                           String bill_type, String bill_date, String c_code, String disc_amt,
                           String desc, String bill_amt) {
@@ -457,6 +502,7 @@ public class DataManager extends SQLiteOpenHelper {
             return -1;
         }
     }
+*/
 
     public int Get_Bill_No() {
         int id = 0;
@@ -471,7 +517,8 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     public int UpdateBill_m(String bill_seq, String bill_yr, String bill_no,
-                            String bill_type, String bill_date, String c_code, String disc_amt, String desc, String bill_amt) {
+                            String bill_type, String bill_date, String c_code, String disc_amt, String desc, String bill_amt
+            , bill_d bill_d[]) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(col_bill_yr, bill_yr);
@@ -514,7 +561,7 @@ public class DataManager extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         list = new bill_m[cursor.getCount()];
-        bill_m bill_m = null;
+        bill_m bill_m;
         int index = 0;
         if (cursor.moveToFirst()) {
             do {
@@ -568,7 +615,7 @@ public class DataManager extends SQLiteOpenHelper {
     }
 
     public bill_m[] SearchBill_m(String id) {
-        bill_m list[] = null;
+        bill_m list[];
         String query = "SELECT " + col_bill_seq + "," +
                 col_bill_yr + "," +
                 col_bill_no + "," +
@@ -583,7 +630,7 @@ public class DataManager extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         list = new bill_m[cursor.getCount()];
-        bill_m bill_m = null;
+        bill_m bill_m;
         int index = 0;
         if (cursor.moveToFirst()) {
             do {

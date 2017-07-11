@@ -120,8 +120,8 @@ public class Edit_Bill extends AppCompatActivity {
             String Disc = disc.getText().toString();
             if (checkData(Bill_no, year, Date)) {
                 DataManager dataManager = new DataManager(Edit_Bill.this);
-                dataManager.UpdateBill_m(new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_seq(), year, Bill_no, String.valueOf(selectedValue), Date,
-                        String.valueOf(Customer_id.getText()), Disc, Desc, "100");
+                /*dataManager.UpdateBill_m(new DataManager(this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_seq(), year, Bill_no, String.valueOf(selectedValue), Date,
+                        String.valueOf(Customer_id.getText()), Disc, Desc, "100");*/
                 if (items.isEmpty()) {
                     Toast.makeText(getBaseContext(), "تعديل البيل دي", Toast.LENGTH_LONG).show();
                     finish();

@@ -21,7 +21,6 @@ public class ItemsAddEditActivity extends AppCompatActivity {
     android.support.design.widget.TextInputLayout layout;
     public static Activity fa;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +52,8 @@ public class ItemsAddEditActivity extends AppCompatActivity {
             _etItemName.setText(data.getString("get_col_itm_name"));
             _etItemName.setFocusable(false);
             _etItemName.setEnabled(false);
-            //_etItemCost.setText(String.valueOf(data.getDouble("get_col_itm_Cost")));
-
             layout=(android.support.design.widget.TextInputLayout)findViewById(R.id.itm_cost_input_layout);
             layout.setHint(getResources().getString(R.string.qty));
-
             _etItemPrice.setText(String.valueOf(data.getDouble("get_col_itm_price")));
         }
         Save = (Button) findViewById(R.id.Save);
@@ -87,7 +83,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), R.string.Done_Edit, Toast.LENGTH_LONG).show();
                         }
                         finish();
-                    }else if(_action.equals("editqty")){
+                    }else if(_action.equals("editqty") && Integer.parseInt(ItemCost) > 0){
                         Intent i = new Intent();
                         i.putExtra("ItemCode",ItemCode);
                         i.putExtra("ItemName",ItemName);
@@ -95,7 +91,6 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                         i.putExtra("ItemPrice",ItemPrice);
                         setResult(RESULT_OK,i);
                         finish();
-
                     }
                 }
             }
