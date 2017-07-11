@@ -7,7 +7,8 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.e3.mybills.BillAddActivity"
-    tools:showIn="@layout/app_bar_bill">
+    tools:showIn="@layout/app_bar_bill"
+    >
 
     <TabHost
         android:id="@android:id/tabhost"
@@ -36,11 +37,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/CardViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="20dp"
+                        android:layout_gravity="center">
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/id_input_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:gravity="center"
                         >
 
                         <EditText
@@ -55,6 +63,16 @@
                             android:inputType="number"
                             android:gravity="center"/>
                     </android.support.design.widget.TextInputLayout>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/CardViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
                     <TextView
                         android:id="@+id/text_of_add_Cost"
                         android:layout_width="match_parent"
@@ -86,6 +104,9 @@
                         android:gravity="center"
                         android:textColor="@android:color/black"
                         />
+                    </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
@@ -93,6 +114,11 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/bill_type" />
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/CardViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="20dp">
                     <RadioGroup
                         android:id="@+id/radiogruop"
                         android:layout_width="match_parent"
@@ -118,7 +144,12 @@
                             android:layout_weight="1"
                             android:text="@string/credit" />
                     </RadioGroup>
-
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/CardViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/year_input_layout"
                         android:layout_width="match_parent"
@@ -136,6 +167,12 @@
                             android:hint="@string/Year"
                             android:inputType="number" />
                     </android.support.design.widget.TextInputLayout>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/CardViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/date_input_layout"
                         android:layout_width="match_parent"
@@ -154,7 +191,12 @@
                             android:hint="@string/date"
                             android:inputType="date" />
                     </android.support.design.widget.TextInputLayout>
-
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/CardViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/desc_input_layout"
                         android:layout_width="match_parent"
@@ -172,6 +214,16 @@
                             android:hint="@string/desc"
                             android:inputType="text" />
                     </android.support.design.widget.TextInputLayout>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/CardViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -249,6 +301,8 @@
                         android:textColor="@android:color/black"
                         />
                     </LinearLayout>
+                    </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
                 </LinearLayout>
                 </ScrollView>

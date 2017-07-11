@@ -56,23 +56,23 @@ public class PdfCreator {
     // ShowBill_Info getSq = new ShowBill_Info();
     //DataManager dataManager = new DataManager(PdfCreator.this);
     //معلومات المشتري
-    public PdfPTable tabbleOfinfocost(String nameCust) {
+    public PdfPTable BillInfo(String BillNO,String BillDate,String nameCust,String Phone) {
         PdfPTable localObject6 = new PdfPTable(2);
         ((PdfPTable) localObject6).setWidthPercentage(100.0F);
         ((PdfPTable) localObject6).setRunDirection(this.direction);
-        Object localObject4 = new PdfPCell(new Phrase("فاتورة", this.font));
+        Object localObject4 = new PdfPCell(new Phrase("تاريخ الفاتورة" + ":" + BillDate, this.font));
         ((PdfPCell) localObject4).setHorizontalAlignment(0);
         ((PdfPCell) localObject4).setBorder(0);
         ((PdfPCell) localObject4).setColspan(1);
-        Object localObject3 = new PdfPCell(new Paragraph(new Phrase("اسم العميل" + ":" + nameCust, this.font)));
+        Object localObject3 = new PdfPCell(new Paragraph(new Phrase("رقم الفاتورة" + ":" + BillNO, this.font)));
         ((PdfPCell) localObject3).setHorizontalAlignment(2);
         ((PdfPCell) localObject3).setBorder(0);
         ((PdfPCell) localObject3).setColspan(1);
-        Object localObject2 = new PdfPCell(new Paragraph(new Phrase("التاريخ", this.font)));
+        Object localObject2 = new PdfPCell(new Paragraph(new Phrase("هاتف العميل"+ ":" + Phone, this.font)));
         ((PdfPCell) localObject2).setHorizontalAlignment(0);
         ((PdfPCell) localObject2).setBorder(0);
         ((PdfPCell) localObject2).setColspan(1);
-        Object localObject8 = new PdfPCell(new Paragraph(new Phrase("التاريخ", this.font)));
+        Object localObject8 = new PdfPCell(new Paragraph(new Phrase("اسم العميل"+ ":" + nameCust, this.font)));
         ((PdfPCell) localObject8).setHorizontalAlignment(2);
         ((PdfPCell) localObject8).setBorder(0);
         ((PdfPCell) localObject8).setColspan(2);
@@ -91,13 +91,13 @@ public class PdfCreator {
     }
 
     //عنولن الفاتورة
-    public PdfPTable addres() {
+    public PdfPTable BillTybe(String Tybe) {
         PdfPTable localPdfPTable2 = new PdfPTable(1);
         localPdfPTable2.setPaddingTop(3.0F);
         localPdfPTable2.setWidthPercentage(98.0F);
         localPdfPTable2.setRunDirection(this.direction);
         localPdfPTable2.getDefaultCell().setBorder(0);
-        PdfPCell address = new PdfPCell(new Paragraph(new Phrase("فاتورة مبيعات", this.font)));
+        PdfPCell address = new PdfPCell(new Paragraph(new Phrase("فاتورة مبيعات "+Tybe, this.font)));
         address.setHorizontalAlignment(1);
         //address.setBorder(1);
         address.setColspan(1);
@@ -107,7 +107,7 @@ public class PdfCreator {
     }
 
     //معلومات الشركة راس الفاتورة
-    public PdfPTable pdfPTableheader() {
+    public PdfPTable InfoOfCo() {
         PdfPTable localPdfPTable1 = new PdfPTable(1);
         localPdfPTable1.setHorizontalAlignment(0);
         localPdfPTable1.getDefaultCell().setBorder(0);
@@ -164,7 +164,7 @@ public class PdfCreator {
         return nrw;
     }
 
-    public PdfPTable createheaderOftble() {
+    public PdfPTable HeaderTableOfItems() {
         this.dataHeader.add("رقم الصنف");
         this.dataHeader.add("اسم الصنف");
         this.dataHeader.add(" الكمية");
@@ -187,13 +187,13 @@ public class PdfCreator {
         return localPdfPTable;
     }
 
-    public PdfPTable lowertable() throws DocumentException {
+    public PdfPTable TotalTable(String Total,String Disc) throws DocumentException {
 
         PdfPTable localPdfPTable = new PdfPTable(PdfCreator.this.dataHeader.size());
         localPdfPTable.setRunDirection(3);
         localPdfPTable.setWidthPercentage(100.0F);
-        localPdfPTable.addCell(new Phrase("المبلغ", PdfCreator.this.font));
-        localPdfPTable.addCell(new Phrase("" + PdfCreator.this.d_Value, PdfCreator.this.font));
+        localPdfPTable.addCell(new Phrase("الاجمالي", PdfCreator.this.font));
+        localPdfPTable.addCell(new Phrase("" + Double.parseDouble(Total), PdfCreator.this.font));
         Object localObject2 = new PdfPCell(new Paragraph(""));
         ((PdfPCell) localObject2).setColspan(PdfCreator.this.dataHeader.size() - 2);
         localPdfPTable.addCell((PdfPCell) localObject2);
@@ -202,7 +202,7 @@ public class PdfCreator {
 
 
         localPdfPTable.addCell(new Phrase("خصم الفاتورة", PdfCreator.this.font));
-        localPdfPTable.addCell(new Phrase("" + PdfCreator.this.Disc_bill, PdfCreator.this.font));
+        localPdfPTable.addCell(new Phrase("" + Double.parseDouble(Disc), PdfCreator.this.font));
         localObject2 = new PdfPCell(new Paragraph(""));
         ((PdfPCell) localObject2).setColspan(PdfCreator.this.dataHeader.size() - 2);
         localPdfPTable.addCell((PdfPCell) localObject2);
@@ -210,9 +210,9 @@ public class PdfCreator {
         // localPdfPTable.setWidths(ShwoBillInfo.this.columnWidths);
 
 
-        PdfCreator.this.totalAmount = (PdfCreator.this.d_Value - PdfCreator.this.Disc_bill);
-        localPdfPTable.addCell(new Phrase("الاجمالي", PdfCreator.this.font));
-        localPdfPTable.addCell(new Phrase("" + PdfCreator.this.totalAmount, PdfCreator.this.font));
+        totalAmount = (Double.parseDouble(Total) - Double.parseDouble(Disc));
+        localPdfPTable.addCell(new Phrase("الصافي", PdfCreator.this.font));
+        localPdfPTable.addCell(new Phrase("" +totalAmount, PdfCreator.this.font));
         localObject2 = new PdfPCell(new Paragraph(""));
 
         ((PdfPCell) localObject2).setColspan(PdfCreator.this.dataHeader.size() - 2);
