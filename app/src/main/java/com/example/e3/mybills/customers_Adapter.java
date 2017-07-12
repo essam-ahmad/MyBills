@@ -28,10 +28,10 @@ public class customers_Adapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     int FromBill;
 
-    public customers_Adapter(Activity a, customers[] list, int clas) {
+    public customers_Adapter(Activity a, customers[] list, int fromBill) {
         activity = a;
         data = list;
-        FromBill = clas;
+        FromBill = fromBill;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -64,18 +64,14 @@ public class customers_Adapter extends BaseAdapter {
         address.setText(data[position].get_col_address());
         ad_date.setText(data[position].get_col_ad_date());
         if (position % 2 == 0) {
-            //noinspection ResourceAsColor
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
-
             code.setTextColor(Color.BLACK);
             name.setTextColor(Color.BLACK);
             phone.setTextColor(Color.BLACK);
             address.setTextColor(Color.BLACK);
             ad_date.setTextColor(Color.BLACK);
         } else {
-            //noinspection ResourceAsColor
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
-
             code.setTextColor(Color.BLACK);
             name.setTextColor(Color.BLACK);
             phone.setTextColor(Color.BLACK);
@@ -88,7 +84,6 @@ public class customers_Adapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent();
-
                     i.putExtra("get_col_c_name", data[position].get_col_c_name());
                     i.putExtra("get_col_c_code", data[position].get_col_c_code());
                     activity.setResult(RESULT_OK, i);
@@ -133,9 +128,8 @@ public class customers_Adapter extends BaseAdapter {
                                         data = arrayList.toArray(new customers[]{});
                                         notifyDataSetChanged();
                                         Toast.makeText(finalVi.getContext(), "تم الحذف ", Toast.LENGTH_LONG).show();
-                                    }else {
+                                    } else {
                                         Toast.makeText(finalVi.getContext(), "لايمكن حذف العميل", Toast.LENGTH_LONG).show();
-
                                     }
                                 }
                             });

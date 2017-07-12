@@ -64,10 +64,11 @@ public class BillActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
             Intent intent = new Intent(BillActivity.this,BillAddEditActivity.class);
+            Bundle b = new Bundle();
+            b.putString("action","add");
+            intent.putExtras(b);
             startActivity(intent);
             return true;
         }

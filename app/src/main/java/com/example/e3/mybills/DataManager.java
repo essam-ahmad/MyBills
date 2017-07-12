@@ -455,7 +455,6 @@ public class DataManager extends SQLiteOpenHelper {
                 value.put(col_itm_cost, bill_d[i].get_col_itm_cost());
                 value.put(col_itm_qty, bill_d[i].get_col_itm_qty());
                 Long result = db.insertOrThrow(tbN_bill_d, null, value);
-                String s = "ss";
             }
             Log.d(Tag, "addBill_m: Adding " + bill_m.get_col_bill_no() + " to Table" + tbN_bill_m);
             if (BillSec == -1) {
@@ -466,7 +465,6 @@ public class DataManager extends SQLiteOpenHelper {
         } catch (Exception e) {
             Log.d(Tag, "addBill_m: Error when inserting" + bill_m.get_col_bill_no() + " to Table" + tbN_bill_m + " " + e.getMessage());
             e.printStackTrace();
-            db.endTransaction();
             return -1;
         } finally {
             db.endTransaction();

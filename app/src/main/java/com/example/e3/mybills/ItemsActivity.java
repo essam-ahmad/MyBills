@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ItemsActivity extends AppCompatActivity {
     ListView list;
@@ -44,15 +41,12 @@ public class ItemsActivity extends AppCompatActivity {
             list = (ListView) findViewById(R.id.listView_item);
             items_Adapter lazy = new items_Adapter(ItemsActivity.this, ch.getAllItems(),1);
             list.setAdapter(lazy);
-
         }else {
             DataManager ch = new DataManager(this);
             list = (ListView) findViewById(R.id.listView_item);
             items_Adapter lazy = new items_Adapter(ItemsActivity.this, ch.getAllItems(),2);
             list.setAdapter(lazy);
-
         }
-
     }
 
     @Override

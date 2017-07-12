@@ -21,11 +21,13 @@ public class Bill_d_Adapter extends BaseAdapter {
     private ArrayList<bill_d> data;
     //private adbBill_d[] data2;
     private static LayoutInflater inflater = null;
+
     public Bill_d_Adapter(Activity a, bill_d list[]) {
         activity = a;
         data = new ArrayList<>(Arrays.asList(list));
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
     public Bill_d_Adapter(Activity a, ArrayList<bill_d> list) {
         activity = a;
         data = list;
@@ -43,7 +45,6 @@ public class Bill_d_Adapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
 
     public View getView(final int position, final View convertView, ViewGroup parent) {
         View vi = convertView;

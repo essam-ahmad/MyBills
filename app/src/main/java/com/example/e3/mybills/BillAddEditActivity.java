@@ -24,13 +24,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-/*@SuppressWarnings("deprecation")*/
 public class BillAddEditActivity extends AppCompatActivity {
     TabHost tabHost;
     EditText etBillNo, etYearNo, etBillDate, etDesc, etDisc;
     TextView tvCustomer_Name, tvCustomer_id, tvTotal, tvNetTotal;
     RadioGroup rgBillType;
     public ArrayList<bill_d> arrBill_d = new ArrayList<>();
+    String _action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,10 @@ public class BillAddEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill_add);
         setTitle(getResources().getString(R.string.Add_New_Bil));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Bundle data = getIntent().getExtras();
+        _action = data.getString("action");
+        //if (_action.equals("add")) {}
+    //} else if (_action.equals("edit")) {
         ActiveTab();
         bill_m();
         bill_d();
@@ -90,11 +94,59 @@ public class BillAddEditActivity extends AppCompatActivity {
                 }
             }
         }
-        if (id == android.R.id.home)
-        {
+        if (id == android.R.id.home) {
             finish();
         }
         return false;
+    }
+
+    @Override
+    public void onActivityResult(int code, int result, final Intent data) {
+        if ((code == 1) && (result == RESULT_OK)) {
+            final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, arrBill_d);
+            String ItemCode = data.getExtras().getString("ItemCode");
+            String ItemQty = data.getExtras().getString("ItemQty");
+            String ItemPrice = data.getExtras().getString("ItemPrice");
+            DataManager dataBase = new DataManager(BillAddEditActivity.this);
+            items dummyElement = dataBase.getItemById(Integer.parseInt(ItemCode));
+            arrBill_d.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyElement.get_col_itm_cost()), ItemQty
+                    , dummyElement.get_col_itm_name()));
+            tvTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())
+                    + (Double.parseDouble(ItemPrice) * Double.parseDouble(ItemQty))));
+            setNetTotal(etDisc.getText().toString());
+            final ListView list = (ListView) findViewById(R.id.listView_bill_d);
+            list.setAdapter(bill_d);
+            list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                    AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(BillAddEditActivity.this);
+                    yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
+                    yesOrNoBuilder.setMessage(arrBill_d.get(position).get_col_itm_name());
+                    yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            bill_d dummyElement = arrBill_d.get(position);
+                            arrBill_d.remove(position);
+                            list.setAdapter(bill_d);
+                            tvTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())
+                                    - (Double.parseDouble(dummyElement.get_col_itm_price())
+                                    * Double.parseDouble(dummyElement.get_col_itm_qty()))));
+                            setNetTotal(etDisc.getText().toString());
+                        }
+                    });
+                    yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    yesOrNoBuilder.show();
+                    return false;
+                }
+            });
+        } else if (((code == 2) && (result == RESULT_OK))) {
+            tvCustomer_Name.setText(data.getStringExtra("get_col_c_name"));
+            tvCustomer_id.setText(data.getStringExtra("get_col_c_code"));
+        }
     }
 
     public void ActiveTab() {
@@ -111,8 +163,8 @@ public class BillAddEditActivity extends AppCompatActivity {
     }
 
     public void bill_m() {
-        etBillNo = (EditText) findViewById(R.id.bill_no);
         etYearNo = (EditText) findViewById(R.id.year);
+        etBillNo = (EditText) findViewById(R.id.bill_no);
         etBillDate = (EditText) findViewById(R.id.date);
         etDesc = (EditText) findViewById(R.id.desc);
         etDisc = (EditText) findViewById(R.id.disc);
@@ -125,6 +177,7 @@ public class BillAddEditActivity extends AppCompatActivity {
         etYearNo.setText(new SimpleDateFormat("yyyy", Locale.US).format(new Date()));
         etBillDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date()));
         tvTotal.setText("0");
+        tvNetTotal.setText("0");
 
         //region uncomment below code if we want to do something when user change bill type
 /*
@@ -151,20 +204,7 @@ public class BillAddEditActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Double total = Double.parseDouble(tvTotal.getText().toString());
-                if (etDisc.getText().toString().trim().length() > 0) {
-                    if (Double.parseDouble(etDisc.getText().toString()) > total) {
-                        etDisc.setError(getResources().getString(R.string.The_discount_is_large));
-                        tvNetTotal.setText(String.valueOf(total));
-                    } else {
-                        if (etDisc.getText().toString().trim().length() > 0) {
-                            tvNetTotal.setText("0");
-                            tvNetTotal.setText(String.valueOf(total - Double.parseDouble(String.valueOf(s))));
-                        }
-                    }
-                } else if (etDisc.getText().toString().isEmpty()) {
-                    tvNetTotal.setText(String.valueOf(total));
-                }
+                setNetTotal(String.valueOf(s));
             }
 
             @Override
@@ -194,51 +234,20 @@ public class BillAddEditActivity extends AppCompatActivity {
         });
     }
 
-    public void getTotal(String ItemPrice, String ItemQty) {
-        //tvTotal = (TextView) findViewById(R.id.total);
-        tvTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())
-                + (Double.parseDouble(ItemPrice) * Double.parseDouble(ItemQty))));
-    }
-
-    @Override
-    public void onActivityResult(int code, int result, final Intent data) {
-        if ((code == 1) && (result == RESULT_OK)) {
-            final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, arrBill_d);
-            String ItemCode = data.getExtras().getString("ItemCode");
-            final String ItemQty = data.getExtras().getString("ItemQty");
-            final String ItemPrice = data.getExtras().getString("ItemPrice");
-            DataManager dataBase = new DataManager(BillAddEditActivity.this);
-            items dummyItem = dataBase.getItemById(Integer.parseInt(ItemCode));
-            arrBill_d.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name()));
-            getTotal(ItemPrice, ItemQty);
-            final ListView list = (ListView) findViewById(R.id.listView_bill_d);
-            list.setAdapter(bill_d);
-            list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                    AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(BillAddEditActivity.this);
-                    yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
-                    yesOrNoBuilder.setMessage(arrBill_d.get(position).get_col_itm_name());
-                    yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,
-                                            int which) {
-                            arrBill_d.remove(position);
-                            list.setAdapter(bill_d);
-                            getTotal(ItemPrice, "-" + ItemQty);
-                        }
-                    });
-                    yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    yesOrNoBuilder.show();
-                    return false;
+    private void setNetTotal(String s) {
+        if (etDisc.getText().toString().trim().length() > 0) {
+            if (Double.parseDouble(etDisc.getText().toString()) > Double.parseDouble(tvTotal.getText().toString())) {
+                etDisc.setError(getResources().getString(R.string.The_discount_is_large));
+                tvNetTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())));
+            } else {
+                if (etDisc.getText().toString().trim().length() > 0) {
+                    etDisc.setError(null);
+                    tvNetTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())
+                            - Double.parseDouble(s)));
                 }
-            });
-        } else if (((code == 2) && (result == RESULT_OK))) {
-            tvCustomer_Name.setText(data.getStringExtra("get_col_c_name"));
-            tvCustomer_id.setText(data.getStringExtra("get_col_c_code"));
+            }
+        } else if (etDisc.getText().toString().isEmpty()) {
+            tvNetTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())));
         }
     }
 
