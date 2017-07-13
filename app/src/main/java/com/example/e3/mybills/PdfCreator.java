@@ -26,7 +26,7 @@ public class PdfCreator extends AppCompatActivity {
     String f = "";
     private BaseFont bfBold;
     ArrayList<String> dataHeader = new ArrayList();
-    float[] columnWidths;
+    float[] columnWidths =new float[]{10.0F, 10.0F, 5.0F, 15.0F, 10.0F};;
     Font font_h;
     private BaseFont bfBold_h;
     double d_Value = 0.0D;
@@ -164,7 +164,7 @@ public class PdfCreator extends AppCompatActivity {
         return nrw;
     }
 
-    public PdfPTable HeaderTableOfItems() {
+    public PdfPTable HeaderTableOfItems() throws DocumentException {
         this.dataHeader.add("رقم الصنف");
         this.dataHeader.add("اسم الصنف");
         this.dataHeader.add(" الكمية");
@@ -174,6 +174,7 @@ public class PdfCreator extends AppCompatActivity {
         PdfPTable localPdfPTable = new PdfPTable(PdfCreator.this.dataHeader.size());
         localPdfPTable.setRunDirection(3);
         localPdfPTable.setWidthPercentage(100.0F);
+        localPdfPTable.setWidths(columnWidths);
         i = 0;
         while (i < PdfCreator.this.dataHeader.size()) {
             PdfPCell localObject2 = new PdfPCell(new Phrase(((String) PdfCreator.this.dataHeader.get(i)), PdfCreator.this.font_h));
@@ -190,6 +191,7 @@ public class PdfCreator extends AppCompatActivity {
     public PdfPTable TotalTable(String Total,String Disc) throws DocumentException {
 
         PdfPTable localPdfPTable = new PdfPTable(PdfCreator.this.dataHeader.size());
+        localPdfPTable.setWidths(columnWidths);
         localPdfPTable.setRunDirection(3);
         localPdfPTable.setWidthPercentage(100.0F);
         localPdfPTable.addCell(new Phrase("الاجمالي", PdfCreator.this.font));
@@ -216,13 +218,14 @@ public class PdfCreator extends AppCompatActivity {
         localObject2 = new PdfPCell(new Paragraph(""));
 
         ((PdfPCell) localObject2).setColspan(PdfCreator.this.dataHeader.size() - 2);
+
         localPdfPTable.addCell((PdfPCell) localObject2);
 
         //localPdfPTable.setWidths(ShwoBillInfo.this.columnWidths);
         return localPdfPTable;
     }
 
-    public PdfPTable itemsTable(bill_d data[]) {
+    public PdfPTable itemsTable(bill_d data[]) throws DocumentException {
         PdfPTable mainLocalPdfPTable = new PdfPTable(1);
         mainLocalPdfPTable.setRunDirection(3);
         mainLocalPdfPTable.setWidthPercentage(100.0F);
@@ -230,6 +233,7 @@ public class PdfCreator extends AppCompatActivity {
         int i;
         for (i = 0; i < data.length; i++) {
             PdfPTable localPdfPTable = new PdfPTable(PdfCreator.this.dataHeader.size());
+            localPdfPTable.setWidths(columnWidths);
             mainLocalPdfPTable.setRunDirection(3);
             mainLocalPdfPTable.setWidthPercentage(100.0F);
             Object localObject1 = new PdfPCell(new Phrase(data[i].get_col_itm_code(), PdfCreator.this.font));
