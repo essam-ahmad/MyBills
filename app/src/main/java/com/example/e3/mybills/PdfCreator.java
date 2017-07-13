@@ -20,7 +20,7 @@ import com.itextpdf.text.pdf.PdfPTable;
  * Created by EBRHEEM on 7/10/2017.
  */
 
-public class PdfCreator {
+public class PdfCreator extends AppCompatActivity {
     int direction;
     Font font;
     String f = "";
@@ -37,7 +37,7 @@ public class PdfCreator {
 
     public void initializeFonts() {
         try {
-            this.f = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/tahoma.ttf");
+            this.f = (Environment.getExternalStorageDirectory().getPath() + "/mybill"+"/tahoma.ttf");
             this.font = FontFactory.getFont(this.f, "Identity-H", true, 12.0F, 1, BaseColor.BLACK);
             BaseFont.createFont().correctArabicAdvance();
             this.bfBold = this.font.getBaseFont();

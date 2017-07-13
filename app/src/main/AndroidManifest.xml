@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     BillActivity
     <application
         android:allowBackup="true"
@@ -15,7 +18,7 @@
         <activity
             android:name=".BillActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ItemsActivity"
             android:label="@string/items" />
@@ -36,20 +39,10 @@
         </activity>
         <activity
             android:name=".ShowBill_Info"
-            android:label="@string/Show_Bill_Info"></activity>
+            android:label="@string/Show_Bill_Info" />
         <activity android:name=".Edit_Bill" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
-        <activity android:name=".BillAddEditActivity"></activity>
+        <activity android:name=".BillAddEditActivity" />
+        <activity android:name=".Pdf_View"/>
     </application>
 
 </manifest>

@@ -58,5 +58,7 @@
     <string name="Edit_Bill">Edit Bill</string>
     <string name="NetTotal">Net Total</string>
     <string name="Print">Print</string>
+    <string name="Share">Share</string>
+
 
 </resources>

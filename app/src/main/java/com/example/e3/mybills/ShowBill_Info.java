@@ -3,11 +3,13 @@ package com.example.e3.mybills;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +35,7 @@ import java.util.Date;
 public class ShowBill_Info extends AppCompatActivity {
     TextView Number_Bill, Number_Customer, Name_Cust, Desc, Date_bill, Year_bill, Tybe, Disc, total, NetTotal;
     String BillSeq;
-
+    File pdfFolder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +129,7 @@ public class ShowBill_Info extends AppCompatActivity {
             } catch (DocumentException e) {
                 e.printStackTrace();
             }
+
         }
         return false;
     }
@@ -206,17 +211,18 @@ public class ShowBill_Info extends AppCompatActivity {
     public void createpdf() throws FileNotFoundException, DocumentException {
 
         PdfCreator pdfCreator = new PdfCreator();
-        File pdfFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/mybill");
+        pdfFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/mybill");
         pdfCreator.initializeFonts();
 
         //this.f = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/tahoma.ttf");
         if (!pdfFolder.exists()) {
             pdfFolder.mkdir();
         }
+        copyAssets();
         pdfCreator.initializeFonts();
         Date date = new Date();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(date);
-        File file = new File(pdfFolder + timeStamp + ".pdf");
+        String file = new String(pdfFolder+ "/mybill" + timeStamp + ".pdf");
         OutputStream output = new FileOutputStream(file);
         //step1
         Document document = new Document(PageSize.A4);
@@ -249,13 +255,64 @@ public class ShowBill_Info extends AppCompatActivity {
 
         }
         document.close();
-        Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        File path = new File(file);
+        //Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", path);
+        Intent intent = new Intent(ShowBill_Info.this,Pdf_View.class);
+        Bundle bundle =new Bundle();
+        bundle.putString("path", String.valueOf(path));
+        intent.putExtras(bundle);
+        /*Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);*/
         startActivity(intent);
 
 
+    }
+    private void copyAssets() {
+        AssetManager assetManager = getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+        } catch (IOException e) {
+            Log.e("tag", "Failed to get asset file list.", e);
+        }
+        //String filename="tahoma.ttf";
+        if (files != null) for ( String filename: files) {
+            InputStream in = null;
+            OutputStream out = null;
+            //filename="tahoma.tff";
+            try {
+                in = assetManager.open(filename);
+                File outFile = new File(pdfFolder , filename);
+                out = new FileOutputStream(outFile);
+                copyFile(in, out);
+            } catch(IOException e) {
+                Log.e("tag", "Failed to copy asset file: " + filename, e);
+            }
+            finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+            }
+        }
+    }
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
     }
 
 }
