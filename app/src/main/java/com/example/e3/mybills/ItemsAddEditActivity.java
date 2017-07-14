@@ -51,6 +51,8 @@ public class ItemsAddEditActivity extends AppCompatActivity {
             _etItemName.setEnabled(false);
             layout=(android.support.design.widget.TextInputLayout)findViewById(R.id.itm_cost_input_layout);
             layout.setHint(getResources().getString(R.string.qty));
+
+            _etItemCost.setInputType(2);
             _etItemPrice.setText(String.valueOf(data.getDouble("get_col_itm_price")));
         }
         Save = (Button) findViewById(R.id.Save);
