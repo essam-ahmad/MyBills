@@ -231,7 +231,7 @@ public class Edit_Bill extends AppCompatActivity {
             String ItemPrice = data.getExtras().getString("ItemPrice");
             DataManager dataBase = new DataManager(Edit_Bill.this);
             items dummyItem = dataBase.getItemById(Integer.parseInt(ItemCode));
-            items.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name()));
+            items.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name(), bill_d.rowStatus.newRow));
             adbBill_d = new Bill_d_Adapter(this, items);
             final ListView list = (ListView) findViewById(R.id.listView_bill_d_Edit);
             list.setAdapter(adbBill_d);

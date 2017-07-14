@@ -202,7 +202,7 @@ public class BillAddActivity extends AppCompatActivity {
             final String ItemPrice = data.getExtras().getString("ItemPrice");
             DataManager dataBase = new DataManager(BillAddActivity.this);
             items dummyItem = dataBase.getItemById(Integer.parseInt(ItemCode));
-            arrBill_d.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name()));
+            arrBill_d.add(new bill_d(ItemCode, ItemPrice, String.valueOf(dummyItem.get_col_itm_cost()), ItemQty, dummyItem.get_col_itm_name(), com.example.e3.mybills.bill_d.rowStatus.newRow));
             getTotal(ItemPrice, ItemQty);
             final ListView list = (ListView) findViewById(R.id.listView_bill_d);
             list.setAdapter(bill_d);

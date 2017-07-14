@@ -16,7 +16,6 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -127,14 +126,10 @@ public class BillActivity extends AppCompatActivity
 
                         setLocale("ar");
                     }
-
                 }
             });
-
             AlertDialog alert = builder.create();
             alert.show();
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
