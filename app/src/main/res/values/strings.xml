@@ -59,6 +59,9 @@
     <string name="NetTotal">Net Total</string>
     <string name="Print">Print</string>
     <string name="Share">Share</string>
+    <string name="More">More...</string>
+    <string name="Change_Language">Change Language</string>
+
 
 
 </resources>

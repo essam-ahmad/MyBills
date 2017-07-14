@@ -60,6 +60,10 @@
     <string name="NetTotal">الصافي</string>
     <string name="Print">طباعة</string>
     <string name="Share">مشاركة</string>
+    <string name="More">المزيد...</string>
+    <string name="Change_Language">تغيير اللغة</string>
+
+
 
 
 </resources>

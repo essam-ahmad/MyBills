@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group >
         <item android:id="@+id/nav_items" android:icon="@drawable/ic_item_black_24dp"
             android:title="@string/items" />
         <item android:id="@+id/nav_customers" android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/customers" />
-
-]
     </group>
+    <item android:title="@string/More">
+        <menu>
+            <item
+                android:id="@+id/Lang"
+                android:icon="@drawable/ic_language_black_24dp"
+                android:title="@string/Change_Language"/>
+
+        </menu>
+    </item>
 
 
 </menu>
