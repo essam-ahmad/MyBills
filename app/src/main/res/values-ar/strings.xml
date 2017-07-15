@@ -62,6 +62,8 @@
     <string name="Share">مشاركة</string>
     <string name="More">المزيد...</string>
     <string name="Change_Language">تغيير اللغة</string>
+    <string name="Search">بحث</string>
+    <string name="InsertBillNO">"أدخل رقم الفاتورة للبحث..."</string>
 
 
 

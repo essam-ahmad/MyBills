@@ -1,6 +1,8 @@
 package com.example.e3.mybills;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -80,10 +82,36 @@ public class BillActivity extends AppCompatActivity
             intent.putExtras(b);
             startActivity(intent);
             return true;
-        }
+        }if (id == R.id.search) {
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            final android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) item.getActionView();
+            searchView.setInputType(2);
+            searchView.setQueryHint(getResources().getString(R.string.InsertBillNO));
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            android.support.v7.widget.SearchView.OnQueryTextListener textChangeListener = new android.support.v7.widget.SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    DataManager ch = new DataManager(BillActivity.this);
+                    ListView list = (ListView) findViewById(R.id.listView_item);
+                    if (newText.equals("")){
+                        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m());
+                        list.setAdapter(lazy);
+                    }else {
+                        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.SearchBill_m(newText));
+                        list.setAdapter(lazy);
+                    }
+                    return true;
+                }
 
-        return super.onOptionsItemSelected(item);
-    }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(textChangeListener);
+        }
+            return super.onOptionsItemSelected(item);
+        }
     @SuppressWarnings("deprecation")
     public void setLocale(String lang) {
         //finish();

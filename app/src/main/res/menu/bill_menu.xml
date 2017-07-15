@@ -19,6 +19,6 @@
         android:icon="@drawable/ic_local_printshop_black_24dp"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:title="print"
+        android:title="@string/Print"
         />
 </menu>
