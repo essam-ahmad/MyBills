@@ -403,11 +403,6 @@
                                     android:id="@+id/listView_bill_d"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent" />
-
-                                <ListView
-                                    android:id="@+id/listView_bill_d_Edit"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
                             </LinearLayout>
                         </HorizontalScrollView>
 

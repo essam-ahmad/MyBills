@@ -27,7 +27,6 @@
             android:name=".customersActivity"
             android:label="@string/customers" />
         <activity android:name=".CustomersAddEditActivity" />
-        <activity android:name=".BillAddActivity" />
         <activity
             android:name=".Start_screen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -40,7 +39,6 @@
         <activity
             android:name=".ShowBill_Info"
             android:label="@string/Show_Bill_Info" />
-        <activity android:name=".Edit_Bill" />
         <activity android:name=".BillAddEditActivity" />
         <activity android:name=".Pdf_View"/>
     </application>

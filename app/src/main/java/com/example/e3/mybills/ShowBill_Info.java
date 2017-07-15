@@ -169,43 +169,6 @@ public class ShowBill_Info extends AppCompatActivity {
         final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, new DataManager(this).getAllBill_d(BillSeq));
         final ListView list = (ListView) findViewById(R.id.All_bill_d);
         list.setAdapter(bill_d);
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ShowBill_Info.this);
-                builder.setTitle(getResources().getString(R.string.alert));
-                builder.setMessage(R.string.delete);
-                builder.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ShowBill_Info.this);
-                        builder.setTitle(getResources().getString(R.string.AlertDialog_Title_delete) + new DataManager(ShowBill_Info.this).Get_Bill_d_ById(Integer.parseInt(BillSeq)).get_col_itm_name());
-                        builder.setMessage(R.string.You_will_not_be_able_to_retrieve);
-                        builder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                new DataManager(ShowBill_Info.this).deleteOneBill_d(new DataManager(ShowBill_Info.this).getBill_m_ById(Integer.parseInt(BillSeq)).get_col_bill_seq(), new DataManager(ShowBill_Info.this).Get_Bill_d_ById(Integer.parseInt(BillSeq)).get_col_bill_d_seq());
-                                Toast.makeText(ShowBill_Info.this, getResources().getString(R.string.delete) + "...", Toast.LENGTH_LONG).show();
-                                list.setAdapter(bill_d);
-                            }
-
-                        });
-                        builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        builder.show();
-                    }
-                });
-                builder.show();
-                return false;
-            }
-        });
     }
 
     public void createpdf() throws FileNotFoundException, DocumentException {
