@@ -1,5 +1,6 @@
 package com.example.e3.mybills;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,11 +17,11 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-
 import java.util.Locale;
 
 public class BillActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static Activity fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class BillActivity extends AppCompatActivity
         setContentView(R.layout.activity_bill);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        fa=this;
+        setTitle(getResources().getString(R.string.app_name));
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -82,18 +84,19 @@ public class BillActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+    @SuppressWarnings("deprecation")
     public void setLocale(String lang) {
-        finish();
+        //finish();
         Locale myLocale = new Locale(lang);
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
+        conf.setLocale(myLocale);
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, Start_screen.class);
-        startActivity(refresh);
+        /*Intent refresh = new Intent(this, Start_screen.class);
+        startActivity(refresh);*/
+        fa.recreate();
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

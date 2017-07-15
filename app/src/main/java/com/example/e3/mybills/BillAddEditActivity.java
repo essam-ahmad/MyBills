@@ -258,7 +258,7 @@ public class BillAddEditActivity extends AppCompatActivity {
             etDisc.setText(oldBill_m.get_col_disc_amt());
             tvTotal.setText(oldBill_m.get_col_bill_amt());
             tvCustomer_id.setText(oldBill_m.get_col_c_code());
-            tvCustomer_Name.setText(new DataManager(this).getCustomerById(oldBill_m.get_col_c_code()).get_col_c_name());
+            //tvCustomer_Name.setText(new DataManager(this).getCustomerById(oldBill_m.get_col_c_code()).get_col_c_name());
             tvNetTotal.setText(String.valueOf(Double.parseDouble(oldBill_m.get_col_bill_amt())
                     - Double.parseDouble(oldBill_m.get_col_bill_amt())));
 
