@@ -90,7 +90,6 @@ public class BillAddEditActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     @Override
@@ -131,7 +130,7 @@ public class BillAddEditActivity extends AppCompatActivity {
                             , arrBill_dForDB.get(i).get_rowStatus());
                     bill_dList[i] = bill_d;
                 }
-                long Bill_seq = dataManager.addBill_m(bill_m, bill_dList);
+                long Bill_seq = dataManager.saveBill(bill_m, bill_dList);
                 if (Bill_seq != -1) {
                     Toast.makeText(getBaseContext(), R.string.Done_Adding, Toast.LENGTH_LONG).show();
                     finish();
@@ -163,7 +162,6 @@ public class BillAddEditActivity extends AppCompatActivity {
             tvTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())
                     + (Double.parseDouble(ItemPrice) * Double.parseDouble(ItemQty))));
             setNetTotal(etDisc.getText().toString());
-            //Bill_dList = (ListView) findViewById(R.id.listView_bill_d);
             Bill_dList.setAdapter(bill_d);
 
         } else if (((code == 2) && (result == RESULT_OK))) {
@@ -233,7 +231,6 @@ public class BillAddEditActivity extends AppCompatActivity {
             etDisc.setText(oldBill_m.get_col_disc_amt());
             tvTotal.setText(oldBill_m.get_col_bill_amt());
             tvCustomer_id.setText(oldBill_m.get_col_c_code());
-            //tvCustomer_Name.setText(new DataManager(this).getCustomerById(oldBill_m.get_col_c_code()).get_col_c_name());
             tvNetTotal.setText(String.valueOf(Double.parseDouble(oldBill_m.get_col_bill_amt())
                     - Double.parseDouble(oldBill_m.get_col_bill_amt())));
 
@@ -295,10 +292,8 @@ public class BillAddEditActivity extends AppCompatActivity {
         });
         if (_action.equals("edit")) {
             bill_d bill_dArray[] = dataBase.getAllBill_d(BillSeq);
-            //final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, bill_dArray);
-            //Bill_dList.setAdapter(bill_d);
             arrBill_d = new ArrayList<>(Arrays.asList(bill_dArray));
-            arrBill_dForDB =new ArrayList<>(Arrays.asList(bill_dArray));
+            arrBill_dForDB = new ArrayList<>(Arrays.asList(bill_dArray));
             final Bill_d_Adapter bill_d = new Bill_d_Adapter(this, arrBill_d);
             Bill_dList.setAdapter(bill_d);
             Bill_dList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -330,7 +325,6 @@ public class BillAddEditActivity extends AppCompatActivity {
                     return false;
                 }
             });
-
         }
     }
 
