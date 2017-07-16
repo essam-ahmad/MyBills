@@ -24,15 +24,17 @@ import java.util.Locale;
 public class BillActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static Activity fa;
-
+    String _action;
+    Bundle data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+         data = getIntent().getExtras();
+        _action = data.getString("action");
         fa=this;
-        setTitle(getResources().getString(R.string.app_name));
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -46,10 +48,15 @@ public class BillActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if (_action.equals("Customer")){
+           // data.getString("action");
+        }else {
+        setTitle(getResources().getString(R.string.app_name));
         DataManager ch = new DataManager(this);
         ListView list = (ListView) findViewById(R.id.listView_item);
         Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m());
         list.setAdapter(lazy);
+        }
     }
 
     @Override

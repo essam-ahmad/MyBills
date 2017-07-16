@@ -21,6 +21,9 @@ public class Start_screen extends AppCompatActivity {
 
                     sleep(1 * 1000);
                     Intent i = new Intent(getBaseContext(), BillActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("action", "Bill");
+                    i.putExtras(b);
                     startActivity(i);
                     finish();
 

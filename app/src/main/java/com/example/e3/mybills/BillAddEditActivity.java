@@ -39,9 +39,10 @@ public class BillAddEditActivity extends AppCompatActivity {
     String _action;
     ListView Bill_dList;
     // Var For update
-    String BillSeq;
+    String BillSeq,NewQty,NewPrice;
     bill_m oldBill_m;
-
+    bill_d dummyElement;
+    int positione;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,12 @@ public class BillAddEditActivity extends AppCompatActivity {
                 //for editing
                 tvCustomer_Edit.setText(R.string.edit_Customer);
             }
+        }else if (((code == 3) && (result == RESULT_OK))) {
+            NewQty=data.getExtras().getString("ItemQty");
+            NewPrice=data.getExtras().getString("ItemPrice");
+          //arrBill_d.set().set_col_itm_qty();
+            Toast.makeText(getBaseContext(),"اتيت من تعديل الفواتير", Toast.LENGTH_LONG).show();
+
         }
     }
 
@@ -231,8 +238,7 @@ public class BillAddEditActivity extends AppCompatActivity {
             etDisc.setText(oldBill_m.get_col_disc_amt());
             tvTotal.setText(oldBill_m.get_col_bill_amt());
             tvCustomer_id.setText(oldBill_m.get_col_c_code());
-            tvNetTotal.setText(String.valueOf(Double.parseDouble(oldBill_m.get_col_bill_amt())
-                    - Double.parseDouble(oldBill_m.get_col_bill_amt())));
+            tvNetTotal.setText(Double.parseDouble(oldBill_m.get_col_bill_amt())- Double.parseDouble(oldBill_m.get_col_disc_amt())+"");
 
         }
 
@@ -299,13 +305,33 @@ public class BillAddEditActivity extends AppCompatActivity {
             Bill_dList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(BillAddEditActivity.this);
+                    builder.setTitle(getResources().getString(R.string.alert));
+                    builder.setMessage(arrBill_d.get(position).get_col_bill_no() + ":" + arrBill_d.get(position).get_col_itm_name());
+                    builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent i = new Intent(BillAddEditActivity.this, ItemsAddEditActivity.class);
+                            Bundle b = new Bundle();
+                            positione=position;
+                            b.putString("action", "editqty");
+                            b.putInt("get_col_itm_code", Integer.parseInt(arrBill_d.get(position).get_col_bill_no()));
+                            b.putString("get_col_itm_name", arrBill_d.get(position).get_col_itm_name());
+                            b.putString("get_col_itm_Qty", arrBill_d.get(position).get_col_itm_qty());
+                            b.putDouble("get_col_itm_price", Double.parseDouble(arrBill_d.get(position).get_col_itm_price()));
+                            i.putExtras(b);
+                            startActivityForResult(i,3);
+                        }
+                    });
+                    builder.setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
                     AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(BillAddEditActivity.this);
                     yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
                     yesOrNoBuilder.setMessage(arrBill_d.get(position).get_col_itm_name());
                     yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,
                                             int which) {
-                            bill_d dummyElement = arrBill_d.get(position);
+                            dummyElement = arrBill_d.get(position);
                             arrBill_d.remove(position);
                             //arrBill_d.set(position,dummyElement).set_col_itm_qty();
                             arrBill_dForDB.set(position, dummyElement).set_rowStatus(rowStatus.deletedRow);
@@ -322,6 +348,9 @@ public class BillAddEditActivity extends AppCompatActivity {
                         }
                     });
                     yesOrNoBuilder.show();
+                        }
+                    });
+                    builder.show();
                     return false;
                 }
             });

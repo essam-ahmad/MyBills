@@ -20,6 +20,7 @@ public class customersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers);
+        setTitle(getResources().getString(R.string.customers));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fa=this;
         list = (ListView) findViewById(R.id.listView_item);

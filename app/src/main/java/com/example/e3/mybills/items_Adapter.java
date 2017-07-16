@@ -62,19 +62,19 @@ public class items_Adapter extends BaseAdapter {
         if (position % 2 == 0) {
             //noinspection ResourceAsColor
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
-            code.setTextColor(Color.BLACK);
-            name.setTextColor(Color.BLACK);
-            cost.setTextColor(Color.BLACK);
-            price.setTextColor(Color.BLACK);
-            ad_date.setTextColor(Color.BLACK);
+            code.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            name.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            cost.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            price.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            ad_date.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
         } else {
             //noinspection ResourceAsColor
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
-            code.setTextColor(Color.BLACK);
-            name.setTextColor(Color.BLACK);
-            cost.setTextColor(Color.BLACK);
-            price.setTextColor(Color.BLACK);
-            ad_date.setTextColor(Color.BLACK);
+            code.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            name.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            cost.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            price.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            ad_date.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
         }
         final View finalVi = vi;
         if (FromBill == 1) {

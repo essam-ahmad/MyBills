@@ -83,26 +83,26 @@ public class Bill_Adapter extends BaseAdapter {
             NetTotal.setText(_nettotal+"");}
         if (position % 2 == 0) {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
-            number_bill.setTextColor(Color.BLACK);
-            desc.setTextColor(Color.BLACK);
-            customer_code.setTextColor(Color.BLACK);
-            customer_name.setTextColor(Color.BLACK);
-            bill_type.setTextColor(Color.BLACK);
-            disc.setTextColor(Color.BLACK);
-            Total.setTextColor(Color.BLACK);
-            Date.setTextColor(Color.BLACK);
-            NetTotal.setTextColor(Color.BLACK);
+            number_bill.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            desc.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            customer_code.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            customer_name.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            bill_type.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            disc.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            Total.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            Date.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            NetTotal.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
         } else {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
-            number_bill.setTextColor(Color.BLACK);
-            desc.setTextColor(Color.BLACK);
-            customer_code.setTextColor(Color.BLACK);
-            customer_name.setTextColor(Color.BLACK);
-            bill_type.setTextColor(Color.BLACK);
-            disc.setTextColor(Color.BLACK);
-            Total.setTextColor(Color.BLACK);
-            Date.setTextColor(Color.BLACK);
-            NetTotal.setTextColor(Color.BLACK);
+            number_bill.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            desc.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            customer_code.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            customer_name.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            bill_type.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            disc.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            Total.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            Date.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            NetTotal.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
         }
         final View finalVi = vi;
         vi.setOnClickListener(new View.OnClickListener() {

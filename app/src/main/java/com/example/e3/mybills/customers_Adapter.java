@@ -65,18 +65,18 @@ public class customers_Adapter extends BaseAdapter {
         ad_date.setText(data[position].get_col_ad_date());
         if (position % 2 == 0) {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
-            code.setTextColor(Color.BLACK);
-            name.setTextColor(Color.BLACK);
-            phone.setTextColor(Color.BLACK);
-            address.setTextColor(Color.BLACK);
-            ad_date.setTextColor(Color.BLACK);
+            code.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            name.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            phone.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            address.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            ad_date.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
         } else {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
-            code.setTextColor(Color.BLACK);
-            name.setTextColor(Color.BLACK);
-            phone.setTextColor(Color.BLACK);
-            address.setTextColor(Color.BLACK);
-            ad_date.setTextColor(Color.BLACK);
+            code.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            name.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            phone.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            address.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            ad_date.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
         }
         final View finalVi = vi;
         if (FromBill == 1) {
@@ -91,6 +91,17 @@ public class customers_Adapter extends BaseAdapter {
                 }
             });
         } else {
+            vi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(finalVi.getContext(), BillActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("action", "Customer");
+                    b.putString("get_col_c_code", data[position].get_col_c_code());
+                    i.putExtras(b);
+                    finalVi.getContext().startActivity(i);
+                }
+            });
             vi.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

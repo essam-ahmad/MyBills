@@ -350,7 +350,9 @@
                                         android:background="@drawable/border_header"
                                         android:text="@string/item_code"
                                         android:textAlignment="center"
-                                        android:textStyle="bold" />
+                                        android:textStyle="bold"
+                                        android:textColor="@color/HeaderTextColor"
+                                        />
 
                                     <TextView
                                         android:layout_width="@dimen/header_width_name"
@@ -360,7 +362,9 @@
                                         android:paddingLeft="5dp"
                                         android:paddingRight="5dp"
                                         android:text="@string/item_name"
-                                        android:textStyle="bold" />
+                                        android:textStyle="bold"
+                                        android:textColor="@color/HeaderTextColor"
+                                        />
 
                                     <TextView
                                         android:layout_width="@dimen/header_width_code_Cost_price"
@@ -369,7 +373,9 @@
                                         android:background="@drawable/border_header"
                                         android:text="@string/qty"
                                         android:textAlignment="center"
-                                        android:textStyle="bold" />
+                                        android:textStyle="bold"
+                                        android:textColor="@color/HeaderTextColor"
+                                        />
 
                                     <TextView
                                         android:layout_width="@dimen/header_width_code_Cost_price"
@@ -378,7 +384,9 @@
                                         android:background="@drawable/border_header"
                                         android:text="@string/cost"
                                         android:textAlignment="center"
-                                        android:textStyle="bold" />
+                                        android:textStyle="bold"
+                                        android:textColor="@color/HeaderTextColor"
+                                        />
 
                                     <TextView
                                         android:layout_width="@dimen/header_width_code_Cost_price"
@@ -387,7 +395,9 @@
                                         android:background="@drawable/border_header"
                                         android:text="@string/price"
                                         android:textAlignment="center"
-                                        android:textStyle="bold" />
+                                        android:textStyle="bold"
+                                        android:textColor="@color/HeaderTextColor"
+                                        />
 
                                     <TextView
                                         android:layout_width="@dimen/header_width_code_Cost_price"
@@ -396,7 +406,9 @@
                                         android:background="@drawable/border_header"
                                         android:text="@string/total"
                                         android:textAlignment="center"
-                                        android:textStyle="bold" />
+                                        android:textStyle="bold"
+                                        android:textColor="@color/HeaderTextColor"
+                                        />
                                 </LinearLayout>
 
                                 <ListView

@@ -4,8 +4,11 @@
     <color name="colorPrimary">#005745</color>
     <color name="colorAccent">#124C57</color>
     <color name="colorFirstRow">#ffffff</color>
+    <color name="ColorFirstRowText">#000000</color>
     <color name="HeaderTextColor">#ffffff</color>
-    <color name="colorSecondRow">#574db6ac</color>
+    <color name="colorSecondRow">#6ca39b</color>
+    <color name="colorSecondRowText">#ffffff</color>
     <color name="colorGrid">#9d2d5c51</color>
     <color name="colorHeader">#2A5357</color>
+
 </resources>

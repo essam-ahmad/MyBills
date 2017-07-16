@@ -614,7 +614,7 @@ public class DataManager extends SQLiteOpenHelper {
                 col_desc + "," +
                 col_bill_amt +
                 " FROM " + tbN_bill_m +
-                " where " + col_bill_no + " = " + id;
+                " where " + col_bill_no + " like '%" + id + "%'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         list = new bill_m[cursor.getCount()];

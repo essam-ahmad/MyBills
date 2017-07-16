@@ -68,20 +68,20 @@ public class Bill_d_Adapter extends BaseAdapter {
         col_ad_Total.setText(result + "");
         if (position % 2 == 0) {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorFirstRow));
-            col_itm_code.setTextColor(Color.BLACK);
-            col_itm_name.setTextColor(Color.BLACK);
-            col_itm_qty.setTextColor(Color.BLACK);
-            col_itm_cost.setTextColor(Color.BLACK);
-            col_itm_price.setTextColor(Color.BLACK);
-            col_ad_Total.setTextColor(Color.BLACK);
+            col_itm_code.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            col_itm_name.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            col_itm_qty.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            col_itm_cost.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            col_itm_price.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
+            col_ad_Total.setTextColor(activity.getResources().getColor(R.color.ColorFirstRowText));
         } else {
             vi.setBackgroundColor(activity.getResources().getColor(R.color.colorSecondRow));
-            col_itm_code.setTextColor(Color.BLACK);
-            col_itm_name.setTextColor(Color.BLACK);
-            col_itm_qty.setTextColor(Color.BLACK);
-            col_itm_cost.setTextColor(Color.BLACK);
-            col_itm_price.setTextColor(Color.BLACK);
-            col_ad_Total.setTextColor(Color.BLACK);
+            col_itm_code.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            col_itm_name.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            col_itm_qty.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            col_itm_cost.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            col_itm_price.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
+            col_ad_Total.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
 
          /*vi.setOnLongClickListener(new View.OnLongClickListener() {
     @Override
