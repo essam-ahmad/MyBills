@@ -14,6 +14,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.Optional;
+
 import static com.example.e3.mybills.bill_d.rowStatus;
 
 public class DataManager extends SQLiteOpenHelper {
@@ -534,7 +536,8 @@ public class DataManager extends SQLiteOpenHelper {
         }
     }
 
-    public bill_m[] getAllBill_m() {
+    public bill_m[] getAllBill_m(@Nullable  String customer_id) {
+        String _where = "";
         bill_m list[];
         String query = "SELECT " + col_bill_seq + "," +
                 col_bill_yr + "," +
@@ -545,7 +548,12 @@ public class DataManager extends SQLiteOpenHelper {
                 col_disc_amt + "," +
                 col_desc + "," +
                 col_bill_amt +
-                " FROM " + tbN_bill_m;
+                " FROM " + tbN_bill_m +
+                " where 1=1 ";
+        if (customer_id != null && customer_id.length() > 0) {
+            _where = _where + " and " + col_c_code + " = " + customer_id;
+        }
+        query = query + _where;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         list = new bill_m[cursor.getCount()];

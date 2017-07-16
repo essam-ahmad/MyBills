@@ -54,7 +54,7 @@ public class BillActivity extends AppCompatActivity
         setTitle(getResources().getString(R.string.app_name));
         DataManager ch = new DataManager(this);
         ListView list = (ListView) findViewById(R.id.listView_item);
-        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m());
+        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m(null));
         list.setAdapter(lazy);
         }
     }
@@ -101,7 +101,7 @@ public class BillActivity extends AppCompatActivity
                     DataManager ch = new DataManager(BillActivity.this);
                     ListView list = (ListView) findViewById(R.id.listView_item);
                     if (newText.equals("")){
-                        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m());
+                        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m(null));
                         list.setAdapter(lazy);
                     }else {
                         Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.SearchBill_m(newText));

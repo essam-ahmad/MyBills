@@ -31,17 +31,17 @@ public class ItemsAddEditActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         _action = data.getString("action");
         if (_action.equals("add")) {
-            _etItemCode.setText(new DataManager(this).Get_Item_No()+1+"");
-            this.setTitle( R.string.add_Items);
+            _etItemCode.setText(new DataManager(this).Get_Item_No() + 1 + "");
+            this.setTitle(R.string.add_Items);
         } else if (_action.equals("edit")) {
-            this.setTitle( R.string.Edit_Items);
+            this.setTitle(R.string.Edit_Items);
             _etItemCode.setText(String.valueOf(data.getInt("get_col_itm_code")));
             _etItemCode.setFocusable(false);
             _etItemCode.setEnabled(false);
             _etItemName.setText(data.getString("get_col_itm_name"));
             _etItemCost.setText(String.valueOf(data.getDouble("get_col_itm_Cost")));
             _etItemPrice.setText(String.valueOf(data.getDouble("get_col_itm_price")));
-        }else if(_action.equals("editqty")){
+        } else if (_action.equals("editqty")) {
             this.setTitle(R.string.Edit_qty);
             _etItemCode.setText(String.valueOf(data.getInt("get_col_itm_code")));
             _etItemCode.setFocusable(false);
@@ -49,7 +49,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
             _etItemName.setText(data.getString("get_col_itm_name"));
             _etItemName.setFocusable(false);
             _etItemName.setEnabled(false);
-            layout=(android.support.design.widget.TextInputLayout)findViewById(R.id.itm_cost_input_layout);
+            layout = (android.support.design.widget.TextInputLayout) findViewById(R.id.itm_cost_input_layout);
             layout.setHint(getResources().getString(R.string.qty));
             _etItemCost.setInputType(2);
             _etItemCost.setText(data.getString("get_col_itm_Qty"));
@@ -82,13 +82,13 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), R.string.Done_Edit, Toast.LENGTH_LONG).show();
                         }
                         finish();
-                    }else if(_action.equals("editqty") && Integer.parseInt(ItemCost) > 0){
+                    } else if (_action.equals("editqty") /*&& Integer.parseInt(ItemCost) > 0*/) {
                         Intent i = new Intent();
-                        i.putExtra("ItemCode",ItemCode);
-                        i.putExtra("ItemName",ItemName);
-                        i.putExtra("ItemQty",ItemCost);
-                        i.putExtra("ItemPrice",ItemPrice);
-                        setResult(RESULT_OK,i);
+                        i.putExtra("ItemCode", ItemCode);
+                        i.putExtra("ItemName", ItemName);
+                        i.putExtra("ItemQty", ItemCost);
+                        i.putExtra("ItemPrice", ItemPrice);
+                        setResult(RESULT_OK, i);
                         finish();
                     }
                 }
@@ -113,20 +113,19 @@ public class ItemsAddEditActivity extends AppCompatActivity {
     }
 
     public void setDefaultValuesIfNull() {
-        if(_action.equals("editqty")){
-            if (_etItemCost == null || _etItemCost.length() == 0){
+        if (_action.equals("editqty")) {
+            if (_etItemCost == null || _etItemCost.length() == 0) {
                 _etItemCost.setText(null);
             }
-
-
-        }else {
-        if (_etItemCost == null || _etItemCost.length() == 0) {
-            _etItemCost.setText("0");
+        } else {
+            if (_etItemCost == null || _etItemCost.length() == 0) {
+                _etItemCost.setText("0");
+            }
+            if (_etItemPrice == null || _etItemPrice.length() == 0) {
+                _etItemPrice.setText("0");
+            }
         }
-        if (_etItemPrice == null || _etItemPrice.length() == 0) {
-            _etItemPrice.setText("0");
-        }
-    }}
+    }
 
     public boolean checkData(String itm_code, String itm_name, String itm_cost, String itm_price) {
         boolean result = true;
