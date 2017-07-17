@@ -2,7 +2,6 @@ package com.example.e3.mybills;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import java.util.Arrays;
 public class Bill_d_Adapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<bill_d> data;
-    //private adbBill_d[] data2;
     private static LayoutInflater inflater = null;
 
     public Bill_d_Adapter(Activity a, bill_d list[]) {
@@ -39,7 +37,7 @@ public class Bill_d_Adapter extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        return position;
+        return data.get(position);
     }
 
     public long getItemId(int position) {
@@ -50,7 +48,6 @@ public class Bill_d_Adapter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
             vi = inflater.inflate(R.layout.bill_d_layout, null);
-        final View finalVi = vi;
         TextView col_itm_code = (TextView) vi.findViewById(R.id.col_bill_d_code);
         TextView col_itm_name = (TextView) vi.findViewById(R.id.col_bill_d_name);
         TextView col_itm_qty = (TextView) vi.findViewById(R.id.col_bill_d_qty);
@@ -82,48 +79,7 @@ public class Bill_d_Adapter extends BaseAdapter {
             col_itm_cost.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
             col_itm_price.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
             col_ad_Total.setTextColor(activity.getResources().getColor(R.color.colorSecondRowText));
-
-         /*vi.setOnLongClickListener(new View.OnLongClickListener() {
-    @Override
-    public boolean onLongClick(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
-        builder.setTitle(v.getResources().getString(R.string.alert));
-        builder.setMessage(data.get(position).customer_name+ ":" + data.get(position).number);
-        builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(finalVi.getContext());
-                yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
-                yesOrNoBuilder.setMessage(data.get(position).customer_name);
-                yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        data.remove(data.get(position));
-                        notifyDataSetChanged();
-                    }
-                });
-                yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                yesOrNoBuilder.show();
-            }
-        });
-        builder.show();
-        return true;
-    }
-});*/
-
-
         }
-
         return vi;
-
-
     }
 }

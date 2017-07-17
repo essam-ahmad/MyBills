@@ -433,7 +433,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     //region Bill_m
 
-    public long saveBill(bill_m bill_m, bill_d bill_d[]) {
+    public long saveBill(bill_m bill_m, bill_d bill_d[], bill_d bill_dDeleted[]) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
         int maxBill_dSeq;
@@ -461,7 +461,7 @@ public class DataManager extends SQLiteOpenHelper {
                 value.put(col_bill_amt, bill_m.get_col_bill_amt());
                 db.update(tbN_bill_m, value, col_bill_seq + " = ? ", new String[]{String.valueOf(BillSec)});
                 int Bill_dSeq = 0;
-                Cursor cursor = db.rawQuery("SELECT MAX(" + col_bill_d_seq + ") FROM "+ tbN_bill_d
+                Cursor cursor = db.rawQuery("SELECT MAX(" + col_bill_d_seq + ") FROM " + tbN_bill_d
                         + " WHERE " + col_bill_seq + "=" + BillSec, null);
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
@@ -469,15 +469,16 @@ public class DataManager extends SQLiteOpenHelper {
                 }
                 maxBill_dSeq = Bill_dSeq;
             }
+            for (int i = 0; i < bill_dDeleted.length; i++) {
+                String whereClause = col_bill_seq + " = ? and " + col_bill_d_seq + " = ? ";
+                String[] whereArgs = new String[]{String.valueOf(BillSec), bill_dDeleted[i].get_col_bill_d_seq()};
+                int result = db.delete(tbN_bill_d, whereClause, whereArgs);
+                Log.d(Tag, "deleteOneBill_d: Deleting " + BillSec + " From Table" + tbN_bill_d);
+                Log.d(Tag, "deleteOneBill_d: " + result + " ware Deleted From Table" + tbN_bill_d);
+            }
             for (int i = 0; i < bill_d.length; i++) {
                 value = new ContentValues();
-                if (bill_d[i].get_rowStatus() == rowStatus.deletedRow) {
-                    String whereClause = col_bill_seq + " = ? and " + col_bill_d_seq + " = ? ";
-                    String[] whereArgs = new String[]{String.valueOf(BillSec), bill_d[i].get_col_bill_d_seq()};
-                    int result = db.delete(tbN_bill_d, whereClause, whereArgs);
-                    Log.d(Tag, "deleteOneBill_d: Deleting " + BillSec + " From Table" + tbN_bill_d);
-                    Log.d(Tag, "deleteOneBill_d: " + result + " ware Deleted From Table" + tbN_bill_d);
-                } else if ((bill_d[i].get_rowStatus() == rowStatus.updatedRow)) {
+                if ((bill_d[i].get_rowStatus() == rowStatus.updatedRow)) {
                     value.put(col_itm_price, bill_d[i].get_col_itm_price());
                     value.put(col_itm_cost, bill_d[i].get_col_itm_cost());
                     value.put(col_itm_qty, bill_d[i].get_col_itm_qty());
@@ -536,7 +537,7 @@ public class DataManager extends SQLiteOpenHelper {
         }
     }
 
-    public bill_m[] getAllBill_m(@Nullable  String customer_id) {
+    public bill_m[] getAllBill_m(@Nullable String customer_id) {
         String _where = "";
         bill_m list[];
         String query = "SELECT " + col_bill_seq + "," +
