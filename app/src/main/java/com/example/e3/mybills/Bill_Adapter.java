@@ -115,7 +115,7 @@ public class Bill_Adapter extends BaseAdapter {
                 finalVi.getContext().startActivity(intent);
             }
         });
-        vi.setOnLongClickListener(new View.OnLongClickListener() {
+       /* vi.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
@@ -155,7 +155,7 @@ public class Bill_Adapter extends BaseAdapter {
                 builder.show();
                 return false;
             }
-        });
+        });*/
         return vi;
     }
 }

@@ -18,7 +18,11 @@
         <activity
             android:name=".BillActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.mybill.MyBill" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ItemsActivity"
             android:label="@string/items" />
@@ -40,7 +44,8 @@
             android:name=".ShowBill_Info"
             android:label="@string/Show_Bill_Info" />
         <activity android:name=".BillAddEditActivity" />
-        <activity android:name=".Pdf_View"/>
+        <activity android:name=".Pdf_View" />
+        <activity android:name=".ShowCustBills"></activity>
     </application>
 
 </manifest>

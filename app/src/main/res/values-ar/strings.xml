@@ -63,9 +63,11 @@
     <string name="More">المزيد...</string>
     <string name="Change_Language">تغيير اللغة</string>
     <string name="Search">بحث</string>
-    <string name="InsertBillNO">"أدخل رقم الفاتورة للبحث..."</string>
-
-
-
+    <string name="InsertBillNO">أدخل رقم الفاتورة للبحث...</string>
+    <string name="Customer_Bill">"فواتير</string>
+    <string name="There_Is_No_Bills">لاتوجد فواتير مرتبطة بالعميل</string>
+    <string name="Cant_delete_Cust">العميل مرتبط بفاتورة</string>
+    <string name="Cant_delete_Item">الصنف مرتبط بفاتورة</string>
+    <string name="QtyIsZero">الكمية صفر</string>
 
 </resources>

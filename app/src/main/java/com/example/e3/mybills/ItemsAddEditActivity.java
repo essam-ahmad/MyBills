@@ -83,6 +83,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                         }
                         finish();
                     } else if (_action.equals("editqty") /*&& Integer.parseInt(ItemCost) > 0*/) {
+                        if (Integer.parseInt(ItemCost)>0){
                         Intent i = new Intent();
                         i.putExtra("ItemCode", ItemCode);
                         i.putExtra("ItemName", ItemName);
@@ -90,6 +91,9 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                         i.putExtra("ItemPrice", ItemPrice);
                         setResult(RESULT_OK, i);
                         finish();
+                        }else {
+                            Toast.makeText(getBaseContext(), "لكمية صفر", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }

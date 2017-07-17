@@ -94,12 +94,13 @@ public class customers_Adapter extends BaseAdapter {
             vi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(finalVi.getContext(), BillActivity.class);
+                    Intent i = new Intent(finalVi.getContext(), ShowCustBills.class);
                     Bundle b = new Bundle();
-                    b.putString("action", "Customer");
+                    //b.putString("action", "Customer");
                     b.putString("get_col_c_code", data[position].get_col_c_code());
                     i.putExtras(b);
                     finalVi.getContext().startActivity(i);
+                    //activity.finish();
                 }
             });
             vi.setOnLongClickListener(new View.OnLongClickListener() {
@@ -138,9 +139,9 @@ public class customers_Adapter extends BaseAdapter {
                                         arrayList.remove(data[position]);
                                         data = arrayList.toArray(new customers[]{});
                                         notifyDataSetChanged();
-                                        Toast.makeText(finalVi.getContext(), "تم الحذف ", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(finalVi.getContext(), R.string.delete, Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(finalVi.getContext(), "لايمكن حذف العميل", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(finalVi.getContext(), R.string.Cant_delete_Cust, Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });

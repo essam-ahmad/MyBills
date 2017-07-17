@@ -222,6 +222,7 @@ public class BillAddEditActivity extends AppCompatActivity {
             etBillNo.setText(new DataManager(this).Get_Bill_No() + 1 + "");
             etYearNo.setText(new SimpleDateFormat("yyyy", Locale.US).format(new Date()));
             etBillDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date()));
+            etDesc.setText("فاتورة رقم :"+(new DataManager(this).Get_Bill_No()+ 1 ));
             tvTotal.setText("0");
             tvNetTotal.setText("0");
         } else if (_action.equals("edit")) {

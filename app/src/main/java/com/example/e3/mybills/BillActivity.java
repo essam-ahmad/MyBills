@@ -24,39 +24,33 @@ import java.util.Locale;
 public class BillActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static Activity fa;
-    String _action;
-    Bundle data;
+    DataManager ch = new DataManager(this);
+    ListView list;
+    Bill_Adapter lazy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-         data = getIntent().getExtras();
-        _action = data.getString("action");
         fa=this;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        setTitle(getResources().getString(R.string.app_name));
+        list = (ListView) findViewById(R.id.listView_item);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (_action.equals("Customer")){
-           // data.getString("action");
-        }else {
-        setTitle(getResources().getString(R.string.app_name));
-        DataManager ch = new DataManager(this);
-        ListView list = (ListView) findViewById(R.id.listView_item);
-        Bill_Adapter lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m(null));
+        lazy = new Bill_Adapter(BillActivity.this, ch.getAllBill_m(null));
         list.setAdapter(lazy);
-        }
     }
 
     @Override

@@ -131,9 +131,9 @@ public class items_Adapter extends BaseAdapter {
                                         arrayList.remove(data[position]);
                                         data = arrayList.toArray(new items[]{});
                                         notifyDataSetChanged();
-                                        Toast.makeText(finalVi.getContext(), "تم الحذف ", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(finalVi.getContext(), R.string.delete, Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(finalVi.getContext(), "لايمكن حذف الصنف لارتباطة بفاتورة", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(finalVi.getContext(), R.string.Cant_delete_Item, Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });

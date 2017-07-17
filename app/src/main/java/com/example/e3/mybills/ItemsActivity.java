@@ -30,7 +30,7 @@ public class ItemsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        listItem();
+       // listItem();
     }
 
     public void listItem() {

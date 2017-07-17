@@ -62,9 +62,12 @@
     <string name="More">More...</string>
     <string name="Change_Language">Change Language</string>
     <string name="Search">Search</string>
-    <string name="InsertBillNO">"Enter Bill Number..."</string>
-
-
+    <string name="InsertBillNO">Enter Bill Number...</string>
+    <string name="Customer_Bill">Bills OF"</string>
+    <string name="There_Is_No_Bills">There Is No Bills</string>
+    <string name="Cant_delete_Cust">Customer is associated with a bill</string>
+    <string name="Cant_delete_Item">Item is associated with a bill</string>
+    <string name="QtyIsZero">Qty Is Zero</string>
 
 
 </resources>
