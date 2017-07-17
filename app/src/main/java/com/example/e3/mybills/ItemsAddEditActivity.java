@@ -92,7 +92,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                         setResult(RESULT_OK, i);
                         finish();
                         }else {
-                            Toast.makeText(getBaseContext(), "لكمية صفر", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), R.string.QtyIsZero, Toast.LENGTH_LONG).show();
                         }
                     }
                 }
