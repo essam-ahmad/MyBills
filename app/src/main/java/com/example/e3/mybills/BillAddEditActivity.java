@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -31,6 +33,7 @@ import static com.example.e3.mybills.bill_d.rowStatus;
 
 public class BillAddEditActivity extends AppCompatActivity {
     TabHost tabHost;
+    DatePicker datePicker;
     EditText etBillNo, etYearNo, etBillDate, etDesc, etDisc;
     TextView tvCustomer_Name, tvCustomer_id, tvTotal, tvNetTotal, tvCustomer_Edit;
     RadioGroup rgBillType;
@@ -206,10 +209,29 @@ public class BillAddEditActivity extends AppCompatActivity {
     }
 
     public void bill_m() {
+        datePicker=(DatePicker)findViewById(R.id.datee);
+        datePicker.setVisibility(View.GONE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                etBillDate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+            }
+        });
+
         Bill_dList = (ListView) findViewById(R.id.listView_bill_d);
         etYearNo = (EditText) findViewById(R.id.year);
         etBillNo = (EditText) findViewById(R.id.bill_no);
         etBillDate = (EditText) findViewById(R.id.date);
+        etBillDate.setFocusable(false);
+        etBillDate.setEnabled(true);
+        etBillDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker.setVisibility(View.VISIBLE);
+            }
+        });
         etDesc = (EditText) findViewById(R.id.desc);
         etDisc = (EditText) findViewById(R.id.disc);
         tvCustomer_Name = (TextView) findViewById(R.id.C_nameOfCust);
@@ -221,6 +243,7 @@ public class BillAddEditActivity extends AppCompatActivity {
         if (_action.equals("add")) {
             etBillNo.setText(new DataManager(this).Get_Bill_No() + 1 + "");
             etYearNo.setText(new SimpleDateFormat("yyyy", Locale.US).format(new Date()));
+            //etBillDate.setText(d[0]+"/"+d[1]+"/"+d[2]);
             etBillDate.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date()));
             etDesc.setText("فاتورة رقم :"+(new DataManager(this).Get_Bill_No()+ 1 ));
             tvTotal.setText("0");

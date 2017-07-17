@@ -30,7 +30,7 @@ public class customersActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //listItem();
+        listItem();
     }
 
     public void listItem() {
@@ -38,12 +38,12 @@ public class customersActivity extends AppCompatActivity {
         FromBill=b.getInt("ImFromBillAdd");
         if (FromBill==1){
         DataManager ch = new DataManager(this);
-        list = (ListView) findViewById(R.id.listView_item);
+        //list = (ListView) findViewById(R.id.listView_item);
         customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.getAllCustomers(),1);
         list.setAdapter(lazy);
     }else {
             DataManager ch = new DataManager(this);
-            list = (ListView) findViewById(R.id.listView_item);
+           // list = (ListView) findViewById(R.id.listView_item);
             customers_Adapter lazy = new customers_Adapter(customersActivity.this, ch.getAllCustomers(),2);
             list.setAdapter(lazy);
         }

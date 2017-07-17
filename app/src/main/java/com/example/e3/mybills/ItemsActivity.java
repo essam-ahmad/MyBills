@@ -30,7 +30,7 @@ public class ItemsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // listItem();
+        listItem();
     }
 
     public void listItem() {
@@ -39,12 +39,12 @@ public class ItemsActivity extends AppCompatActivity {
         FromBill=b.getInt("ImFromBillAdd");
         if (FromBill==1){
             DataManager ch = new DataManager(this);
-            list = (ListView) findViewById(R.id.listView_item);
+            //list = (ListView) findViewById(R.id.listView_item);
             items_Adapter lazy = new items_Adapter(ItemsActivity.this, ch.getAllItems(),1);
             list.setAdapter(lazy);
         }else {
             DataManager ch = new DataManager(this);
-            list = (ListView) findViewById(R.id.listView_item);
+           // list = (ListView) findViewById(R.id.listView_item);
             items_Adapter lazy = new items_Adapter(ItemsActivity.this, ch.getAllItems(),2);
             list.setAdapter(lazy);
         }
