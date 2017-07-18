@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,11 +20,11 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
 import java.util.Locale;
 
 public class BillActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static Activity fa;
     DataManager ch = new DataManager(this);
     ListView list;
     Bill_Adapter lazy;
@@ -33,7 +34,6 @@ public class BillActivity extends AppCompatActivity
         setContentView(R.layout.activity_bill);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fa=this;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -43,7 +43,7 @@ public class BillActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         setTitle(getResources().getString(R.string.app_name));
         list = (ListView) findViewById(R.id.listView_item);
-
+        loadLocale();
     }
 
     @Override
@@ -113,19 +113,44 @@ public class BillActivity extends AppCompatActivity
         }
             return super.onOptionsItemSelected(item);
         }
-    @SuppressWarnings("deprecation")
-    public void setLocale(String lang) {
-        //finish();
+
+    public void loadLocale() {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs",
+                Activity.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        changeLang(language,true);
+    }
+
+    public void changeLang(String lang,Boolean onCreateActivity) {
+        if (lang.equalsIgnoreCase(""))
+            return;
         Locale myLocale = new Locale(lang);
+        saveLocale(lang);
+        Locale.setDefault(myLocale);
         Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
+        DisplayMetrics dm = res.getDisplayMetrics();
         conf.setLocale(myLocale);
         res.updateConfiguration(conf, dm);
-        /*Intent refresh = new Intent(this, Start_screen.class);
-        startActivity(refresh);*/
-        fa.recreate();
+        /*android.content.res.Configuration config = new android.content.res.Configuration();
+        config.setLocale(myLocale);
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());*/
+        if (!onCreateActivity){
+            this.recreate();
+        }
     }
+
+    public void saveLocale(String lang) {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs",
+                Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.apply();
+        editor.commit();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -152,11 +177,10 @@ public class BillActivity extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialog, int pos) {
                     if (pos == 0) {
-
-                        setLocale("en");
+                        changeLang("en",false);
                     } else if (pos == 1) {
+                        changeLang("ar",false);
 
-                        setLocale("ar");
                     }
                 }
             });
