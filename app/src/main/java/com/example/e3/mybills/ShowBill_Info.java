@@ -82,6 +82,7 @@ public class ShowBill_Info extends AppCompatActivity {
         if (id == R.id.delete) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ShowBill_Info.this);
             builder.setTitle(getResources().getString(R.string.alert));
+            builder.setIcon(android.R.drawable.ic_menu_delete);
             builder.setMessage(R.string.delete);
             builder.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -91,6 +92,7 @@ public class ShowBill_Info extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ShowBill_Info.this);
+                    builder.setIcon(android.R.drawable.ic_menu_delete);
                     builder.setTitle(R.string.AlertDialog_Title_delete);
                     builder.setMessage(R.string.You_will_not_be_able_to_retrieve);
                     builder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {

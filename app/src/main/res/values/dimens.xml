@@ -5,7 +5,7 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="header_width_code_Cost_price">60dp</dimen>
+    <dimen name="header_width_code_Cost_price">90dp</dimen>
     <dimen name="header_width_name">250dp</dimen>
     <dimen name="header_width_date">100dp</dimen>
     <dimen name="header_height">40dp</dimen>

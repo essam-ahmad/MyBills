@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "886896575913",
+    "firebase_url": "https://mybills-86219.firebaseio.com",
+    "project_id": "mybills-86219",
+    "storage_bucket": "mybills-86219.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886896575913:android:9496f643b3208242",
+        "android_client_info": {
+          "package_name": "com.example.e3.mybills"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886896575913-36g2h3gf60dmkacamf8aleol1fihbbm6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_CAYdPT_svWVSogC2_N8tmBX6j_I3JY8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

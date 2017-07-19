@@ -74,6 +74,7 @@ public class BillAddEditActivity extends AppCompatActivity {
                 @Override
                 public boolean onLongClick(View v) {
                     AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(BillAddEditActivity.this);
+                    yesOrNoBuilder.setIcon(android.R.drawable.ic_menu_delete);
                     yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
                     yesOrNoBuilder.setMessage(tvCustomer_Name.getText());
                     yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -126,7 +127,7 @@ public class BillAddEditActivity extends AppCompatActivity {
                 DataManager dataManager = new DataManager(BillAddEditActivity.this);
                 long Bill_seq = dataManager.saveBill(bill_m, bill_dList, bill_dListToBeDeleted);
                 if (Bill_seq != -1) {
-                    Toast.makeText(getBaseContext(), R.string.Done_Adding, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.Done_Edit, Toast.LENGTH_LONG).show();
                     finish();
                 } else {
                     etBillNo.setError(getResources().getString(R.string.The_number_already_exists));
@@ -333,6 +334,7 @@ public class BillAddEditActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(BillAddEditActivity.this);
+                builder.setIcon(R.drawable.ic_item_black_24dp);
                 builder.setTitle(getResources().getString(R.string.alert));
                 builder.setMessage(position + " : " + arrBill_d.get(position).get_col_itm_name());
                 builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
@@ -353,6 +355,7 @@ public class BillAddEditActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(BillAddEditActivity.this);
+                        yesOrNoBuilder.setIcon(android.R.drawable.ic_menu_delete);
                         yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
                         yesOrNoBuilder.setMessage(position + arrBill_d.get(position).get_col_itm_name());
                         yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {

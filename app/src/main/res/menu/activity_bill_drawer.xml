@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group >
+    <group>
         <item android:id="@+id/nav_items" android:icon="@drawable/ic_item_black_24dp"
             android:title="@string/items" />
         <item android:id="@+id/nav_customers" android:icon="@drawable/ic_person_black_24dp"
@@ -9,12 +9,18 @@
     </group>
     <item android:title="@string/More">
         <menu>
-            <item
+               <item
                 android:id="@+id/Lang"
                 android:icon="@drawable/ic_language_black_24dp"
                 android:title="@string/Change_Language"/>
-
+               <item android:id="@+id/Support"
+            android:icon="@drawable/ic_support_devices_black_24dp"
+            android:title="@string/Support"/>
+            <item android:id="@+id/Info"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="@string/Info"/>
         </menu>
+
     </item>
 
 

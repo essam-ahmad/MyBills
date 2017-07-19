@@ -99,6 +99,7 @@ public class items_Adapter extends BaseAdapter {
                 @Override
                 public boolean onLongClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(finalVi.getContext());
+                    builder.setIcon(R.drawable.ic_item_black_24dp);
                     builder.setTitle(v.getResources().getString(R.string.alert));
                     builder.setMessage(data[position].get_col_itm_code() + ":" + data[position].get_col_itm_name());
                     builder.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
@@ -118,6 +119,7 @@ public class items_Adapter extends BaseAdapter {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(finalVi.getContext());
+                            yesOrNoBuilder.setIcon(android.R.drawable.ic_menu_delete);
                             yesOrNoBuilder.setTitle(R.string.AlertDialog_Title_delete);
                             yesOrNoBuilder.setMessage(data[position].get_col_itm_name());
                             yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {

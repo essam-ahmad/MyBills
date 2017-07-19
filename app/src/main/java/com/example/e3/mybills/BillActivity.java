@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +23,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.Locale;
 
 public class BillActivity extends AppCompatActivity
@@ -28,6 +32,7 @@ public class BillActivity extends AppCompatActivity
     DataManager ch = new DataManager(this);
     ListView list;
     Bill_Adapter lazy;
+    FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,7 @@ public class BillActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         setTitle(getResources().getString(R.string.app_name));
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         list = (ListView) findViewById(R.id.listView_item);
         loadLocale();
     }
@@ -172,6 +178,7 @@ public class BillActivity extends AppCompatActivity
         }else if (id == R.id.Lang){
             final CharSequence[] items = { "English", "العربية"};
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.ic_language_black_24dp);
             builder.setTitle(R.string.Change_Language);
             builder.setItems(items, new DialogInterface.OnClickListener() {
                 @Override
@@ -186,10 +193,30 @@ public class BillActivity extends AppCompatActivity
             });
             AlertDialog alert = builder.create();
             alert.show();
-        }
+        }else if(id==R.id.Support) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.ic_support_devices_black_24dp);
+            builder.setTitle(R.string.Support);
+            builder.setMessage(R.string.GoToMarket);
+            builder.setPositiveButton(R.string.Download, new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+                   startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=5432474436276944851" )));
+               }
+           });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }
+

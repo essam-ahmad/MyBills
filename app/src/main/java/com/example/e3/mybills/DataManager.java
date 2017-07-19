@@ -14,13 +14,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.util.Optional;
-
 import static com.example.e3.mybills.bill_d.rowStatus;
 
 public class DataManager extends SQLiteOpenHelper {
     //region create the database ,tables and columns
-    private static final int version = 1;
+    private static final int version = 2;
     private static final String Tag = "DataManager";
     private static final String databaseName = "MyBills.db";
 
@@ -60,7 +58,7 @@ public class DataManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql_statement = new String();
+        String sql_statement;
         sql_statement = "create table IF NOT EXISTS " + tbn_customers +
                 "( " + col_c_code + " integer PRIMARY KEY AUTOINCREMENT" +
                 ", " + col_c_name + " TEXT NOT NULL" +
@@ -95,7 +93,7 @@ public class DataManager extends SQLiteOpenHelper {
                 "(" + col_bill_seq + " integer " +
                 "," + col_bill_yr + " integer NOT NULL " +
                 "," + col_bill_no + " INTEGER NOT NULL " +
-                "," + col_bill_d_seq + " TEXT " +
+                "," + col_bill_d_seq + " INTEGER " +
                 "," + col_itm_code + " INTEGER " +
                 "," + col_itm_price + " numeric " +
                 "," + col_itm_cost + " numeric " +
@@ -108,12 +106,61 @@ public class DataManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(Tag, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which destroys existing data.");
-        db.execSQL("Drop table if EXISTS " + tbN_bill_d);
-        db.execSQL("Drop table if EXISTS " + tbN_bill_m);
-        db.execSQL("Drop table if EXISTS " + tbn_items);
-        db.execSQL("Drop table if EXISTS " + tbn_customers);
-        onCreate(db);
+        if (oldVersion < 2) {
+            upgradeDBtoV2(db);
+            Log.w(Tag, "Upgrading database from version " + oldVersion + " to " + newVersion);
+        }
+        if (oldVersion < 3) {
+        }
+    }
+
+    private void upgradeDBtoV2(SQLiteDatabase db) {
+        db.beginTransaction();
+        try {
+            String sql_statement;
+            sql_statement = "ALTER TABLE " + tbN_bill_d + " RENAME TO bill_d_07192017";
+            db.execSQL(sql_statement);
+            sql_statement = "CREATE TABLE IF NOT EXISTS " + tbN_bill_d +
+                    "(" + col_bill_seq + " integer " +
+                    "," + col_bill_yr + " integer NOT NULL " +
+                    "," + col_bill_no + " INTEGER NOT NULL " +
+                    "," + col_bill_d_seq + " integer " +
+                    "," + col_itm_code + " INTEGER " +
+                    "," + col_itm_price + " numeric " +
+                    "," + col_itm_cost + " numeric " +
+                    "," + col_itm_qty + " numeric, " +
+                    " PRIMARY KEY(" + col_bill_seq + "," + col_bill_d_seq + ") " +
+                    ",FOREIGN KEY (" + col_bill_seq + ") REFERENCES " + tbN_bill_m + "(" + col_bill_seq + ") " +
+                    ",FOREIGN KEY (" + col_itm_code + ") REFERENCES " + tbn_items + "(" + col_itm_code + "))";
+            db.execSQL(sql_statement);
+            sql_statement = "INSERT INTO " + tbN_bill_d + " select * from bill_d_07192017";
+        /*sql_statement = "INSERT INTO "+ tbN_bill_d + " (" + col_bill_seq +
+                "," + col_bill_yr +
+                "," + col_bill_no +
+                "," + col_bill_d_seq +
+                "," + col_itm_code +
+                "," + col_itm_price +
+                "," + col_itm_cost +
+                "," + col_itm_qty +") "+
+                " values(Select " + col_bill_seq +
+                "," + col_bill_yr +
+                "," + col_bill_no +
+                "," + col_bill_d_seq +
+                "," + col_itm_code +
+                "," + col_itm_price +
+                "," + col_itm_cost +
+                "," + col_itm_qty +
+                " from bill_d_07192017";*/
+            db.execSQL(sql_statement);
+            sql_statement = "Drop table if EXISTS bill_d_07192017";
+            db.execSQL(sql_statement);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d(Tag, e.getMessage());
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
     }
     //endregion
 

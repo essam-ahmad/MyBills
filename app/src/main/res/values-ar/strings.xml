@@ -69,5 +69,9 @@
     <string name="Cant_delete_Cust">العميل مرتبط بفاتورة</string>
     <string name="Cant_delete_Item">الصنف مرتبط بفاتورة</string>
     <string name="QtyIsZero">الكمية صفر</string>
+    <string name="Support">الدعم</string>
+    <string name="Download">تحميل</string>
+    <string name="GoToMarket">الرجاء تحميل التطبيق المناسب لجهازك لنتمكن بالاتصال بك</string>
+    <string name="Info">حول</string>
 
 </resources>

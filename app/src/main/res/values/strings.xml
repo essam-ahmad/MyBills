@@ -30,7 +30,7 @@
     <string name="Done_Adding">Adding done</string>
     <string name="The_number_already_exists">The number is already exists</string>
     <string name="customer_code">Customer Code</string>
-    <string name="customer_name">Name Customer</string>
+    <string name="customer_name">Customer Name</string>
     <string name="phone">Phone</string>
     <string name="address">Address</string>
     <string name="add_Customer">Add Customer</string>
@@ -64,10 +64,14 @@
     <string name="Search">Search</string>
     <string name="InsertBillNO">Enter Bill Number...</string>
     <string name="Customer_Bill">Bills OF"</string>
-    <string name="There_Is_No_Bills">There Is No Bills</string>
+    <string name="There_Is_No_Bills">There Are No Bills</string>
     <string name="Cant_delete_Cust">Customer is associated with a bill</string>
     <string name="Cant_delete_Item">Item is associated with a bill</string>
     <string name="QtyIsZero">Qty Is Zero</string>
+    <string name="Support">Support</string>
+    <string name="Download">Download</string>
+    <string name="GoToMarket">Please download the appropriate application for your device so that we can contact you</string>
+    <string name="Info">Info</string>
 
 
 </resources>
