@@ -73,5 +73,8 @@
     <string name="Download">تحميل</string>
     <string name="GoToMarket">الرجاء تحميل التطبيق المناسب لجهازك لنتمكن بالاتصال بك</string>
     <string name="Info">حول</string>
+    <string name="pressBack">اضغط رجوع مره اخرى للخروج</string>
+    <string name="exitTitle">هل تريد الخروج من دون الحفظ</string>
+    <string name="exit">خروج</string>
 
 </resources>

@@ -42,6 +42,7 @@ public class ShowBill_Info extends AppCompatActivity {
         setContentView(R.layout.activity_show_bill_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         GetBillNumber();
+        setTitle(getResources().getString(R.string.Show_Bill_Info));
         //region تعريف دوال Textview
         Number_Bill = (TextView) findViewById(R.id.bill_no);
         Number_Customer = (TextView) findViewById(R.id.Number_Customer);

@@ -72,6 +72,9 @@
     <string name="Download">Download</string>
     <string name="GoToMarket">Please download the appropriate application for your device so that we can contact you</string>
     <string name="Info">About</string>
+    <string name="pressBack">Press Back again to exit</string>
+    <string name="exit">Exit without saving</string>
+    <string name="exitTitle">Do you want to exit without saving</string>
 
 
 </resources>

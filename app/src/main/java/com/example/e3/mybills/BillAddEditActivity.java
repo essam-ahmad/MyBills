@@ -99,7 +99,10 @@ public class BillAddEditActivity extends AppCompatActivity {
             });
         }
     }
-
+    @Override
+    public void onBackPressed() {
+        ChekBeforExit();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -139,7 +142,7 @@ public class BillAddEditActivity extends AppCompatActivity {
             }
         }
         if (id == android.R.id.home) {
-            finish();
+            ChekBeforExit();
         }
         return false;
     }
@@ -420,6 +423,28 @@ public class BillAddEditActivity extends AppCompatActivity {
         }
         if (tvCustomer_id == null || tvCustomer_id.length() == 0) {
             tvCustomer_id.setText("");
+        }
+    }
+    public void ChekBeforExit(){
+        if (arrBill_d.isEmpty()) {
+            finish();
+        }else{
+            AlertDialog.Builder yesOrNoBuilder = new AlertDialog.Builder(BillAddEditActivity.this);
+            yesOrNoBuilder.setTitle(R.string.exit);
+            yesOrNoBuilder.setMessage(R.string.exitTitle);
+            yesOrNoBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,
+                                    int which) {
+                    finish();
+                }
+            });
+            yesOrNoBuilder.setNeutralButton(R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            yesOrNoBuilder.show();
+
         }
     }
 
