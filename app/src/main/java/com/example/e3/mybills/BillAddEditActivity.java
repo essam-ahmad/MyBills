@@ -20,6 +20,9 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -295,7 +298,11 @@ public class BillAddEditActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setNetTotal(String.valueOf(s));
+                if (!s.equals("1")){
+                    setNetTotal(String.valueOf(s));
+                }else {
+                    return;
+                }
             }
 
             @Override
@@ -391,7 +398,7 @@ public class BillAddEditActivity extends AppCompatActivity {
     }
 
     private void setNetTotal(String s) {
-        if (etDisc.getText().toString().trim().length() > 0) {
+        if (etDisc.getText().toString().trim().length() > 0 && !etDisc.getText().toString().equals(".")) {
             if (Double.parseDouble(etDisc.getText().toString()) > Double.parseDouble(tvTotal.getText().toString())) {
                 etDisc.setError(getResources().getString(R.string.The_discount_is_large));
                 tvNetTotal.setText(String.valueOf(Double.parseDouble(tvTotal.getText().toString())));
@@ -431,6 +438,8 @@ public class BillAddEditActivity extends AppCompatActivity {
             result = false;
         }
         if (arrBill_d.isEmpty()) {
+            YoYo.with(Techniques.Shake).duration(500).repeat(1).playOn(findViewById(android.R.id.tabs));
+            YoYo.with(Techniques.Shake).duration(500).repeat(1).playOn(findViewById(R.id.tab2));
             Toast.makeText(getBaseContext(), getResources().getString(R.string.There_are_no_items), Toast.LENGTH_LONG).show();
             result = false;
         }

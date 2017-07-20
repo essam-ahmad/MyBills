@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -99,10 +102,12 @@ public class CustomersAddEditActivity extends AppCompatActivity {
     public boolean checkData(String code, String name) {
         boolean result = true;
         if (code == null || code.length() == 0) {
+            YoYo.with(Techniques.Shake).duration(500).repeat(1).playOn(findViewById(R.id.code_input_layout));
             _etCode.setError(getResources().getString(R.string.Please_fill));
             result = false;
         }
         if (name == null || name.length() == 0) {
+            YoYo.with(Techniques.Shake).duration(500).repeat(1).playOn(findViewById(R.id.name_input_layout));
             _etName.setError(getResources().getString(R.string.Please_fill));
             result = false;
         }

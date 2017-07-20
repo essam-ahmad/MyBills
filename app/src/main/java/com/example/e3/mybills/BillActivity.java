@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.Locale;
 
@@ -36,6 +37,7 @@ public class BillActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_bill);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,7 +51,7 @@ public class BillActivity extends AppCompatActivity
         setTitle(getResources().getString(R.string.app_name));
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         list = (ListView) findViewById(R.id.listView_item);
-        loadLocale();
+        //FirebaseCrash.report(new Exception("My first Android non-fatal error"));
     }
 
     @Override

@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +47,7 @@ public class Bill_Adapter extends BaseAdapter {
     public long getItemId(int position) {
     return position;
     }
-
+    private int lastPosition = -1;
     public View getView(final int position, final View convertView, ViewGroup parent) {
         View vi = convertView;
         if (convertView == null)
@@ -59,6 +61,11 @@ public class Bill_Adapter extends BaseAdapter {
         TextView Total = (TextView) vi.findViewById(R.id.Total);
         TextView Date = (TextView) vi.findViewById(R.id.Date);
         TextView NetTotal = (TextView) vi.findViewById(R.id.NetTotal);
+
+        Animation animation = AnimationUtils.loadAnimation(vi.getContext(), (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+        vi.startAnimation(animation);
+        lastPosition = position;
+
         number_bill.setText(data[position].get_col_bill_no());
         desc.setText(data[position].get_col_desc());
         if (data[position].get_col_c_code().equals("")){

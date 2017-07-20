@@ -14,6 +14,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import static com.example.e3.mybills.bill_d.rowStatus;
 
 public class DataManager extends SQLiteOpenHelper {
@@ -551,6 +553,7 @@ public class DataManager extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
             return BillSec;
         } catch (Exception e) {
+            FirebaseCrash.report(new Exception(e.getMessage()));
             Log.d(Tag, "addBill_m: Error when inserting" + bill_m.get_col_bill_no() + " to Table" + tbN_bill_m + " " + e.getMessage());
             e.printStackTrace();
             return -1;

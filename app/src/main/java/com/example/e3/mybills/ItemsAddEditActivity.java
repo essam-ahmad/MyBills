@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -73,6 +76,7 @@ public class ItemsAddEditActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), R.string.Done_Adding, Toast.LENGTH_LONG).show();
                             finish();
                         } else {
+                            YoYo.with(Techniques.Shake).duration(500).repeat(1).playOn(findViewById(R.id.itm_code_input_layout));
                             _etItemCode.setError(getResources().getString(R.string.The_number_already_exists));
                             Toast.makeText(getBaseContext(), R.string.The_number_already_exists, Toast.LENGTH_LONG).show();
                         }
@@ -134,10 +138,12 @@ public class ItemsAddEditActivity extends AppCompatActivity {
     public boolean checkData(String itm_code, String itm_name, String itm_cost, String itm_price) {
         boolean result = true;
         if (itm_code == null || itm_code.length() == 0) {
+            YoYo.with(Techniques.Shake).duration(500).repeat(1).playOn(findViewById(R.id.itm_code_input_layout));
             _etItemCode.setError(getResources().getString(R.string.Please_fill));
             result = false;
         }
         if (itm_name == null || itm_name.length() == 0) {
+            YoYo.with(Techniques.Shake).duration(500).repeat(1).playOn(findViewById(R.id.itm_name_input_layout));
             _etItemName.setError(getResources().getString(R.string.Please_fill));
             result = false;
         }
