@@ -56,6 +56,7 @@ public class BillActivity extends AppCompatActivity
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         list = (ListView) findViewById(R.id.listView_item);
         //FirebaseCrash.report(new Exception("My first Android non-fatal error"));
+
     }
 
     @Override
@@ -231,6 +232,9 @@ public class BillActivity extends AppCompatActivity
             AlertDialog alert = builder.create();
             alert.show();
 
+        }else if (id==R.id.Info){
+            Intent intent = new Intent(BillActivity.this,AboutActivity.class);
+            startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

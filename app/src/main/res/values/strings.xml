@@ -75,6 +75,11 @@
     <string name="pressBack">Press Back again to exit</string>
     <string name="exit">Exit without saving</string>
     <string name="exitTitle">Do you want to exit without saving</string>
+    <string name="Contact">Contact Us</string>
+    <string name="Version">Version:</string>
+    <string name="VersionApp">Version Of The App:</string>
+    <string name="VersionDB">Version Of The DataBase:</string>
+
 
 
 </resources>

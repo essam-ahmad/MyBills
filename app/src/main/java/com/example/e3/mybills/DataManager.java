@@ -20,7 +20,7 @@ import static com.example.e3.mybills.bill_d.rowStatus;
 
 public class DataManager extends SQLiteOpenHelper {
     //region create the database ,tables and columns
-    private static final int version = 2;
+    public static final int version = 2;
     private static final String Tag = "DataManager";
     private static final String databaseName = "MyBills.db";
 

@@ -17,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.Manifest;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
@@ -126,6 +126,7 @@ public class ShowBill_Info extends AppCompatActivity {
         }
         if (id == R.id.Print) {
             try {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
                 createpdf();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -187,8 +188,8 @@ public class ShowBill_Info extends AppCompatActivity {
         copyAssets();
         pdfCreator.initializeFonts();
         Date date = new Date();
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(date);
-        String file = new String(pdfFolder+ "/mybill" + timeStamp + ".pdf");
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(date);
+        String file = new String(pdfFolder+ "/mybill"+Number_Bill.getText()+ ".pdf");
         OutputStream output = new FileOutputStream(file);
         //step1
         Document document = new Document(PageSize.A4);
