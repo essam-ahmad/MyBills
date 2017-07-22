@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:autoLink="email"
-            android:text="broyemr@gmail.com" />
+            android:text="devpointzero@gmail.com" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -44,31 +44,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/cardView"
-        android:layout_marginTop="15dp"
-        app:cardBackgroundColor="@color/cardview_shadow_start_color">
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autoLink="email"
-            android:text="essam@gmail.com" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            app:srcCompat="@drawable/ic_email_black_24dp" />
-
-    </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/textView7"
@@ -76,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/cardView2"
+        android:layout_below="@+id/cardView"
         android:layout_marginTop="9dp"
         android:fontFamily="sans-serif"
         android:text="@string/Version"
