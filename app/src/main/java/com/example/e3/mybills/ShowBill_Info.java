@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -126,7 +127,9 @@ public class ShowBill_Info extends AppCompatActivity {
         }
         if (id == R.id.Print) {
             try {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+                }
                 createpdf();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
